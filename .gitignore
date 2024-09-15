@@ -1,0 +1,16 @@
+# Ignore Visual Studio files and folders
+**/.vs
+**/bin
+**/obj
+**/*.user
+
+# Ignore logs folder
+**/Logs/*
+
+# Ignore .env files
+/src/Stackoverflow-clone/Stackoverflow.Web/*.env
+
+**/*.env
+
+
+*.log
