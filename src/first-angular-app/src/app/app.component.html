@@ -16,10 +16,13 @@ Image: <img [src]="imageURL" alt="">
 <br>
 <button [disabled]="isDisabled" > Disable Using Property Binding </button>
 -->
-<!-- one way and two way DataBinding-->
+<!-- one way and two way DataBinding
 <input type="text" value="Default value">
 <br>
 
 <input type="text" [value]='textValue' (keyup.enter) = "onKeyup()">
 {{textValue}}
 <br>
+-->
+
+<h1 *ngIf="isLoggedIn">{{userName}}</h1>
