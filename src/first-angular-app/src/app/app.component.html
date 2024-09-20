@@ -1,9 +1,25 @@
 <h1> First Angular App </h1>
+
+<br>
+<!--
 <app-navbar></app-navbar>
 <app-header></app-header>
 <br>
 {{title}}
-<br>
-<p>Sum of 1 + 2 = {{ 1 + 2 }}</p>
+
+ <p>Sum of 1 + 2 = {{ 1 + 2 }}</p>
 Image: <img src="{{imageURL}}" alt="">
 Image: <img [src]="imageURL" alt="">
+
+<br>
+<button disabled="{{isDisabled}}" > Disable Using String Interpolation </button>
+<br>
+<button [disabled]="isDisabled" > Disable Using Property Binding </button>
+-->
+<!-- one way and two way DataBinding-->
+<input type="text" value="Default value">
+<br>
+
+<input type="text" [value]='textValue' (keyup.enter) = "onKeyup()">
+{{textValue}}
+<br>
