@@ -26,3 +26,6 @@ Image: <img [src]="imageURL" alt="">
 -->
 
 <h1 *ngIf="isLoggedIn">{{userName}}</h1>
+@if(isLoggedIn){
+    <p>{{userName}} Loggedin</p>
+}
