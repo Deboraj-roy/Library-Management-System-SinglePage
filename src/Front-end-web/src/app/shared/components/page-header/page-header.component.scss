@@ -1,14 +1,18 @@
 mat-toolbar {
-    .spacer{
+    background: linear-gradient(90deg, cyan, orange); // Cyan to orange gradient
+    //color: white; // Set text color to white for better contrast
+
+    .spacer {
         flex: 1 1 auto;
     }
 
     .user-info {
         display: flex;
         align-items: center;
-        
-        .button {
-            margin-left: 1.5 rem;
+
+        button {
+            margin-left: 1.5rem; // Space between buttons
         }
     }
-}
+  }
+  
