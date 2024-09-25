@@ -1,0 +1,42 @@
+.header-toolbar {
+    background-color: #1976d2; // Blue background color
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .toolbar-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+  
+    .spacer {
+      flex: 1;
+    }
+  
+    .user-info {
+      display: flex;
+      align-items: center;
+  
+      .name {
+        margin-right: 10px;
+        font-weight: 500;
+      }
+  
+      button {
+        padding: 8px 16px;
+        margin-left: 10px; // Add space between buttons
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: darken(#ff4081, 10%);
+        }
+  
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+  }
+  
