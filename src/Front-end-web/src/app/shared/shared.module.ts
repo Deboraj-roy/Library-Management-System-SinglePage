@@ -10,6 +10,6 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
     PageHeaderComponent
   ],
   imports: [ CommonModule, MaterialModule ],
-  exports: [ CommonModule, MaterialModule ]
+  exports: [ CommonModule, MaterialModule, PageHeaderComponent ]
 })
 export class SharedModule { }
