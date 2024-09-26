@@ -1,9 +1,66 @@
 <div class="register-form">
-    
-    form
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Create Account</mat-card-title>
+        </mat-card-header>
 
+        <mat-card-content>
+            <mat-grid-list cols="2" rowHeight="100px" gutterSize="10px" >
+                <mat-grid-tile>
+                    <mat-form-field color="accent">
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="firstName">
+                        <mat-error>Field is required!</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field color="accent">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="lastName">
+                        <mat-error>Field is required!</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                    <mat-form-field color="accent">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email">
+                        <mat-error>Field is required!</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                    <mat-form-field color="accent">
+                        <mat-label>Mobile Number</mat-label>
+                        <input matInput formControlName="mobileNumber">
+                        <mat-error>Field is required!</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field color="accent">
+                        <mat-label>Password</mat-label>
+                        <input matInput formControlName="password">
+                        <mat-error>Field is required!</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field color="accent">
+                        <mat-label>Repeat Password</mat-label>
+                        <input matInput formControlName="rpassword">
+                        <mat-error>Field is required!</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-raised-button color="accent" >Register</button>
+        </mat-card-actions>
+
+        <mat-card-actions>
+            <h4>Already have an account?</h4>
+            <a mat-stroked-button color="accent" routerLink="/login">Login</a>
+        </mat-card-actions>
+    </mat-card>
 </div>
-
 
 <div class="library-info">
     <h1>Information</h1>
