@@ -1,8 +1,16 @@
-:host {
-    display: flex;
-    flex-direction: column;
+mat-sidenav-container {
     height: 100vh;
-}
-main {
-    flex: 1 1 auto;
+    
+    mat-sidenav {
+        width: 250px;
+    }
+
+    mat-sidenav-content {
+        display: flex;
+        flex-direction: column;
+    }
+    main {
+        padding: 1rem;
+        flex: 1 1 auto;
+    }
 }
