@@ -8,3 +8,11 @@ mat-card {
         text-align: center;
     }
 }
+mat-nav-list {
+    margin-top: 1rem;
+    a {
+        &.active-link {
+            background-color: rgba($color: #fff, $alpha: 0.2);
+        }
+    }
+}
