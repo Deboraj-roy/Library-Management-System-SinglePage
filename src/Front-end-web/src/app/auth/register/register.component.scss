@@ -1,0 +1,25 @@
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  width: 90%;
+}
+
+
+.library-info {
+  width: 400px;
+  padding: 1rem;
+  border-left: 1px solid white;
+
+  mat-list-item {
+    height: auto;
+
+    p {
+      font-size: 1.2rem;
+      font-style: italic;
+      text-align: justify;
+      white-space: normal;
+    }
+  }
+}
