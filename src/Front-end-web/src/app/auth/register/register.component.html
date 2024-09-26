@@ -38,14 +38,32 @@
                 <mat-grid-tile>
                     <mat-form-field color="accent">
                         <mat-label>Password</mat-label>
-                        <input matInput formControlName="password">
+                        <input [type]="hidePwdContent ? 'password' : 'text'" 
+                                matInput formControlName="password">
+                            <button mat-icon-button matSuffix
+                                    (click)="hidePwdContent = !hidePwdContent">
+                                <mat-icon>
+                                    {{hidePwdContent ? "visibility_off" : 
+                                        "visibility_on"}}
+                                </mat-icon>
+                            </button>
+                               
                         <mat-error>Field is required!</mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field color="accent">
                         <mat-label>Repeat Password</mat-label>
-                        <input matInput formControlName="rpassword">
+                        <input [type]="hidePwdContent ? 'password' : 'text'" 
+                                matInput formControlName="rpassword">
+                            <button mat-icon-button matSuffix
+                                    (click)="hidePwdContent = !hidePwdContent">
+                                <mat-icon>
+                                    {{hidePwdContent ? "visibility_off" : 
+                                        "visibility_on"}}
+                                </mat-icon>
+                            </button>
+                               
                         <mat-error>Field is required!</mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
