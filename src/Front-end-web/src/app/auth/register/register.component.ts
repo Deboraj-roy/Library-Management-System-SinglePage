@@ -21,8 +21,18 @@ export class RegisterComponent {
       mobileNumber: fb.control('', [Validators.required] ),
       password: fb.control('', [Validators.required] ),
       rpassword: fb.control('', [Validators.required] ),
-    })
+    });
     
+  }
+
+  register() {
+    let user = {
+      firstName: this.registerForm.get("firstName")?.value,
+      lastName: this.registerForm.get("lastName")?.value,
+      email: this.registerForm.get("email")?.value,
+      mobileNumber: this.registerForm.get("mobileNumber")?.value,
+      password: this.registerForm.get("password")?.value,
+    }
   }
 
 }

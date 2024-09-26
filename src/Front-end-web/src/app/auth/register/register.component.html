@@ -71,7 +71,8 @@
         </mat-card-content>
 
         <mat-card-actions>
-            <button mat-raised-button color="accent" >Register</button>
+            <button mat-raised-button color="accent" 
+                [disabled]="registerForm.invalid" (click)="register()">Register</button>
         </mat-card-actions>
 
         <mat-card-actions>
