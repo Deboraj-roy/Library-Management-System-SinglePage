@@ -12,6 +12,6 @@ import { PageFooterComponent } from './components/page-footer/page-footer.compon
     PageFooterComponent
   ],
   imports: [ CommonModule, MaterialModule ],
-  exports: [ CommonModule, MaterialModule, PageHeaderComponent ]
+  exports: [ CommonModule, MaterialModule, PageHeaderComponent, PageFooterComponent ]
 })
 export class SharedModule { }
