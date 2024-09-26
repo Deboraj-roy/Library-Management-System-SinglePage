@@ -1,14 +1,14 @@
 <mat-sidenav-container>
-    
+
     <mat-sidenav opened mode="side">
-        <span>Item 1</span>
+        <page-side-nav></page-side-nav>
     </mat-sidenav>
 
     <mat-sidenav-content>
         <page-header></page-header>
 
         <main>
-            <h1>Content</h1>
+            <router-outlet></router-outlet>
         </main>
     
     <page-footer></page-footer>

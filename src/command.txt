@@ -4,3 +4,4 @@ ng add @angular/material
 ng g m shared
 ng g c shared/components/PageHeader --no-standalone
 ng g c shared/components/PageFooter --no-standalone
+ng g c shared/components/PageSideNav --no-standalone
