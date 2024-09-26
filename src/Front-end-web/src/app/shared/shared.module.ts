@@ -6,6 +6,7 @@ import { PageFooterComponent } from './components/page-footer/page-footer.compon
 import { PageSideNavComponent } from './components/page-side-nav/page-side-nav.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,7 +17,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     PageSideNavComponent,
     PageNotFoundComponent
   ],
-  imports: [ CommonModule, MaterialModule, RouterModule ],
+  imports: [ CommonModule, MaterialModule, RouterModule, ReactiveFormsModule ],
   exports: [
      CommonModule,
      MaterialModule, 
@@ -24,7 +25,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
      PageFooterComponent,
      PageSideNavComponent,
      RouterModule,
-     PageNotFoundComponent
+     PageNotFoundComponent,
+     ReactiveFormsModule
      ]
 })
 export class SharedModule { }
