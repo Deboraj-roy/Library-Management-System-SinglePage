@@ -1,3 +1,5 @@
+//@import "../../../theme.scss";
+
 :host {
   display: flex;
   justify-content: space-between;
@@ -15,6 +17,10 @@
   
         mat-card-title {
           font-size: 2rem;
+          color: #69F0AE;
+
+          //color: $dark-accent-A200;
+
         }
       }
       mat-grid-tile {
