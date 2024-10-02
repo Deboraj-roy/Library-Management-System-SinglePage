@@ -7,5 +7,6 @@ namespace LMS_API.Controllers
     [ApiController]
     public class LibraryController : ControllerBase
     {
+
     }
 }
