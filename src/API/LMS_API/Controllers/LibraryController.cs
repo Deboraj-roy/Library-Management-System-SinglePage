@@ -12,11 +12,13 @@ namespace LMS_API.Controllers
     {
         private readonly ApplicationDbContext _context;
         private EmailService _emailService;
+        private JWTServices _JWTServices;
 
-        public LibraryController(ApplicationDbContext context, EmailService emailService)
+        public LibraryController(ApplicationDbContext context, EmailService emailService, JWTServices jWTServices)
         {
             _context = context;
             _emailService = emailService;
+            _JWTServices = jWTServices;
         }
 
         [HttpPost("Register")]
@@ -48,6 +50,28 @@ namespace LMS_API.Controllers
                         Thanks for registering.
                         Your Account has been sent for approval.
                         once approved you can login, you will get an email shortly.");
+        }
+
+        [HttpGet("Login")]
+        public ActionResult Login(string email, string password)
+        {
+            if(_context.Users.Any( u => u.Email.Equals(email) && u.Password.Equals(password)))
+            {
+                var user = _context.Users.Single(user => user.Email.Equals(email) && user.Password.Equals(password));
+                
+                if (user.AccountStatus == AccountStatus.UNAPROVED)
+                {
+                    return Ok("Your Account is not approved yet. Please wait for admin to approve your account. ");
+                }
+                if (user.AccountStatus == AccountStatus.BLOCKED)
+                {
+                    return Ok("Your Account is blocked. Please contact admin. ");
+                }
+
+                return Ok(_JWTServices.GenerateToken(user));
+            }
+
+            return Ok("Invalid Credentials");
         }
 
     }
