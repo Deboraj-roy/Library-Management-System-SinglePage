@@ -61,17 +61,19 @@ namespace LMS_API.Controllers
                 
                 if (user.AccountStatus == AccountStatus.UNAPROVED)
                 {
-                    return Ok("Your Account is not approved yet. Please wait for admin to approve your account. ");
+                    return Ok("UNAPROVED");
+                    //return Ok("Your Account is not approved yet. Please wait for admin to approve your account. ");
                 }
                 if (user.AccountStatus == AccountStatus.BLOCKED)
                 {
-                    return Ok("Your Account is blocked. Please contact admin. ");
+                    return Ok("BLOCKED");
+                    //return Ok("Your Account is blocked. Please contact admin. ");
                 }
 
                 return Ok(_JWTServices.GenerateToken(user));
             }
 
-            return Ok("Invalid Credentials");
+            return Ok(@"Invalid_Credentials");
         }
 
     }
