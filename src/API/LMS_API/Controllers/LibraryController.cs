@@ -42,7 +42,7 @@ namespace LMS_API.Controllers
                 </html>
                 """;
 
-            _emailService.SendEmail(user.Email, MailSubject, body);
+            //_emailService.SendEmail(user.Email, MailSubject, body);
 
             return Ok(@"
                         Thanks for registering.

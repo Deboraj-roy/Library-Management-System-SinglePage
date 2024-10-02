@@ -1,6 +1,9 @@
 using LMS_API.Data;
 using LMS_API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,27 @@ o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //Add email service
 builder.Services.AddScoped<EmailService>();
+
+//Add JWT service
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer( option =>
+{
+    option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+    {
+        //for validating token
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+builder.Services.AddScoped< JWTServices>();
+
 
 //Add Cors configurer
 builder.Services.AddCors(options =>
