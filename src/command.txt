@@ -24,6 +24,9 @@ ng g c auth/Register --no-standalone
 ng g c auth/login --no-standalone
 
 
+npm install @auth0/angular-jwt
+
+
 
 
 
