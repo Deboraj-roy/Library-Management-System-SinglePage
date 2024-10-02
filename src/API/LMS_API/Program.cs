@@ -1,4 +1,5 @@
 using LMS_API.Data;
+using LMS_API.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>( o =>
 o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//Add email service
+builder.Services.AddScoped<EmailService>();
 
 //Add Cors configurer
 builder.Services.AddCors(options =>
