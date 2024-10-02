@@ -46,6 +46,7 @@ export class LoginComponent {
         else{
           try {
             localStorage.setItem('access_token', res);
+            this.apiService.userStatus.next("loggedIn");
           } catch (error) {
             console.error('Error saving to localStorage:', error);
           }

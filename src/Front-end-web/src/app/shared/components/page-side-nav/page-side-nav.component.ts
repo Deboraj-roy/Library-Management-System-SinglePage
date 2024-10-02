@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ApiService } from '../../services/api.service';
+import { Route, Router } from '@angular/router';
+
 
 export interface NavigationItem {
   value: string;
@@ -18,11 +21,21 @@ export class PageSideNavComponent {
   /**
    *
    */
-  constructor() {
+  constructor(private apiService: ApiService, private router: Router) {
     this.navItems = [
       { value: 'View Books', link: 'View-books' },
       { value: 'My Orders', link: 'my-orders' }
     ]
     
+    apiService.userStatus.subscribe({
+      next: (status) => {
+        if (status == 'loggedIn') {
+          router.navigateByUrl('/home');
+        }
+        else{
+
+        }
+      },
+    });
   }
 }
