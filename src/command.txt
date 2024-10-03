@@ -23,8 +23,17 @@ ng g c auth/Register --no-standalone
 
 ng g c auth/login --no-standalone
 
-
 npm install @auth0/angular-jwt
+
+ng g m books
+
+ng g m users
+ 
+ng g c books/booksStore --no-standalone
+
+ng g c users/userOrders --no-standalone
+
+
 
 
 
