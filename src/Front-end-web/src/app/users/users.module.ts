@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserOrdersComponent } from './user-orders/user-orders.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -9,7 +10,7 @@ import { UserOrdersComponent } from './user-orders/user-orders.component';
     UserOrdersComponent
   ],
   imports: [
-    CommonModule
+    SharedModule
   ]
 })
 export class UsersModule { }

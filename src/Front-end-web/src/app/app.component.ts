@@ -4,6 +4,8 @@ import { SharedModule } from './shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { AuthModule } from './auth/auth.module';
 import { ApiService } from './shared/services/api.service';
+import { BooksModule } from './books/books.module';
+import { UsersModule } from './users/users.module';
  
 @Component({
   selector: 'app-root',
@@ -12,7 +14,9 @@ import { ApiService } from './shared/services/api.service';
     CommonModule,
      RouterOutlet, 
      SharedModule, 
-     AuthModule
+     AuthModule,
+     BooksModule,
+     UsersModule,
     ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
