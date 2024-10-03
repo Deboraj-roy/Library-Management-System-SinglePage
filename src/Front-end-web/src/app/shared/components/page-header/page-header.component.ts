@@ -21,8 +21,8 @@ export class PageHeaderComponent {
 
               this.name = `${user.firstName} ${user.lastName}`; // Updated to match the new property names
 
-            console.log(user);
-            console.log(this.name);
+            //console.log(user);
+            //console.log(this.name);
             }
 
           }
