@@ -30,8 +30,8 @@ namespace LMS_API.Services
             var claims = new[]
             {
                 new Claim("id", user.Id.ToString()),
-                new Claim("firstname", user.FirstName),
-                new Claim("lastname", user.LastName),
+                new Claim("firstName", user.FirstName),   
+                new Claim("lastName", user.LastName),     
                 new Claim("email", user.Email),
                 new Claim("mobileNumber", user.MobileNumber),
                 new Claim("userType", user.UserType.ToString()),

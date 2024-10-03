@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { from, Subject } from 'rxjs';
 import { User, UserType } from '../../models/model'
+import { tap } from 'rxjs/operators';
+
 
 
 @Injectable({
@@ -25,10 +27,10 @@ export class ApiService {
       .append('email', info.email)
       .append('password', info.password);
 
-      return this.http.get(this.baseUrl + 'Login', {
-        params: params,
-        responseType: 'text',
-      });
+    return this.http.get(this.baseUrl + 'Login', {
+      params: params,
+      responseType: 'text',
+    });
   }
 
   isLoggedIn(): boolean {
@@ -42,22 +44,46 @@ export class ApiService {
     return false;
 
   }
-  
-getUserInfo(): User | null {
+
+/*getUserInfo(): User | null {
     if (!this.isLoggedIn()) return null;
     var decodedToken = this.jwt.decodeToken();
     var user: User = {
       id: decodedToken.id,
-      firstName: decodedToken.firstName,
-      lastName: decodedToken.lastName,
+      firstName: decodedToken.FirstName,
+      lastName: decodedToken.LastName,
       email: decodedToken.email,
       mobileNumber: decodedToken.mobileNumber,
-      userType: UserType[decodedToken.userType as keyof typeof UserType],
+      userType: UserType[decodedToken.userType as keyof typeof UserType], //get user type string userType = ["ADMIN"] = 1 
       accountStatus: decodedToken.accountStatus,
       createdOn: decodedToken.createdOn,
       password: '',
     };
     return user;
+  }
+    */
+
+  getUserInfo(): User | null {
+    if (!this.isLoggedIn()) return null;
+    const decodedToken = this.jwt.decodeToken();
+    const user: User = {
+        id: decodedToken.id,
+        firstName: decodedToken.firstName,  // Updated to match the new claim
+        lastName: decodedToken.lastName,     // Updated to match the new claim
+        email: decodedToken.email,
+        mobileNumber: decodedToken.mobileNumber,
+        userType: UserType[decodedToken.userType as keyof typeof UserType],
+        accountStatus: decodedToken.accountStatus,
+        createdOn: decodedToken.createdOn,
+        password: '',
+    };
+    return user;
+}
+
+
+  logOut(){
+    localStorage.removeItem('access_token');
+    this.userStatus.next('loggedOff');
   }
 
 }
