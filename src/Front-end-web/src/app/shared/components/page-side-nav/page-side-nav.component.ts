@@ -25,12 +25,13 @@ export class PageSideNavComponent {
     this.navItems = [
       { value: 'View Books', link: 'View-books' },
       { value: 'My Orders', link: 'my-orders' }
-    ]
+    ];
     
     apiService.userStatus.subscribe({
       next: (status) => {
         if (status == 'loggedIn') {
           router.navigateByUrl('/home');
+          console.log(apiService.getUserInfo());
         }
         else{
 
