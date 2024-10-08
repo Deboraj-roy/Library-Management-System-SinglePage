@@ -1,4 +1,4 @@
-namespace ERPAPI
+namespace ERPAPI.Model
 {
     public class WeatherForecast
     {

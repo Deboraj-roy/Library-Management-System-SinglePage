@@ -1,3 +1,4 @@
+using ERPAPI.Model;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 

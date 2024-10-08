@@ -1,5 +1,7 @@
+using Microsoft.Data.SqlClient;
 using Serilog;
 using Serilog.Events;
+using System.Data;
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -14,6 +16,7 @@ try
 {
 
     var builder = WebApplication.CreateBuilder(args);
+    Log.Information("Starting web API Building");
 
     ////
     ///serilog Configure
@@ -26,6 +29,9 @@ try
           .ReadFrom.Configuration(builder.Configuration));
 
     // Add services to the container.
+    builder.Services.AddScoped<IDbConnection>((sp) => new SqlConnection(
+    builder.Configuration.GetConnectionString("Agriculture")));
+
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -47,13 +53,17 @@ try
 
     app.MapControllers();
 
+    Log.Information("API Started");
+
     app.Run();
 }
 catch (Exception ex)
 {
+    Log.Information($"Stopped program because of exception {ex.Message}");
     Log.Fatal(ex, "API start-up failed");
 }
 finally
 {
+    Log.Information("Shut down complete");
     Log.CloseAndFlush();
 }
