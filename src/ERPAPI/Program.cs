@@ -1,3 +1,6 @@
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using ERPAPI;
 using Microsoft.Data.SqlClient;
 using Serilog;
 using Serilog.Events;
@@ -27,6 +30,14 @@ try
           .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
           .Enrich.FromLogContext()
           .ReadFrom.Configuration(builder.Configuration));
+
+    /// Autofac Configuration
+    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+    builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+    {
+        containerBuilder.RegisterModule(new WebModule());
+    });
+
 
     // Add services to the container.
     builder.Services.AddScoped<IDbConnection>((sp) => new SqlConnection(
