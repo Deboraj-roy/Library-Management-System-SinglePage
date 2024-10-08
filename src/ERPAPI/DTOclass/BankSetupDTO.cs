@@ -2,10 +2,7 @@
 {
     public class BankSetupDTO
     {
-        //public BankSetupDTO()
-        //{
-            
-        //}
+        
         public long BankId { get; set; }
         public string BankName { get; set; }
         public string MobileNumber { get; set; }

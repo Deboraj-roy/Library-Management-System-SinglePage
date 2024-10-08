@@ -1,4 +1,6 @@
-﻿using ERPAPI.DTOclass;
+﻿using Autofac;
+using ERPAPI.DTOclass;
+using ERPAPI.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ERPAPI.Controllers
@@ -7,25 +9,65 @@ namespace ERPAPI.Controllers
     [Route("api/[controller]")]
     public class AgroConfigurationApiController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly ILogger<AgroConfigurationApiController> _logger;
+        private ILifetimeScope _scope;
+        private IConfiguration _configuration;
         private string _authKey;
-        public AgroConfigurationApiController(IConfiguration configuration, ILogger<AgroConfigurationApiController> logger)
+        public AgroConfigurationApiController(IConfiguration configuration, ILogger<AgroConfigurationApiController> logger, ILifetimeScope scope)
         {
-            _configuration = configuration;
             _logger =  logger;
             this._authKey = "a2luZ0RhczExOTI=";
-
+            _scope = scope;
+            _configuration = configuration;
         }
 
 
-        [HttpGet]
-        public IActionResult GetAllBank(BankSetupDTO bankSetupDTO)
+        [HttpPost]
+        //public async Task<IActionResult> GetAllBankAsync([FromBody]BankSetupModel model)
+        public async Task<ActionResult> GetAllBankAsync([FromBody]BankSetupModel model)
         {
-            var data = _configuration["ConnectionStrings:Agriculture"];
-            _logger.LogInformation($"test {data}");
+            ApiResponse apiResponse = new ApiResponse();
+            apiResponse.Status = 201;
+            apiResponse.Message = "auth failed";
+            //var result = "";
 
-            return Ok(Ok(_configuration["ConnectionStrings:Agriculture"]));
+            model.Resolve(_scope, _configuration);
+
+            //if (model.AuthKey == this._authKey)
+            if (model.AuthKey.Equals(this._authKey))
+            {
+
+
+                var banks = await model.GetAllBankAsync();
+                _logger.LogInformation($"GetAllBank: {banks}");
+                 
+
+
+
+                if (banks != null)
+                {
+                    //var emdata = GetFiscalYear.FirstOrDefault();
+                    //emdata.AuthKey = this.AuthKey;
+                    apiResponse.Status = 200;
+                    apiResponse.Message = "auth success";
+                    apiResponse.Data = banks;
+                    return Ok(apiResponse);
+                }
+                else
+                {
+                    apiResponse.Message = "auth failed";
+                    //apiResponse.Message = result;
+                }
+
+            }
+            else
+            {
+                apiResponse.Message = "Auth Failed";
+
+            }
+
+            return Ok(apiResponse);
+           
         }
     }
 }
