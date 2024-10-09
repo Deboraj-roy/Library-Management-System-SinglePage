@@ -36,37 +36,40 @@ namespace ERPAPI.Model
 
 
 
-        public Task<object> GetAllBankAsync()
+        public Task<object> GetAllBanAsync(long? orgId)
         {
             var _connectionString = _configuration.GetConnectionString("Agriculture") ?? "DbConnectionNotFound";
             AdoNetUtility adoNetUtility = new AdoNetUtility(_connectionString);
 
-            string tableName = "Agriculture.dbo.tblBankInfo";
-            IEnumerable<string> columns = new[] { "BankId", "BankName", "MobileNumber", "AccountNumber", "Email", "OrganizationId", "RoleId", "UpdateDate", "UpdateUserId", "EntryDate", "EntryUserId", "Status" };
-            string whereClause = "BankId = @BankId";
-            string orderBy = "BankName ASC";
-            int? top = 1000;
+            string tableName = "tblBankInfo";
+            //IEnumerable<string> columns = new[] { "BankId", "BankName", "MobileNumber", "AccountNumber", "Email", "OrganizationId", "RoleId", "UpdateDate", "UpdateUserId", "EntryDate", "EntryUserId", "Status" };
+            IEnumerable<string> columns = new[] { "*" };
+            //string columns = "*";
+            string whereClause = "OrganizationId = @orgId";
+            
+            string query = adoNetUtility.GenerateQuery(tableName, columns, whereClause);
 
-            var Query = "" +
-                "SELECT TOP (1000) [BankId]," +
-                "[BankName]," +
-                "[MobileNumber]," +
-                "[AccountNumber]," +
-                "[Email]    ," +
-                "[OrganizationId]  ," +
-                "[RoleId]   ," +
-                "[UpdateDate]" +
-                "     ,[UpdateUserId]      ," +
-                "[EntryDate]      ,[EntryUserId]      ,[Status]  FROM [Agriculture].[dbo].[tblBankInfo] ";
-
-            string query = adoNetUtility.GenerateQuery(tableName, columns, whereClause, orderBy, top);
-
-            Console.WriteLine(query);
-
-            var obj = adoNetUtility.ExecuteQuery(Query);
+            var obj = adoNetUtility.ExecuteQuery(query, new object[] { orgId });
 
             return Task.FromResult<object>(obj);
         }
+
+        public async Task<object> GetAllBankAsync(long? orgId)
+        {
+            var _connectionString = _configuration.GetConnectionString("Agriculture") ?? "DbConnectionNotFound";
+            AdoNetUtility adoNetUtility = new AdoNetUtility(_connectionString);
+
+            string tableName = "tblBankInfo";
+            IEnumerable<string> columns = new[] { "*" };
+            string whereClause = "OrganizationId = @Param0";  // Matching parameter name with ExecuteQuery
+
+            string query = adoNetUtility.GenerateQuery(tableName, columns, whereClause);
+
+            var result = await adoNetUtility.ExecuteQueryAsync(query, new object[] { orgId });
+
+            return result;
+        }
+
 
         internal void Resolve(ILifetimeScope scope, IConfiguration configuration)
         {

@@ -38,7 +38,7 @@ namespace ERPAPI.Controllers
             {
 
 
-                var banks = await model.GetAllBankAsync();
+                var banks = await model.GetAllBankAsync(model.OrgId);
                 _logger.LogInformation($"GetAllBank: {banks}");
                  
 
