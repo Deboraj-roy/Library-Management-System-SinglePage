@@ -37,12 +37,9 @@ namespace ERPAPI.Controllers
             if (model.AuthKey.Equals(this._authKey))
             {
 
-
+                //var banks = await model.GetBanksAsync(model.OrgId);
                 var banks = await model.GetAllBankAsync(model.OrgId);
                 _logger.LogInformation($"GetAllBank: {banks}");
-                 
-
-
 
                 if (banks != null)
                 {

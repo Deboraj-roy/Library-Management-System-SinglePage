@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using ERPAPI.Data;
 using ERPAPI.DTOclass;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ERPAPI.Model
 {
@@ -21,7 +22,7 @@ namespace ERPAPI.Model
         public string? Status { get; set; }
         public string? UserName { get; set; }
         public string? OrganizationName { get; set; }
-        public long? OrgId { get; set; }
+        public long OrgId { get; set; } = 0;
         public string? AuthKey { get; set; }
 
 
@@ -29,30 +30,55 @@ namespace ERPAPI.Model
         {
             
         }
-        //public BankSetupModel()
-        //{
-
-        //}
 
 
-
-        public Task<object> GetAllBanAsync(long? orgId)
+       /* public async Task<object> GetBanksAsync(long? orgId)
         {
             var _connectionString = _configuration.GetConnectionString("Agriculture") ?? "DbConnectionNotFound";
             AdoNetUtility adoNetUtility = new AdoNetUtility(_connectionString);
 
             string tableName = "tblBankInfo";
-            //IEnumerable<string> columns = new[] { "BankId", "BankName", "MobileNumber", "AccountNumber", "Email", "OrganizationId", "RoleId", "UpdateDate", "UpdateUserId", "EntryDate", "EntryUserId", "Status" };
             IEnumerable<string> columns = new[] { "*" };
-            //string columns = "*";
-            string whereClause = "OrganizationId = @orgId";
-            
+
+            string whereClause = "OrganizationId = @OrganizationId";
+
             string query = adoNetUtility.GenerateQuery(tableName, columns, whereClause);
 
-            var obj = adoNetUtility.ExecuteQuery(query, new object[] { orgId });
+            var paramiters = new Dictionary<string, object>
+                                        {
+                                            { "@OrganizationId", orgId }
+                                        };
 
-            return Task.FromResult<object>(obj);
+            var obj = await adoNetUtility.ExecuteQueryAsync(query, paramiters);
+
+            return obj;
+        }*/
+
+
+        public async Task<object> GetAllBankAsync(long orgId)
+        {
+            var _connectionString = _configuration.GetConnectionString("Agriculture") ?? "DbConnectionNotFound";
+            AdoNetUtility adoNetUtility = new AdoNetUtility(_connectionString);
+
+            string tableName = "tblBankInfo";
+            IEnumerable<string> columns = new[] { "*" };
+            string whereClause = "OrganizationId = @orgId";  // Assuming you are using the parameter correctly in the query
+
+            string query = adoNetUtility.GenerateQuery(tableName, columns, whereClause);
+
+            var parameters = new Dictionary<string, object>
+                    {
+                        { "@orgId", orgId }  // Use a meaningful parameter name
+                    };
+
+            //Dictionary parameters
+
+            var result = await adoNetUtility.ExecuteQueryAsync(query, parameters);
+
+            return result;
         }
+
+
 
         public async Task<object> GetAllBankAsync(long? orgId)
         {
@@ -61,11 +87,27 @@ namespace ERPAPI.Model
 
             string tableName = "tblBankInfo";
             IEnumerable<string> columns = new[] { "*" };
+
+
+            //command.Parameters.AddWithValue($"@Param{i}", parameters[i] ?? DBNull.Value);  // Handles null values
+            //thats why use index for paramiters instead of name @Param{i} 
+
             string whereClause = "OrganizationId = @Param0";  // Matching parameter name with ExecuteQuery
 
             string query = adoNetUtility.GenerateQuery(tableName, columns, whereClause);
 
-            var result = await adoNetUtility.ExecuteQueryAsync(query, new object[] { orgId });
+            //working
+            //var paramiters = new object[] { orgId };
+
+            var paramiters = new object[]
+            {
+                orgId
+            };
+
+            //Object parameters
+
+            var result = await adoNetUtility.ExecuteQueryAsync(query, paramiters);
+            //var result = await adoNetUtility.ExecuteQueryAsync(query, new object[] { orgId });
 
             return result;
         }
