@@ -22,8 +22,10 @@ namespace ERPAPI.Controllers
         }
 
 
-        [HttpPost]
-        //public async Task<IActionResult> GetAllBankAsync([FromBody]BankSetupModel model)
+        [HttpPost, Route("GetAllBank")]  // Mention Route name 
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> GetAllBankAsync([FromBody]BankSetupModel model)
         {
             ApiResponse apiResponse = new ApiResponse();
