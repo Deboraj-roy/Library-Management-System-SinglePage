@@ -1,8 +1,10 @@
 ﻿using LMS_API.Data;
 using LMS_API.Entities;
 using LMS_API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMS_API.Controllers
 {
@@ -76,12 +78,13 @@ namespace LMS_API.Controllers
             return Ok(@"Invalid_Credentials");
         }
 
+        [Authorize]
         [HttpGet("GetBooks")]
         public ActionResult GetBooks()
         {
             if (_context.Books.Any())
             {
-                return Ok(_context.Books.ToList());
+                return Ok(_context.Books.Include(b => b.BookCategory).ToList());
             }
 
             return NotFound();

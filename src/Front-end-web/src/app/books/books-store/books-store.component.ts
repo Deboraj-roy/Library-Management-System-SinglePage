@@ -43,8 +43,7 @@ export class BooksStoreComponent {
      
     apiService.getBooks().subscribe({
       next: (res: Book[]) => {
-        this.books = [];
-        console.log(res);
+        this.books = []; 
         res.forEach((b) => this.books.push(b));
 
         this.updateList();
