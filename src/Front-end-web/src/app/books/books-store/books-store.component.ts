@@ -76,7 +76,8 @@ export class BooksStoreComponent {
       }
     }
   }
-
+  
+// search Book Logic
   searchBooks(value: string) {
     this.updateList();
     value = value.toLowerCase();
