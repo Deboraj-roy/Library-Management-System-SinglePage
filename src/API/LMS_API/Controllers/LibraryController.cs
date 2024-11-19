@@ -76,5 +76,16 @@ namespace LMS_API.Controllers
             return Ok(@"Invalid_Credentials");
         }
 
+        [HttpGet("GetBooks")]
+        public ActionResult GetBooks()
+        {
+            if (_context.Books.Any())
+            {
+                return Ok(_context.Books.ToList());
+            }
+
+            return NotFound();
+        }
+
     }
 }

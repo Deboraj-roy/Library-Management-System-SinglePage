@@ -40,16 +40,17 @@ export class BooksStoreComponent {
   ];
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
-    /*
+     
     apiService.getBooks().subscribe({
       next: (res: Book[]) => {
         this.books = [];
+        console.log(res);
         res.forEach((b) => this.books.push(b));
 
         this.updateList();
       },
     });
-    */
+ 
   }
 
   updateList() {

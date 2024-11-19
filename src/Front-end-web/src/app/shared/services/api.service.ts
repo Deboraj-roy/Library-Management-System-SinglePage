@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { from, Subject } from 'rxjs';
 import { User, UserType } from '../../models/model'
 import { tap } from 'rxjs/operators';
+import { Book } from '../../models/Book';
 
 
 
@@ -43,6 +44,10 @@ export class ApiService {
     }
     return false;
 
+  }
+
+  getBooks(){
+    return this.http.get<Book[]>(this.baseUrl + 'GetBooks');
   }
 
 /*getUserInfo(): User | null {
