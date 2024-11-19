@@ -76,7 +76,7 @@ export class BooksStoreComponent {
       }
     }
   }
-  
+
 // search Book Logic
   searchBooks(value: string) {
     this.updateList();
@@ -96,11 +96,10 @@ export class BooksStoreComponent {
   }
 
   orderBook(book: Book) {
-   
-    /*
+    
     this.apiService.orderBook(book).subscribe({
       next: (res) => {
-        if (res === 'ordered') {
+        if (res === 'Ordered') {
           book.ordered = true;
           let today = new Date();
           let returnDate = new Date();
@@ -120,7 +119,7 @@ export class BooksStoreComponent {
         }
       },
     });
-    */
+    
   }
 }
 

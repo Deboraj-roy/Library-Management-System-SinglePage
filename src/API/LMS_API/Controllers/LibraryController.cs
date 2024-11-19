@@ -90,5 +90,37 @@ namespace LMS_API.Controllers
             return NotFound();
         }
 
+        [Authorize]
+        [HttpPost("OrderBook")]
+        public ActionResult OrderBook(int userId, int bookId)
+        {
+            var canOrder =_context.Orders.Count(o => o.UserId == userId && !o.Returned) < 3;
+            if (canOrder)
+            {
+                var order = new Order
+                {
+                    UserId = userId,
+                    BookId = bookId,
+                    OrderDate = DateTime.Now,
+                    Returned = false,
+                    ReturnDate = null,
+                    FinePaid = 0
+                };
+
+                _context.Orders.Add(order);
+
+                var book = _context.Books.Single(b => b.Id == bookId);
+                if(book is not null)
+                {
+                    book.Ordered = true;
+                }
+
+                _context.SaveChanges();
+
+                return Ok("Ordered");
+            }
+            return Ok("Can not order");
+        }
+
     }
 }

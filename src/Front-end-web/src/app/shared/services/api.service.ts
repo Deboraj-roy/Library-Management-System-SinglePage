@@ -49,7 +49,16 @@ export class ApiService {
   getBooks(){
     return this.http.get<Book[]>(this.baseUrl + 'GetBooks');
   }
-
+  orderBook(book: Book){
+    let userId = this.getUserInfo()!.id;
+    let params = new HttpParams()
+                    .append('userId', userId)
+                    .append('bookId', book.id);
+    return this.http.post(this.baseUrl + 'OrderBook', null, {
+      params: params,
+      responseType: 'text',
+    });
+  }
 /*getUserInfo(): User | null {
     if (!this.isLoggedIn()) return null;
     var decodedToken = this.jwt.decodeToken();
