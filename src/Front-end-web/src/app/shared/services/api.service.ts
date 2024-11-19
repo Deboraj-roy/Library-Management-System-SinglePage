@@ -100,4 +100,12 @@ export class ApiService {
     this.userStatus.next('loggedOff');
   }
 
+
+  getOrdersOfUser(userId: number){
+    let params = new HttpParams().append('userId', userId);
+    return this.http.get<any>(this.baseUrl + 'GetOrdersOfUsers', {
+      params: params,
+    });
+  }
+
 }

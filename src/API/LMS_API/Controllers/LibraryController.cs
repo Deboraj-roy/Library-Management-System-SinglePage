@@ -122,5 +122,22 @@ namespace LMS_API.Controllers
             return Ok("Can not order");
         }
 
+
+        [Authorize]
+        [HttpGet("GetOrdersOfUsers")]
+        public ActionResult GetOrdersOfUsers(int userId)
+        {
+            var orders = _context.Orders
+                .Include(o => o.Book)
+                .Include(o => o.User)
+                .Where(o => o.UserId == userId)
+                .ToList();
+
+            if (orders is null)
+            {
+                return NotFound();
+            }
+            return Ok(orders);
+        }
     }
 }
