@@ -1,10 +1,8 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
-// Define a custom palette based on Angular Material’s green palette
-$dark-accent: mat.define-palette(mat.$green-palette, 200, 100, 400);
+$dark-accent: mat.define-palette(mat.$green-palette, A200, A100, A400);
 
-// Get a specific color (200) from the palette
-$dark-accent-A200: mat.get-color-from-palette($dark-accent, 200);
+$dark-accent-A200: mat.get-color-from-palette($dark-accent, A200);
 
 // Now, use this color in your CSS
 body {
