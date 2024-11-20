@@ -4,8 +4,9 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { from, Subject } from 'rxjs';
 import { User, UserType } from '../../models/model'
-import { tap } from 'rxjs/operators';
+import { map, retry, tap } from 'rxjs/operators';
 import { Book } from '../../models/Book';
+import { Order } from '../../models/Order';
 
 
 
@@ -100,12 +101,67 @@ export class ApiService {
     this.userStatus.next('loggedOff');
   }
 
-
-  getOrdersOfUser(userId: number){
+  getOrdersOfUser(userId: number) {
     let params = new HttpParams().append('userId', userId);
     return this.http.get<any>(this.baseUrl + 'GetOrdersOfUsers', {
       params: params,
-    });
+    })
+    .pipe(
+      map(orders => {
+        // Transform each order object
+        return orders.map((order: any) => {
+          return {
+            id: order.id,
+            userId: order.userId,
+            userName: order.user.firstName + ' ' + order.user.lastName,
+            bookId: order.bookId,
+            bookTitle: order.book.title,
+            orderDate: order.orderDate,
+            returned: order.returned,
+            returnDate: order.returnDate,
+            finePaid: order.finePaid,
+          } as Order;
+        });
+      })
+    );
+  }
+
+  // getOrdersOfUser(userId: number){
+  //   let params = new HttpParams().append('userId', userId);
+  //   return this.http.get<any>(this.baseUrl + 'GetOrdersOfUsers', {
+  //     params: params,
+  //   })
+  //   .pipe(
+  //     map(orders => {
+  //       let newOrders = orders.map((order: any) => {
+  //         let newOrder: Order = {
+  //           id: order.id,
+  //           userId: order.userId,
+  //           userName: order.user.firstName + ' ' + order.user.lastName,
+  //           bookId: order.bookId,
+  //           bookTitle: order.book.title,
+  //           orderDate: order.orderDate,
+  //           returned: order.returned,
+  //           returnDate: order.returnDate,
+  //           finePaid: order.finePaid,
+  //         };
+  //       });
+  //     })
+  //   );
+  // }
+
+
+  getFine(order: Order){
+    let today = new Date();
+    let orderDate = new Date(Date.parse(order.orderDate));
+    orderDate.setDate(orderDate.getDate() + 10);
+    if(orderDate.getTime() < today.getTime()){
+      var dif = today.getTime() - orderDate.getTime();
+      var difday = today.getDay() - orderDate.getDay();
+      let days = Math.floor(dif / (1000 * 86400));
+      return days * 50;
+    }
+    return 0;
   }
 
 }
