@@ -31,7 +31,7 @@ export class PageSideNavComponent {
     apiService.userStatus.subscribe({
       next: (status) => {
         if (status == 'loggedIn') {
-          router.navigateByUrl('/home');
+          router.navigateByUrl('/profile');
           let user = apiService.getUserInfo();
           if (user != null){
             if( user.userType == UserType.ADMIN){
@@ -64,4 +64,5 @@ export class PageSideNavComponent {
       },
     });
   }
+  
 }

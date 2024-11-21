@@ -4,11 +4,13 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { BooksStoreComponent } from './books/books-store/books-store.component';
 import { UserOrdersComponent } from './users/user-orders/user-orders.component';
+import { ProfileComponent } from './users/profile/profile.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'home', component: BooksStoreComponent},
     { path: 'my-orders', component: UserOrdersComponent},
+    { path: 'profile', component: ProfileComponent },
     { path: '**', component: PageNotFoundComponent}
 ];

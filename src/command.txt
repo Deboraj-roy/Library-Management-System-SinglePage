@@ -33,6 +33,19 @@ ng g c books/booksStore --no-standalone
 
 ng g c users/userOrders --no-standalone
 
+ng g c users/profile --no-standalone
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
