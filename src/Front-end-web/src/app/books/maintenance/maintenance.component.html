@@ -1,0 +1,22 @@
+<mat-card>
+    <mat-card-header>
+        <h1>Add New Category</h1>
+    </mat-card-header>
+
+    <mat-card-content [formGroup]="newCategory">
+        <mat-form-field color="accent">
+            <mat-label>Category</mat-label>
+            <input matInput formControlName="category">
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <mat-label>SubCategory</mat-label>
+            <input matInput formControlName="subCategory">
+        </mat-form-field>
+
+        <button mat-stroked-button color="accent"
+                [disabled]="newCategory.invalid" (click)="addNewCategory()">
+            <span>Add</span>
+        </button>
+    </mat-card-content>
+</mat-card>

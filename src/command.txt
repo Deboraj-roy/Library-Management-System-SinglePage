@@ -35,6 +35,8 @@ ng g c users/userOrders --no-standalone
 
 ng g c users/profile --no-standalone
 
+ng g c books/maintenance --no-standalone
+
 
 
 
