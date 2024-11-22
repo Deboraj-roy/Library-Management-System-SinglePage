@@ -140,6 +140,67 @@ namespace LMS_API.Controllers
             return Ok(orders);
         }
 
+
+
+        [Authorize]
+        [HttpPost("AddCategory")]
+        public ActionResult AddCategory(BookCategory bookCategory)
+        {
+            var exists = _context.BookCategories.Any(bc => bc.Category == bookCategory.Category && bc.SubCategory == bookCategory.SubCategory);
+            if (exists)
+            {
+                return Ok("cannot insert");
+            }
+            else
+            {
+                _context.BookCategories.Add(new()
+                {
+                    Category = bookCategory.Category,
+                    SubCategory = bookCategory.SubCategory
+                });
+                _context.SaveChanges();
+                return Ok("INSERTED");
+            }
+        }
+
+        [Authorize]
+        [HttpGet("GetCategories")]
+        public ActionResult GetCategories()
+        {
+            var categories = _context.BookCategories.ToList();
+            if (categories.Any())
+            {
+                return Ok(categories);
+            }
+            return NotFound();
+        }
+
+        [Authorize]
+        [HttpPost("AddBook")]
+        public ActionResult AddBook(Book book)
+        {
+            book.BookCategory = null;
+            _context.Books.Add(book);
+            _context.SaveChanges();
+            return Ok("inserted");
+        }
+
+        [Authorize]
+        [HttpDelete("DeleteBook")]
+        public ActionResult DeleteBook(int id)
+        {
+            var exists = _context.Books.Any(b => b.Id == id);
+            if (exists)
+            {
+                var book = _context.Books.Find(id);
+                _context.Books.Remove(book!);
+                _context.SaveChanges();
+                return Ok("deleted");
+            }
+            return NotFound();
+        }
+
+
         [Authorize]
         [HttpGet("ReturnBook")]
         public ActionResult ReturnBook(int userId, int bookId, int fine)
