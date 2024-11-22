@@ -175,4 +175,11 @@ export class ApiService {
       responseType: 'text',
     });
   }
+
+  unblock(userId: number) {
+    return this.http.get(this.baseUrl + "Unblock", {
+      params: new HttpParams().append("userId", userId),
+      responseType: "text",
+    });
+  }
 }

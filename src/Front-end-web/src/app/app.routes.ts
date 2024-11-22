@@ -7,6 +7,7 @@ import { UserOrdersComponent } from './users/user-orders/user-orders.component';
 import { ReturnBookComponent } from './books/return-book/return-book.component';
 import { ApprovalRequestsComponent } from './users/approval-requests/approval-requests.component';
 import { AllOrdersComponent } from './users/all-orders/all-orders.component';
+import { ViewUsersComponent } from './users/view-users/view-users.component';
 
 
 export const routes: Routes = [
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: 'return-book', component: ReturnBookComponent},
     { path: 'approval-requests', component: ApprovalRequestsComponent},
     { path: 'all-orders', component: AllOrdersComponent},
+    { path: 'view-users', component: ViewUsersComponent},
     { path: '**', component: PageNotFoundComponent}
 ];
