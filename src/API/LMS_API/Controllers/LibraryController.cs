@@ -139,5 +139,27 @@ namespace LMS_API.Controllers
             }
             return Ok(orders);
         }
+
+        [Authorize]
+        [HttpGet("ReturnBook")]
+        public ActionResult ReturnBook(int userId, int bookId, int fine) 
+        {
+            var order = _context.Orders
+                .Where(o => o.UserId == userId && o.BookId == bookId && o.Returned == false)
+                .FirstOrDefault();
+            if (order is not null)
+            {
+                order.Returned = true;
+                order.ReturnDate = DateTime.Now;
+                order.FinePaid = fine;
+
+                var book = _context.Books.Single(b => b.Id == order.BookId);
+                book.Ordered = false;
+
+                _context.SaveChanges();
+                return Ok("Returned");
+            }
+            return Ok("Not Returned"); 
+        }
     }
 }
