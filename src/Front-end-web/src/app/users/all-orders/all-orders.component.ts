@@ -28,6 +28,7 @@ export class AllOrdersComponent {
     'finePaid',
   ];
 
+  showProgressBar: boolean = false;
   ordersWithPendingReturns: Order[] = [];
   ordersWithCompletedReturns: Order[] = [];
 
@@ -41,5 +42,38 @@ export class AllOrdersComponent {
         this.snackBar.open('No Order Found', 'OK')
       }
     })
+  }
+
+  sendEmail() {
+    this.showProgressBar = true;
+    this.apiService.sendEmail().subscribe({
+      next: (res) => {
+        if (res === 'sent') {
+          this.snackBar.open(
+            'Emails have been Sent to respected Students!',
+            'OK'
+          );
+          this.showProgressBar = false;
+        } else {
+          this.snackBar.open('Emails have not been sent!', 'OK');
+          this.showProgressBar = false;
+        }
+      },
+    });
+  }
+
+  blockUsers() {
+    this.showProgressBar = true;
+    this.apiService.blockUsers().subscribe({
+      next: (res) => {
+        if (res === 'blocked') {
+          this.snackBar.open('Eligible Users Accounts were BLOCKED!', 'OK');
+          this.showProgressBar = false;
+        } else {
+          this.snackBar.open('Not BLOCKED!', 'OK');
+          this.showProgressBar = false;
+        }
+      },
+    });
   }
 }

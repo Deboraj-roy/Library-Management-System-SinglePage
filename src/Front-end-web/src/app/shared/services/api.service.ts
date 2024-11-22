@@ -163,4 +163,16 @@ export class ApiService {
       })
     );
   }
+
+  sendEmail() {
+    return this.http.get(this.baseUrl + 'SendEmailForPendingReturns', {
+      responseType: 'text',
+    });
+  }
+
+  blockUsers() {
+    return this.http.get(this.baseUrl + 'BlockFineOverdueUsers', {
+      responseType: 'text',
+    });
+  }
 }

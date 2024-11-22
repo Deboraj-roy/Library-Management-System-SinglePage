@@ -4,6 +4,7 @@ import { UserOrdersComponent } from './user-orders/user-orders.component';
 import { SharedModule } from '../shared/shared.module';
 import { ApprovalRequestsComponent } from './approval-requests/approval-requests.component';
 import { AllOrdersComponent } from './all-orders/all-orders.component';
+import { ViewUsersComponent } from './view-users/view-users.component';
 
 
 
@@ -11,7 +12,8 @@ import { AllOrdersComponent } from './all-orders/all-orders.component';
   declarations: [
     UserOrdersComponent,
     ApprovalRequestsComponent,
-    AllOrdersComponent
+    AllOrdersComponent,
+    ViewUsersComponent
   ],
   imports: [
     SharedModule
