@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AccountStatus, User } from '../../models/model';
 import { ApiService } from '../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'approval-requests',
@@ -22,7 +23,7 @@ export class ApprovalRequestsComponent {
   /**
    *
    */
-  constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router) {
     apiService.getUsers().subscribe({
       next: (res: User[]) => {
         console.log(res);
@@ -39,6 +40,9 @@ export class ApprovalRequestsComponent {
       next: (res) => {
         if (res == 'Approved'){
           this.snackBar.open(`Approved for ${user.id}`, 'OK');
+          this.router.navigateByUrl('/home').then(() => {
+            this.router.navigateByUrl('/approval-requests'); // Navigate to target route
+          });
         }
         else this.snackBar.open(`Not Approved`, 'OK');
       },

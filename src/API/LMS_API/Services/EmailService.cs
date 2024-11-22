@@ -15,11 +15,20 @@ namespace LMS_API.Services
         public void SendEmail(string ToEmail, string subject, string body)
         { 
              
-            var fromEmail = Configuration.GetSection("SMTP:FromEmail").Value ?? string.Empty; 
+            /*var fromEmail = Configuration.GetSection("SMTP:FromEmail").Value ?? string.Empty; 
             //var userName = Configuration.GetSection("SMTP:Username").Value ?? string.Empty;
             var fromEmailPassword = Configuration.GetSection("SMTP:EmailAccountPassword").Value ?? string.Empty;
             var smtpHost = Configuration.GetSection("SMTP:Host").Value ?? string.Empty;
             var port = Configuration.GetSection("SMTP:Port").Value ?? string.Empty;
+*/
+
+
+            var fromEmail = "Deb@dotnet.com";
+            var userName = "2032fbaa2dd6f6";
+            var fromEmailPassword = "135756f590ea4d";
+            var smtpHost = "sandbox.smtp.mailtrap.io";
+            var port = 587;
+
 
 
             var message = new MailMessage()
@@ -49,12 +58,16 @@ namespace LMS_API.Services
                 var smtpClient = new SmtpClient(smtpHost)
                 {
                     Port = Convert.ToInt32(port),
-                    Credentials = new System.Net.NetworkCredential(fromEmail, fromEmailPassword),
+                    Credentials = new System.Net.NetworkCredential(userName, fromEmailPassword),
                     EnableSsl = true
                 };
 
                 smtpClient.Send(message);
                 smtpClient.Dispose();
+            }
+            else
+            {
+                throw new ArgumentException("Invalid email address.");
             }
 
 

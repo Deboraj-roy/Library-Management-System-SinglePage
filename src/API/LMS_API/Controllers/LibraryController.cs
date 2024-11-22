@@ -27,6 +27,10 @@ namespace LMS_API.Controllers
         [HttpPost("Register")]
         public ActionResult Register(User user)
         {
+            if(_context.Users.Any(u => u.Email.Equals(user.Email)))
+            {
+                return Ok("Already registered using this email.");
+            }
             user.AccountStatus = AccountStatus.UNAPROVED;
             user.UserType = UserType.STUDENT;
             user.CreatedOn = DateTime.Now;
@@ -47,7 +51,7 @@ namespace LMS_API.Controllers
                 </html>
                 """;
 
-            //_emailService.SendEmail(user.Email, MailSubject, body);
+            _emailService.SendEmail(user.Email, MailSubject, body);
 
             return Ok(@"
                         Thanks for registering.
@@ -245,15 +249,15 @@ namespace LMS_API.Controllers
                     user.AccountStatus = AccountStatus.ACTIVE;
                     _context.SaveChanges();
 
-                    //_emailService.SendEmail(user.Email, "Account Approved", $"""
-                    //    <html>
-                    //        <body>
-                    //            <h2>Hi, {user.FirstName} {user.LastName}</h2>
-                    //            <h3>You Account has been approved by admin.</h3>
-                    //            <h3>Now you can login to your account.</h3>
-                    //        </body>
-                    //    </html>
-                    //""");
+                    _emailService.SendEmail(user.Email, "Account Approved", $"""
+                        <html>
+                            <body>
+                                <h2>Hi, {user.FirstName} {user.LastName}</h2>
+                                <h3>You Account has been approved by admin.</h3>
+                                <h3>Now you can login to your account.</h3>
+                            </body>
+                        </html>
+                    """);
 
                     return Ok("Approved");
                 }
@@ -308,7 +312,7 @@ namespace LMS_API.Controllers
                 </html>
                 """;
 
-                //_emailService.SendEmail(x.User!.Email, "Return Overdue", body);
+                _emailService.SendEmail(x.User!.Email, "Return Overdue", body);
             });
 
             var regularFineEmails = emailsWithFine.Where(x => x.FinePaid > 50 && x.FinePaid <= 500).ToList();
@@ -325,7 +329,7 @@ namespace LMS_API.Controllers
                 </html>
                 """;
 
-                //_emailService.SendEmail(x.User?.Email!, "Fine To Pay", regularFineEmailsBody);
+                _emailService.SendEmail(x.User?.Email!, "Fine To Pay", regularFineEmailsBody);
             });
 
             var overdueFineEmails = emailsWithFine.Where(x => x.FinePaid > 500).ToList();
@@ -343,7 +347,7 @@ namespace LMS_API.Controllers
                 </html>
                 """;
 
-                //_emailService.SendEmail(x.User?.Email!, "Fine Overdue", overdueFineEmailsBody);
+                _emailService.SendEmail(x.User?.Email!, "Fine Overdue", overdueFineEmailsBody);
             });
 
             return Ok("sent");
