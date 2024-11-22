@@ -182,4 +182,20 @@ export class ApiService {
       responseType: "text",
     });
   }
+
+
+  
+  GetUserInfo2() {
+    return this.http.get(this.baseUrl + 'GetUserInfo2', {
+      responseType: 'text',
+    });
+  }
+
+  
+  Protected() {
+    return this.http.get(this.baseUrl + 'Protected', {
+      responseType: 'text',
+    });
+  }
+
 }

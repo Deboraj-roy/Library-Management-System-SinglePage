@@ -42,6 +42,7 @@ export class ViewUsersComponent {
             this.router.navigateByUrl('/view-users'); // Navigate to target route
           });
 
+ 
           // this.location.go('/view-users'); // Navigate without keeping history
           // window.location.reload(); // Programmatically reload
 
@@ -65,6 +66,28 @@ export class ViewUsersComponent {
         }
       },
     });
+
+
+        // For testing getUserInfo
+    this.apiService.GetUserInfo2().subscribe({
+      next: (res) => {
+        console.log('User Info:', res); // Log the response data here
+      },
+      error: (err) => {
+        console.log('Error fetching user info:', err); // Handle errors
+      }
+    });
+
+    // For testing Protected endpoint
+    this.apiService.Protected().subscribe({
+      next: (res) => {
+        console.log('Protected Resource:', res); // Log the response data here
+      },
+      error: (err) => {
+        console.log('Error accessing protected resource:', err); // Handle errors
+      }
+    });
+
   }
 
 

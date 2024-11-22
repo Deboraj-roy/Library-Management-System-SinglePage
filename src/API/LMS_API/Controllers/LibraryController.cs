@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace LMS_API.Controllers
 {
@@ -383,7 +384,7 @@ namespace LMS_API.Controllers
         [Authorize]
         [HttpGet("Unblock")]
         public ActionResult Unblock(int userId)
-        {
+        { 
             var user = _context.Users.Find(userId);
             if (user is not null && user.AccountStatus == AccountStatus.BLOCKED)
             {
@@ -393,6 +394,52 @@ namespace LMS_API.Controllers
             }
 
             return Ok("not unblocked");
+        }
+
+
+        [Authorize]
+        [HttpGet("GetUserInfo2")]
+        public IActionResult GetUserInfo2()
+        {
+            // If the user is authenticated, you can access their claims
+            var userId = User.FindFirst("id")?.Value;
+            var firstName = User.FindFirst("firstName")?.Value;
+            var lastName = User.FindFirst("lastName")?.Value;
+            var email = User.FindFirst("email")?.Value;
+            var mobileNumber = User.FindFirst("mobileNumber")?.Value;
+            var userType = User.FindFirst("userType")?.Value;
+            var accountStatus = User.FindFirst("accountStatus")?.Value;
+            var createdOn = User.FindFirst("createdOn")?.Value;
+
+              
+            var userInfo = new
+            {
+                UserId = userId,
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                MobileNumber = mobileNumber,
+                UserType = userType,
+                AccountStatus = accountStatus,
+                CreatedOn = createdOn
+            };
+
+            return Ok(userInfo);
+        }
+
+
+        [Authorize]
+        [HttpGet("Protected")]
+        public IActionResult ProtectedResource()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("You are not authorized.");
+            }
+
+            // You can also access claims here if needed
+            var userId = User.FindFirst("id")?.Value;
+            return Ok($"Welcome User {userId}!");
         }
 
     }
