@@ -198,5 +198,22 @@ namespace LMS_API.Controllers
             }
             return Ok("Not Approved");
         }
+
+
+        [Authorize]
+        [HttpGet("GetOrders")]
+        public ActionResult GetOrders()
+        {
+            var orders = _context.Orders.Include(o => o.User).Include(o => o.Book).ToList();
+
+            if (orders.Any())
+            {
+                return Ok(orders);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }

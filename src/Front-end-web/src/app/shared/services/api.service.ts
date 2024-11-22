@@ -4,8 +4,9 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { from, Subject } from 'rxjs';
 import { User, UserType } from '../../models/model'
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Book } from '../../models/Book';
+import { Order } from '../../models/Order';
 
 
 
@@ -141,5 +142,25 @@ export class ApiService {
       responseType: 'text',
     });
   }
-
+  getOrders() {
+    return this.http.get<any>(this.baseUrl + 'GetOrders').pipe(
+      map((orders) => {
+        let newOrders = orders.map((order: any) => {
+          let newOrder: Order = {
+            id: order.id,
+            userId: order.userId,
+            userName: order.user.firstName + ' ' + order.user.lastName,
+            bookId: order.bookId,
+            bookTitle: order.book.title,
+            orderDate: order.orderDate,
+            returned: order.returned,
+            returnDate: order.returnDate,
+            finePaid: order.finePaid,
+          };
+          return newOrder;
+        });
+        return newOrders;
+      })
+    );
+  }
 }
