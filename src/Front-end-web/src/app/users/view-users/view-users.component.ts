@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../models/model';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'view-users',
@@ -21,7 +22,7 @@ export class ViewUsersComponent {
   ];
   users: User[] = [];
 
-  constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router) {
     apiService.getUsers().subscribe({
       next: (res: User[]) => {
         this.users = [];
@@ -36,12 +37,35 @@ export class ViewUsersComponent {
       next: (res) => {
         if (res === 'unblocked') {
           this.snackBar.open('User has been UNBLOCKED!', 'OK');
-          window.location.reload(); // Refresh the page
+
+          this.router.navigateByUrl('/home').then(() => {
+            this.router.navigateByUrl('/view-users'); // Navigate to target route
+          });
+
+          // this.location.go('/view-users'); // Navigate without keeping history
+          // window.location.reload(); // Programmatically reload
+
+          // window.location.assign(window.location.origin + '/view-users');
+
+          // this.router.navigate(['/view-users'], { replaceUrl: true });
+
+          // window.location.href = '/view-users'; // Direct page reload to '/view-users'
+
+          // this.router.navigate(['/view-users']); // Correct way to navigate
+
+
+          // this.router.navigate(['/view-users']).then(() => {
+          //   // Reload after navigating to '/view-users'
+          //   setTimeout(() => {
+          //     window.location.reload();
+          //   }, 100); // Adjust delay if necessary
+          // });
         } else {
           this.snackBar.open('Not Unblocked', 'OK');
         }
       },
     });
   }
+
 
 }
