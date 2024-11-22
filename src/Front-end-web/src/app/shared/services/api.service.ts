@@ -131,4 +131,15 @@ export class ApiService {
     });
   }
 
+  getUsers(){
+    return this.http.get<User[]>(this.baseUrl + 'GetUsers');
+  }
+
+  approveRequest(userId: number){
+    return this.http.get(this.baseUrl + 'ApproveRequest', {
+      params: new HttpParams().append('userId', userId),
+      responseType: 'text',
+    });
+  }
+
 }

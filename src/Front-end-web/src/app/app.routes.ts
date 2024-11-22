@@ -5,6 +5,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { BooksStoreComponent } from './books/books-store/books-store.component';
 import { UserOrdersComponent } from './users/user-orders/user-orders.component';
 import { ReturnBookComponent } from './books/return-book/return-book.component';
+import { ApprovalRequestsComponent } from './users/approval-requests/approval-requests.component';
 
 
 export const routes: Routes = [
@@ -13,5 +14,6 @@ export const routes: Routes = [
     { path: 'home', component: BooksStoreComponent},
     { path: 'my-orders', component: UserOrdersComponent},
     { path: 'return-book', component: ReturnBookComponent},
+    { path: 'approval-requests', component: ApprovalRequestsComponent},
     { path: '**', component: PageNotFoundComponent}
 ];

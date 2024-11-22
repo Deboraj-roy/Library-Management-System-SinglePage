@@ -57,10 +57,10 @@ namespace LMS_API.Controllers
         [HttpGet("Login")]
         public ActionResult Login(string email, string password)
         {
-            if(_context.Users.Any( u => u.Email.Equals(email) && u.Password.Equals(password)))
+            if (_context.Users.Any(u => u.Email.Equals(email) && u.Password.Equals(password)))
             {
                 var user = _context.Users.Single(user => user.Email.Equals(email) && user.Password.Equals(password));
-                
+
                 if (user.AccountStatus == AccountStatus.UNAPROVED)
                 {
                     return Ok("UNAPROVED");
@@ -94,7 +94,7 @@ namespace LMS_API.Controllers
         [HttpPost("OrderBook")]
         public ActionResult OrderBook(int userId, int bookId)
         {
-            var canOrder =_context.Orders.Count(o => o.UserId == userId && !o.Returned) < 3;
+            var canOrder = _context.Orders.Count(o => o.UserId == userId && !o.Returned) < 3;
             if (canOrder)
             {
                 var order = new Order
@@ -110,7 +110,7 @@ namespace LMS_API.Controllers
                 _context.Orders.Add(order);
 
                 var book = _context.Books.Single(b => b.Id == bookId);
-                if(book is not null)
+                if (book is not null)
                 {
                     book.Ordered = true;
                 }
@@ -142,7 +142,7 @@ namespace LMS_API.Controllers
 
         [Authorize]
         [HttpGet("ReturnBook")]
-        public ActionResult ReturnBook(int userId, int bookId, int fine) 
+        public ActionResult ReturnBook(int userId, int bookId, int fine)
         {
             var order = _context.Orders
                 .Where(o => o.UserId == userId && o.BookId == bookId && o.Returned == false)
@@ -159,7 +159,44 @@ namespace LMS_API.Controllers
                 _context.SaveChanges();
                 return Ok("Returned");
             }
-            return Ok("Not Returned"); 
+            return Ok("Not Returned");
+        }
+
+        [Authorize]
+        [HttpGet("GetUsers")]
+        public ActionResult GetUsers()
+        {
+            return Ok(_context.Users.ToList());
+        }
+
+        [Authorize]
+        [HttpGet("ApproveRequest")]
+        public ActionResult ApproveRequest(int userId)
+        {
+            var user = _context.Users
+                .Where(u => u.Id == userId)
+                .FirstOrDefault();
+            if (user is not null)
+            {
+                if (user.AccountStatus == AccountStatus.UNAPROVED)
+                {
+                    user.AccountStatus = AccountStatus.ACTIVE;
+                    _context.SaveChanges();
+
+                    //_emailService.SendEmail(user.Email, "Account Approved", $"""
+                    //    <html>
+                    //        <body>
+                    //            <h2>Hi, {user.FirstName} {user.LastName}</h2>
+                    //            <h3>You Account has been approved by admin.</h3>
+                    //            <h3>Now you can login to your account.</h3>
+                    //        </body>
+                    //    </html>
+                    //""");
+
+                    return Ok("Approved");
+                }
+            }
+            return Ok("Not Approved");
         }
     }
 }
