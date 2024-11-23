@@ -25,7 +25,8 @@ namespace LMS_API.Services
         // for creating token for user login property
         public string GenerateToken(User user)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_key));
+            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_key));
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_key));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {

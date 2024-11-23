@@ -77,9 +77,24 @@ Library-Management-System-SinglePage/
 
 docker build -t library-management-system .
 
+docker build -t library -f D:\Github\ASP-.NET-B09-Practice\docs\DockerFile .
+
+docker run -p 80:80 -p 7030:7030 library
+docker build -t library -f D:\Github\ASP-.NET-B09-Practice\docs\DockerFile .
+docker run -p 80:80 -p 7030:7030 library
+
+netstat -aon | findstr :7030
+lsof -i :7030
+netstat -plnt | grep 7030
+kill -9 <PID>
+docker run -it library /bin/sh
+ps aux | grep apache
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 
 
+ng build --prod
+ng b --output-path UIPublish --base-href /library/
 
 
 
