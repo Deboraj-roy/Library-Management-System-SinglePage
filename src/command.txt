@@ -33,25 +33,19 @@ ng g c books/booksStore --no-standalone
 
 ng g c users/userOrders --no-standalone
 
+ng g c books/returnBook --no-standalone
+
 ng g c users/profile --no-standalone
 
 ng g c books/maintenance --no-standalone
 
+ng g c shared/components/pageTable --no-standalone
 
+ng g c users/approvalRequests --no-standalone
 
+ng g c users/allOrders --no-standalone
 
-
-
-
-
-
-
-
-
-
-
-
-
+ng g c users/ViewUsers --no-standalone
 
 
 

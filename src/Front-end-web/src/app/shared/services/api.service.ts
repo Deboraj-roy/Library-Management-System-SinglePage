@@ -4,6 +4,9 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { from, Subject } from 'rxjs';
 import { User, UserType } from '../../models/model'
+import { map, tap } from 'rxjs/operators';
+import { Book } from '../../models/Book';
+import { Order } from '../../models/Order';
 import { map, retry, tap } from 'rxjs/operators';
 import { Book } from '../../models/Book';
 import { Order } from '../../models/Order';
@@ -15,7 +18,8 @@ import { BookCategory } from '../../models/BookCategory';
   providedIn: 'root'
 })
 export class ApiService {
-  baseUrl: string = 'https://localhost:7030/api/Library/';
+  // baseUrl: string = 'https://localhost:7030/api/Library/';
+  baseUrl: string = 'http://angualrdeb.somee.com/api/Library/';
   userStatus: Subject<string> = new Subject();
   constructor(private http: HttpClient, private jwt: JwtHelperService) { }
 
@@ -184,6 +188,95 @@ export class ApiService {
   deleteBook(id: number) {
     return this.http.delete(this.baseUrl + 'DeleteBook', {
       params: new HttpParams().append('id', id),
+      responseType: 'text',
+    });
+  }
+
+  ///From MY
+  getFine(order: any) {
+    let today = new Date();
+    let orderDate = new Date(Date.parse(order.orderDate));
+    orderDate.setDate(orderDate.getDate() + 10);
+    if (orderDate.getTime() < today.getTime()) {
+      var diff = today.getTime() - orderDate.getTime();
+      let days = Math.floor(diff / (1000 * 86400));
+      return days * 50;
+    }
+    return 0;
+  }
+
+  returnBook(userId: string, bookId: string, fine: number){
+    return this.http.get(this.baseUrl + 'ReturnBook', {
+      params: new HttpParams()
+      .append('userId', userId)
+      .append('bookId', bookId)
+      .append('fine', fine),
+      responseType: 'text',
+    });
+  }
+
+  getUsers(){
+    return this.http.get<User[]>(this.baseUrl + 'GetUsers');
+  }
+
+  approveRequest(userId: number){
+    return this.http.get(this.baseUrl + 'ApproveRequest', {
+      params: new HttpParams().append('userId', userId),
+      responseType: 'text',
+    });
+  }
+  getOrders() {
+    return this.http.get<any>(this.baseUrl + 'GetOrders').pipe(
+      map((orders) => {
+        let newOrders = orders.map((order: any) => {
+          let newOrder: Order = {
+            id: order.id,
+            userId: order.userId,
+            userName: order.user.firstName + ' ' + order.user.lastName,
+            bookId: order.bookId,
+            bookTitle: order.book.title,
+            orderDate: order.orderDate,
+            returned: order.returned,
+            returnDate: order.returnDate,
+            finePaid: order.finePaid,
+          };
+          return newOrder;
+        });
+        return newOrders;
+      })
+    );
+  }
+
+  sendEmail() {
+    return this.http.get(this.baseUrl + 'SendEmailForPendingReturns', {
+      responseType: 'text',
+    });
+  }
+
+  blockUsers() {
+    return this.http.get(this.baseUrl + 'BlockFineOverdueUsers', {
+      responseType: 'text',
+    });
+  }
+
+  unblock(userId: number) {
+    return this.http.get(this.baseUrl + "Unblock", {
+      params: new HttpParams().append("userId", userId),
+      responseType: "text",
+    });
+  }
+
+
+  
+  GetUserInfo2() {
+    return this.http.get(this.baseUrl + 'GetUserInfo2', {
+      responseType: 'text',
+    });
+  }
+
+  
+  Protected() {
+    return this.http.get(this.baseUrl + 'Protected', {
       responseType: 'text',
     });
   }
