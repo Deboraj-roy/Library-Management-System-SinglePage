@@ -7,6 +7,7 @@ import { User, UserType } from '../../models/model'
 import { map, retry, tap } from 'rxjs/operators';
 import { Book } from '../../models/Book';
 import { Order } from '../../models/Order';
+import { BookCategory } from '../../models/BookCategory';
 
 
 
@@ -162,6 +163,29 @@ export class ApiService {
       return days * 50;
     }
     return 0;
+  }
+
+  addNewCategory(category: BookCategory) {
+    return this.http.post(this.baseUrl + 'AddCategory', category, {
+      responseType: 'text',
+    });
+  }
+
+  getCategories() {
+    return this.http.get<BookCategory[]>(this.baseUrl + 'GetCategories');
+  }
+
+  addBook(book: Book) {
+    return this.http.post(this.baseUrl + 'AddBook', book, {
+      responseType: 'text',
+    });
+  }
+
+  deleteBook(id: number) {
+    return this.http.delete(this.baseUrl + 'DeleteBook', {
+      params: new HttpParams().append('id', id),
+      responseType: 'text',
+    });
   }
 
 }
