@@ -14,7 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
     UserOrdersComponent,
     ApprovalRequestsComponent,
     AllOrdersComponent,
-    ViewUsersComponent
+    ViewUsersComponent,
     ProfileComponent
   ],
   imports: [

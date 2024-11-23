@@ -10,7 +10,7 @@ import { MaintenanceComponent } from './maintenance/maintenance.component';
 @NgModule({
   declarations: [
     BooksStoreComponent,
-    ReturnBookComponent
+    ReturnBookComponent,
     MaintenanceComponent
   ],
   imports: [

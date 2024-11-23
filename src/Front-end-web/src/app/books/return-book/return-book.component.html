@@ -1,5 +1,4 @@
-<p>return-book works!</p>
-a<mat-card>
+<mat-card>
     <mat-card-header>
         <h1>Return a Book</h1>
     </mat-card-header>
@@ -8,12 +7,12 @@ a<mat-card>
 
         <mat-form-field appearance="outline" color="accent">
             <mat-label>User ID</mat-label>
-            <input matInput formControlName="userId">
+            <input matInput type="number" formControlName="userId">
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Book ID</mat-label>
-            <input matInput formControlName="bookId">
+            <input matInput type="number" formControlName="bookId">
         </mat-form-field>
 
         <div class="fine">
@@ -25,7 +24,7 @@ a<mat-card>
             </span>
         </div>
 
-        <button mat-stroked-button color="accent" (click)="returnBook()">
+        <button mat-stroked-button color="accent" (click)="returnBook()" [disabled]="returnForm.invalid">
             Return Book
         </button>
 
