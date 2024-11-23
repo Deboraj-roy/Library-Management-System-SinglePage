@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ApprovalRequestsComponent } from './approval-requests/approval-requests.component';
 import { AllOrdersComponent } from './all-orders/all-orders.component';
 import { ViewUsersComponent } from './view-users/view-users.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -14,6 +15,7 @@ import { ViewUsersComponent } from './view-users/view-users.component';
     ApprovalRequestsComponent,
     AllOrdersComponent,
     ViewUsersComponent
+    ProfileComponent
   ],
   imports: [
     SharedModule
