@@ -58,6 +58,24 @@ ng g c users/ViewUsers --no-standalone
 
 
 
+Library-Management-System-SinglePage/
+
+
+Library-Management-System-SinglePage/
+│
+├── src/
+│   ├── API/
+│   │   └── LMS_API/
+│   │       └── LMS_API.csproj
+│   └── Front-end-web/
+│       └── src/
+│           ├── main.ts
+│           └── index.html
+│
+└── Dockerfile
+
+
+docker build -t library-management-system .
 
 
 

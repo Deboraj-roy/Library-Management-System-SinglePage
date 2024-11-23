@@ -15,8 +15,8 @@ import { BookCategory } from '../../models/BookCategory';
   providedIn: 'root'
 })
 export class ApiService {
-  // baseUrl: string = 'https://localhost:7030/api/Library/';
-  baseUrl: string = 'http://angualrdeb.somee.com/api/Library/';
+  baseUrl: string = 'https://localhost:7030/api/Library/';
+  // baseUrl: string = 'http://angualrdeb.somee.com/api/Library/';
   userStatus: Subject<string> = new Subject();
   constructor(private http: HttpClient, private jwt: JwtHelperService) { }
 
