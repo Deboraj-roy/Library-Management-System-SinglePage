@@ -1,3 +1,14 @@
+The error you're encountering, `"Data path "" must have required property 'browser'"`, suggests that the `"browser"` property is incorrectly specified in your `angular.json`. This error is typically caused by an incorrect configuration structure or missing/incorrect properties for the build options.
+
+### Review of the `angular.json` Configuration
+
+In Angular 12 and later, there was a change to the configuration structure. The correct key for the `main.ts` entry file is `"main"` rather than `"browser"`. Here's how to resolve the issue:
+
+### Corrected `angular.json`
+
+Ensure that the `angular.json` is structured correctly:
+
+```json
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
@@ -19,7 +30,7 @@
           "options": {
             "outputPath": "dist/front-end-web",
             "index": "src/index.html",
-            "browser": "src/main.ts",  
+            "main": "src/main.ts",  // This should be 'main' instead of 'browser'
             "polyfills": [
               "zone.js"
             ],
@@ -107,3 +118,27 @@
     "analytics": "3aea8182-ccb7-4493-be2c-d398247d21f7"
   }
 }
+```
+
+### Key Changes:
+
+1. **Replace `"browser": "src/main.ts"` with `"main": "src/main.ts"`:**
+   - The `"main"` entry is the correct property for specifying the main TypeScript file (`main.ts`) in Angular. The error you encountered was due to the incorrect `"browser"` key being used, which is not required anymore.
+
+2. **Assets Path Update:**
+   - Ensure the assets path (`"input": "src/assets"`) is correctly pointing to your assets folder, and that you have the proper assets in `src/assets`.
+
+### Next Steps:
+
+1. After updating the `angular.json` configuration, run the build command again:
+   ```bash
+   ng build --configuration production
+   ```
+
+2. If there are no further issues, deploy the content from the `dist/front-end-web` folder to your server, or serve it locally using:
+   ```bash
+   cd dist/front-end-web
+   http-server -p 8080 --index index.html
+   ```
+
+This should resolve the `"browser"` property error and allow you to build the Angular app successfully. Let me know if you face any more issues!
