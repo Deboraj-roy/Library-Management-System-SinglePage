@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
           tokenGetter: () => {
             return localStorage.getItem('access_token');
           },
-          allowedDomains: ['localhost:7030'],
+          allowedDomains: ['localhost:7030', 'librarydeb.somee.com'],
         },
       })
     ),
