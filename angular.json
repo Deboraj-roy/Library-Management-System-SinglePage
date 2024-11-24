@@ -23,6 +23,7 @@
             "polyfills": [
               "zone.js"
             ],
+            "baseHref": "/",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -51,6 +52,7 @@
                   "maximumError": "10kB"
                 }
               ],
+              "outputPath": "dist/front-end-web",
               "outputHashing": "all"
             },
             "development": {
