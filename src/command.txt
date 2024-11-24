@@ -94,7 +94,7 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 
 ng build --prod
-ng b --output-path UIPublish --base-href /library/
+ng b --output-path docs--base-href /angularPage/
 
 
 
