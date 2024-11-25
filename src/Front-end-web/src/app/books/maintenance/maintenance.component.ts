@@ -42,6 +42,20 @@ export class MaintenanceComponent {
     });
 
     this.deleteBook = fb.control('', [Validators.required]);
+
+    apiService.getCategories().subscribe({
+      next: (res: BookCategory[]) => {
+        if(res != null){
+          res.forEach(c => {
+            this.categoryOptions.push({
+              value: c.id,
+              displayValue: `${c.category} / ${c.subCategory}`
+            });
+          });
+        }
+      },
+    }); 
+    this.deleteBook = fb.control('', [Validators.required]);
   }
 
   addNewCategory() {
@@ -90,5 +104,5 @@ export class MaintenanceComponent {
       error: (err) => this.snackBar.open('Book does not Exist!', 'OK'),
     });
   }
-
+  
 }
