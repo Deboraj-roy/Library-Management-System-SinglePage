@@ -24,12 +24,16 @@ jobs:
       # Step 3: Build Docker image
       - name: Build Docker image
         run: docker build -t library-management-system -f ./DockerFile .
+        
+      # Step 3.5: Wait for the containers to start
+      - name: Wait for containers
+        run: sleep 30
 
       # Step 4: Run container to test
       - name: Run Docker container and test
         run: |
           docker run -d -p 7030:7030 -p 80:80 --name library-management-system library-management-system
-          sleep 10 # Wait for the container to start
+          sleep 25 # Wait for the container to start
 
       # Step 5: Check API and frontend health
       - name: Test API health check
@@ -39,6 +43,10 @@ jobs:
       - name: Test Frontend health check
         run: |
           curl -f http://localhost || (echo "Frontend is not running on port 80" && exit 1)
+      # Check container logs if health check fails
+      - name: Check API container logs
+        if: failure()
+        run: docker logs library-management-system
 
       # Step 6: Clean up
       - name: Stop and remove container
