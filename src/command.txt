@@ -97,6 +97,14 @@ ng build --prod
 ng b --output-path docs--base-href /angularPage/
 
 
+docker build -t library .
+
+docker run -p 8080:80 -p 7070:7030 library
+docker build -t library -f D:/Github/Library-Management-System-SinglePage/DockerFile .
+
+
+
+
 
 
 

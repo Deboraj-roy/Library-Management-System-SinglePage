@@ -2,26 +2,24 @@ version: '3'
 
 services:
   api:
-    # Build the ASP.NET API from DockerFile in the current directory
     build:
       context: .
       dockerfile: DockerFile
       target: backend-builder  # Use the backend build stage
     ports:
-      - "7030:7030"
+      - "7070:80"  # Map local 7031 to container's port 80 for API
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     networks:
       - app-network
 
   frontend:
-    # Build the Angular frontend from DockerFile in the current directory
     build:
       context: .
       dockerfile: DockerFile
       target: frontend-builder  # Use the frontend build stage
     ports:
-      - "80:80"
+      - "8080:80"  # Map local 8080 to container's port 80 for Angular frontend
     networks:
       - app-network
     depends_on:

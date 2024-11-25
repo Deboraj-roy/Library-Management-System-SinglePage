@@ -1,6 +1,7 @@
 using LMS_API.Data;
 using LMS_API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -52,6 +53,7 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.Configure<KestrelServerOptions>(builder.Configuration.GetSection("Kestrel"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
