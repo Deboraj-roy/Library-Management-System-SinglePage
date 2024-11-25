@@ -1,0 +1,66 @@
+<!--sidebar-->
+<c-sidebar
+  #sidebar="cSidebar"
+  class="d-print-none sidebar sidebar-fixed"
+  id="sidebar"
+  visible
+>
+  <c-sidebar-brand
+    [brandFull]="{
+      src: 'assets/images/Logo.png',
+      width: 100,
+      height: 100,
+      alt: 'Logo'
+    }"
+    
+    routerLink="./"
+    style="background-color: white; "
+  >
+  </c-sidebar-brand>
+    <perfect-scrollbar [config]="perfectScrollbarConfig">
+  <!--  [perfectScrollbar]="perfectScrollbarConfig"-->
+  <c-sidebar-nav
+    [navItems]="navItems"
+    dropdownMode="close"
+    class="navItm"
+  >
+  </c-sidebar-nav>
+    </perfect-scrollbar>
+  <c-sidebar-toggler
+    *ngIf="!sidebar.narrow"
+    toggle="unfoldable"
+    cSidebarToggle="sidebar"
+  ></c-sidebar-toggler>
+</c-sidebar>
+
+<!--main-->
+<div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
+  <!--app-header-->
+  <app-default-header class="mb-4 d-print-none header header-sticky" position="sticky" sidebarId="sidebar"></app-default-header>
+  <!--app-body-->
+  <div class="body flex-grow-1 px-3">
+    <c-container breakpoint="lg" class="h-auto">
+      <router-outlet></router-outlet>
+    </c-container>
+  </div>
+  <!--app footer-->
+  <app-default-footer></app-default-footer>
+
+  <c-toaster [placement]="position" class="p-3" position="fixed">
+    <c-toast
+      (timer)="onTimerChange($event)"
+      (visibleChange)="onVisibleChange($event)"
+      [visible]="visible">
+      <c-toast-header>
+
+        CoreUI for Angular
+      </c-toast-header>
+      <c-toast-body>
+        <p>This is static toast message in a toaster</p>
+        <c-progress thin>
+          <c-progress-bar [value]="percentage"></c-progress-bar>
+        </c-progress>
+      </c-toast-body>
+    </c-toast>
+  </c-toaster>
+</div>

@@ -1,0 +1,84 @@
+<c-nav variant="tabs">
+  <!-- <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="0"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilHome"></svg>
+      Payment Voucher
+    </a>
+  </c-nav-item> -->
+  <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="0"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilHome"></svg>
+      Cash Payment Voucher
+    </a>
+  </c-nav-item>
+  <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="1"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilArrowRight"></svg>
+      Bank Payment Voucher
+    </a>
+  </c-nav-item>
+  <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="2"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilArrowRight"></svg>
+      Payment Voucher List
+    </a>
+  </c-nav-item>
+</c-nav>
+<c-tab-content
+          #tabContent1="cTabContent"
+          [activeTabPaneIdx]="0"
+          cRounded="bottom"
+        >
+          <!-- <c-tab-pane class="p-3 preview" role="tabpanel">
+
+            <app-paymentt-voucher></app-paymentt-voucher>
+
+          </c-tab-pane> -->
+          <c-tab-pane class="p-3 preview" role="tabpanel">
+
+            <app-cash-payment-voucher></app-cash-payment-voucher>
+
+          </c-tab-pane>
+          <c-tab-pane
+            class="p-3 preview"
+            role="tabpanel"
+          >
+
+
+          <app-bank-payment-voucher></app-bank-payment-voucher>
+
+          </c-tab-pane>
+          <c-tab-pane
+            class="p-3 preview"
+            role="tabpanel"
+          >
+
+
+          <app-payment-voucher-list></app-payment-voucher-list>
+
+          </c-tab-pane>
+          
+</c-tab-content>
+
+
+ 

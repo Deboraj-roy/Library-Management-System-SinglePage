@@ -1,0 +1,26 @@
+<div id="mainbody" class="bg-light min-vh-100 d-flex flex-row align-items-center">
+  
+  <c-container id="mainPart">
+          <div id="cards">
+            <div class="login-w3l">
+              <div class="login-form">
+                <form #loginForm="ngForm" (ngSubmit)="userLogin(loginForm)" cForm ngNativeValidate>
+                    <input required name="UserName"  ngModel autoComplete="username" cFormControl placeholder="User Name" />
+                    <input
+                      name="Password"
+                      autoComplete="new-password"
+                      cFormControl
+                      placeholder="Password"
+                      type="password"
+                      ngModel
+                    />
+                    <input class="btn btn-Accounts_Demo-login" cFormControl type="submit" value="LOGIN">                  
+                </form>
+              </div>
+            </div>
+          </div>
+  </c-container>
+
+</div>
+
+

@@ -1,0 +1,551 @@
+
+<c-card>
+      <c-card-header style="border: none;">
+        <h3 class="text-center fw-bold"><u>Accounts_Demo</u></h3>
+        <h4 class="text-center"><u>BS Note</u></h4>
+      </c-card-header>
+      <c-card-body>
+        <div class=" form-group row mt-4 mb-4">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-2">
+              <label>Select Date</label>
+              <input type="date" class="form-control" [(ngModel)]="secoundDate">
+            </div>
+            <div class="col-md-1 mt-3">
+              <button cButton (click)="getAllByFirstDate()" >Filter</button>
+            </div>
+            <div class="col-md-2 mt-4 text-start" style="width:10%">
+              <h5>Compare with</h5>
+            </div>
+            <div class="col-md-2 text-start">
+              <label>Select Date</label>
+              <input type="date" class="form-control"  [(ngModel)]="compDate" >
+            </div>
+            <div class="col-md-1 mt-3">
+              <button cButton (click)="getAllCompDate()" >Filter</button>
+            </div>
+            <div class="col-md-1">
+            </div>
+          </div>
+        <c-row>
+            <c-col xs="9" class="margn">
+                <table bordered cTable hover >
+                    <thead cTableColor="dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Account Code</th>
+                            <th scope="col">Account Name</th>
+                            <th scope="col">Balance</th>
+                            
+                          </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode1}}-{{noteName1}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger1 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal1)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode2}}-{{noteName2}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger2 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal2)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode3}}-{{noteName3}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger3 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal3)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode4}}-{{noteName4}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger4 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal4)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode6}}-{{noteName6}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger6 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal6)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode7}}-{{noteName7}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger7 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal7)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode8}}-{{noteName8}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger8 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal8)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode9}}-{{noteName9}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger9 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal9)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode10}}-{{noteName10}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger10 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal10)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode11}}-{{noteName11}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger11 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal11)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode12}}-{{noteName12}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger12 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal12)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode13}}-{{noteName13}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger13 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal13)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode14}}-{{noteName14}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger14 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal14)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode15}}-{{noteName15}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger15 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal15)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode16}}-{{noteName16}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger16 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal16)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode17}}-{{noteName17}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger17 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal17)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode18}}-{{noteName18}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger18 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal18)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode19}}-{{noteName19}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger19 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal19)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4"><strong>Note {{noteCode21}}-{{noteName21}}</strong></td>
+                        </tr>
+                        <tr *ngFor="let ledger of noteLedger21 ; let i=index">
+                            <th scope="col">{{i}}</th>
+                            <td>{{ledger.minorCategoryCode}}</td>
+                            <td>{{ledger.minorCategoryName}}</td>
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="3" class="text-center">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotal21)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </c-col>
+            <c-col xs="2" style="margin-left: -2%;" *ngIf="open">
+                <table bordered cTable hover >
+                    <thead cTableColor="dark">
+                        <tr>
+                            
+                            <th scope="col">Balance</th>
+                            
+                          </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerA ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalA)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerB ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalB)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerC ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalC)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerD ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                           
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalD)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerE ; let i=index">
+                           
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                           
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalE)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerF ; let i=index">
+                           
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                           
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalF)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerG ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                           
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalG)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerH ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                           
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalH)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerI ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                           
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalI)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerJ ; let i=index">
+                           
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalJ)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerK ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                           
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalK)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerL ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                           
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalL)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerM ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalM)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerN ; let i=index">
+                           
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalN)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerO ; let i=index">
+                           
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalO)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerP ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                           
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalP)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerQ ; let i=index">
+                           
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                          
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalQ)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerR ; let i=index">
+                            
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                            
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalR)}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr *ngFor="let ledger of noteLedgerS ; let i=index">
+                           
+                            <td>{{formatNumberWithCustomPattern(ledger.balance)}}</td>
+                        </tr>
+                        <tr>
+                           
+                            <td scope="col" >{{formatNumberWithCustomPattern(noteTotalS)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </c-col>
+        </c-row>
+      </c-card-body>
+</c-card>

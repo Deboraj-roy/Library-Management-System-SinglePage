@@ -1,0 +1,94 @@
+<div class="card mt-3 ">
+    <div class="card-header text-center">
+      <h3>Inventory</h3>
+    </div>
+    
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-9">
+
+          </div>
+          <div class="col-md-3" > 
+            <input  type="text" class="form-control" placeholder="Search Item...." [(ngModel)]="searchText" />
+         </div>
+        </div>
+        
+        <form (ngSubmit)="getAllItemSummaryy()">
+          <div class="row">
+           
+            <!-- Searchable Dropdown for Item -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Select Item:</label>
+                <ng-select [items]="listOfMinorCategory"
+                           bindLabel="minorCategoryName"
+                           bindValue="id"
+                           [(ngModel)]="selectedItemId"
+                           name="selectedItemId"  
+                           placeholder="Select an Ledger"
+                           (change)="getItemDetails($event)">
+                </ng-select>
+              </div>
+            </div> 
+    
+            <div class="col-md-2">
+              <div class="text-center mt-3">
+                <button type="submit"  class="btn btn-primary">Search</button>
+              </div>
+            </div>
+    
+           <div class="col-md-3 row">
+              <div class="col-md-6">
+                <label style="font-weight: 700">Report Type</label>
+                <ng-select [items]="reportType" class="mt-1"
+                           bindLabel="name" bindValue="id" 
+                           placeholder="Select Type" 
+                           [(ngModel)]="type" name="reportType"> 
+                </ng-select>
+              </div>
+              <div class="col-md-6 d-flex align-items-end">
+                <button type="button" class="btn btn-primary mt-1" (click)="getReport()">Download</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+        <table bordered cTable hover class="mt-2 text-center">
+          <thead cTableColor="dark">
+            <tr>
+                <th scope="col" >#</th>
+                <th scope="col" >Item Name</th>
+                <th scope="col">Total Purchase</th>
+                <th scope="col">Total Purchase Price</th>
+                <th scope="col" >Total Sale</th>
+                <th scope="col" >Stock Value(Avg.)</th>
+                <th scope="col" >Stock Value(FIFO)</th>
+                <th scope="col" >Item Remain</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of itemList | filter : searchText ; let i=index">
+                <th scope="col" >{{i}}</th>
+                <th scope="col" >{{item.accLedgerName}}</th>
+                <th scope="col">{{formatNumberWithCustomPattern(item.totalPurchase)}}</th>
+                <th scope="col">{{formatNumberWithCustomPattern(item.totalPurchasePrice)}}</th>
+                <th scope="col" >{{formatNumberWithCustomPattern(item.totalSales)}}</th>
+                <th scope="col" >{{formatNumberWithCustomPattern((item.totalPurchase - item.totalSales)*item.stockPrice)}}</th>
+                <th scope="col" >{{formatNumberWithCustomPattern(item.totalPurchasePrice-item.totalSalesPrice)}}</th>
+                <th scope="col" >{{formatNumberWithCustomPattern(((item.totalPurchase+item.totalReturnSales) - (item.totalSales+item.totalReturnPurchase)))}}</th>
+            </tr>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col"><strong>Total</strong></th>
+              <th scope="col"><strong>{{formatNumberWithCustomPattern(totalPurchaseAmt)}}</strong></th>
+              <th scope="col"><strong>{{formatNumberWithCustomPattern(totalPurchasePriceAmt)}}</strong></th>
+              <th scope="col"><strong>{{formatNumberWithCustomPattern(totalSaleAmt)}}</strong></th>
+              <th scope="col"><strong>{{formatNumberWithCustomPattern(totalAvgStockValueAmt)}}</strong></th>
+              <th scope="col"><strong>{{formatNumberWithCustomPattern(totalFifoStockValueAmt)}}</strong></th>
+              <th scope="col"><strong>{{formatNumberWithCustomPattern(totalItemRemainAmt)}}</strong></th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  </div>

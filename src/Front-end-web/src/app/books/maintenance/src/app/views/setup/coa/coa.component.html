@@ -1,0 +1,176 @@
+<c-row>
+  <c-col xs="12">
+    <c-card class="mb-3">
+      <c-card-header ngPreserveWhitespaces>
+        <strong>Viewing</strong> <small>COA</small>
+      </c-card-header>
+      <c-card-body>
+        <c-container>
+          <c-row>
+            <c-col>
+              <div md="3" class="mb-3">
+                <label cLabel for="exampleFormControlInput1"
+                  >Account Head</label
+                >
+                <ng-select
+
+                [(ngModel)]="AccHeadId"
+                (change)="changedSelection()"
+                (change)="getAccSubHead($event)"
+                cSelect placeholder="Select Acc Head">
+                  <ng-option 
+                    *ngFor="let accHead of accHeads"
+                    [value]="accHead.accHeadId"
+                  >
+                    {{ accHead.headName }}
+                  </ng-option>
+                </ng-select>
+              </div></c-col
+            >
+            <c-col
+              ><div md="3" class="mb-3">
+                <label cLabel for="exampleFormControlInput1">Sub Head</label>
+
+                <ng-select
+
+                [(ngModel)]="AccSubHeadId"
+                (change)="changedSelection()"
+                (change)="getCategory($event)"
+                  cSelect placeholder="Select Sub Heads">
+                  <ng-option
+                  *ngFor="let accSubHead of accSubHeads"
+                    [value]="accSubHead.accSubHeadId"
+                  >
+                  {{ accSubHead.accSubHeadName }}
+                  </ng-option>
+                </ng-select>
+              </div></c-col
+            >
+            <c-col
+              ><div md="3" class="mb-3">
+                <label cLabel for="exampleFormControlInput1">Category</label>
+                <ng-select
+
+                [(ngModel)]="AccSubHeadCategoryId"
+                (change)="changedSelection()"
+                (change)="getMajorCategories($event)"
+                cSelect placeholder="Select Category">
+                  <ng-option
+                  *ngFor="let accSubHeadCategory of accSubHeadCategories"
+                    [value]="accSubHeadCategory.accSubHeadCategoryId"
+                  >
+                  {{ accSubHeadCategory.accSubHeadCategoryName }}
+                  </ng-option>
+                </ng-select>
+              </div></c-col
+            >
+
+            <c-col
+            ><div md="3" class="mb-3">
+              <label cLabel
+                >Major Category</label
+              >
+              <ng-select
+
+              [(ngModel)]="MajorCategoryId"
+              (change)="changedSelection()"
+              (change)="getMinorCategories($event)"
+              cSelect placeholder="Select Major Category">
+                <ng-option
+                *ngFor="let majorCategory of majorCategories"
+                  [value]="majorCategory.majorCategoryId"
+                >
+                {{ majorCategory.majorCategoryName }}
+                </ng-option>
+              </ng-select>
+            </div></c-col
+          >
+
+            <c-col
+              ><div md="3" class="mb-3">
+                <label cLabel
+                  >Minor Category / Ledger</label
+                >
+                <ng-select
+
+                [(ngModel)]="MinorCategoryId"
+                (change)="changedSelection()"
+                (change)="getMinorsubCategories($event)"
+                cSelect placeholder="Select Ledger">
+                  <ng-option
+                  *ngFor="let minorCategory of minorCategories"
+                    [value]="minorCategory.minorCategoryId"
+                  >
+                  {{ minorCategory.minorCategoryName }}
+                  </ng-option>
+                </ng-select>
+              </div></c-col
+            >
+
+            <c-col
+              ><div md="3" class="mb-3">
+                <label cLabel
+                  >Sub Ledger</label
+                >
+                <ng-select
+
+                [(ngModel)]="MinorSubCategoryId"
+                (change)="changedSelection()"
+                cSelect placeholder="Select Sub Ledger">
+                  <ng-option
+                  *ngFor="let minorSubCategory of minorSubCategories"
+                    [value]="minorSubCategory.minorSubCategoryId"
+                  >
+                  {{ minorSubCategory.minorSubCategoryName }}
+                  </ng-option>
+                </ng-select>
+              </div></c-col
+            >
+          </c-row>
+           <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-3 mt-2 mb-2">
+             <input type="text" placeholder="search here....." name="search" class="form-control" [(ngModel)]="searchText" >
+            </div>
+           </div>
+          
+        </c-container>
+
+        <table #screen bordered cTable hover>
+          <thead cTableColor="dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Head</th>
+              <th scope="col">Sub Head</th>
+              <th scope="col">Category</th>
+              <th scope="col">Major Category</th>
+              <th scope="col">Minor Category / Ledger</th>
+              <th scope="col">Sub Ledger</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ca of chartOfAccounts | filter : searchText; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ ca.headName }}</td>
+              <td>{{ ca.accSubHeadName }}</td>
+              <td>{{ ca.accSubHeadCategoryName }}</td>
+              <td>{{ ca.majorCategoryName }}</td>
+              <td>{{ ca.minorCategoryName }}</td>
+              <td>{{ ca.minorSubCategoryName }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- <div id="download">
+          <h1>test</h1>
+          <img #canvas />
+          <a #downloadLink></a>
+        </div> -->
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+<!-- <div class="btn btn-primary" (click)="logOut()">LogOut</div>-->
+
+<!-- <div class="btn btn-primary" (click)="downloadImage()">DL</div> 
+<div class="btn btn-primary" (click)="captureScreen()">DL</div>  -->

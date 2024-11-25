@@ -1,0 +1,197 @@
+<c-container>
+    <c-card>
+        <c-card-header style="border: none;">
+           <h3 class="text-center fw-bold"><u>Accounts_Demo</u></h3>
+           <h4 class="text-center"><u>Trial Balance Old</u></h4>
+        </c-card-header>
+        <c-card-body>
+            <div class="form-group row">
+                <div class="row mb-2">
+                    <div class="col-md-3">
+                        <!-- <label class="mb-2" style="font-weight: 700"> Search Ledger</label>
+                        <input  type="text" class="form-control" placeholder="Enter Account Name or Code" [(ngModel)]="searchText"/> -->
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label class="mb-2" style="font-weight: 700">Start Date</label>
+                        <input type="date" class="form-control mb-2" #start [(ngModel)]="startDate">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="mb-2" style="font-weight: 700">End Date</label>
+                        <input type="date" class="form-control mb-2" #end [(ngModel)]="endDate">
+                    </div>
+                    <div class="col-md-1 text-end">
+                        <button type="button" class="mt-4 " cButton (click)="getTrailBalance(start.value,end.value)">Filter</button>
+                    </div>
+                    <div class="col-md-1 text-end" *ngIf="download">
+                        <c-spinner class="mt-4" color="primary"></c-spinner>
+                    </div>
+                    <div class="col-md-1 text-end">
+                        <button type="button" class="mt-4" cButton color="primary" (click)="invoicegnrt(start.value,end.value)" variant="outline" >Download</button>
+                    </div>
+                  </div>
+            </div>
+            <div  id="ddll">
+                <table bordered cTable hover class="mt-2 text-center" id="ddll">
+                    <thead >
+                        <tr>
+                            <th scope="col" rowspan="2" > <p style="margin-top: -20px;font-weight: 700">#</p></th>
+                            <th scope="col" rowspan="2"  ><p style="margin-top: -20px;font-weight: 700;">Account Code</p></th>
+                            <th scope="col" rowspan="2" [ngClass]="{'left-align': true}" style="width:20%;font-weight: 700"><p> Account Name</p></th>
+                            <th scope="col" colspan="2" style="font-weight: 700" >Opening</th>
+                            <th scope="col" colspan="2" style="font-weight: 700" >Current Period</th>
+                            <th scope="col" colspan="2" style="font-weight: 700">Closing</th>
+                        </tr>
+                        <tr>
+                            <th scope="col" style="font-weight: 700" > Debit</th>
+                            <th scope="col" style="font-weight: 700" >Credit</th>
+                            <th scope="col" style="font-weight: 700" > Debit</th>
+                            <th scope="col" style="font-weight: 700" >Credit</th>
+                            <th scope="col" style="font-weight: 700"> Debit</th>
+                            <th scope="col" style="font-weight: 700">Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="title" class="borderr">
+                            <td class="borderr"></td>
+                            <td class="borderr"></td>
+                            <td class="borderr"></td>
+                            <td class="borderr" ></td>
+                            <td class="borderr" ><c-spinner color="primary"></c-spinner></td>
+                            <td class="borderr" ></td>
+                            <td class="borderr" ></td>
+                            <td class="borderr"></td>
+                            <td class="borderr"></td>
+                        </tr>
+                        <tr *ngFor="let open of trialBalance | filter : searchText ; let i=index ">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ open.minorCategoryCode}}</td>
+                            <td [ngClass]="{'left-align': true}" style="width:20%;">{{ open.minorCategoryName}}</td>
+                            <td class="mark1"  [cModalToggle]="verticallyCenteredModal.id" (click)="getLedgerCodeForOpening(open.minorCategoryCode)">{{ formatNumberWithCustomPattern(open.openingDebit)}}</td>
+                            <td class="mark1"  [cModalToggle]="verticallyCenteredModal.id" (click)="getLedgerCodeForOpening(open.minorCategoryCode)">{{ formatNumberWithCustomPattern(open.openingCredit) }}</td>
+                            <td class="mark1"  (click)="getLedgerCodeForCurrent(open.minorCategoryCode)" [cModalToggle]="verticallyCenteredModall.id">{{ formatNumberWithCustomPattern(open.currentDebit) }}</td>
+                            <td class="mark1"  [cModalToggle]="verticallyCenteredModall.id" (click)="getLedgerCodeForCurrent(open.minorCategoryCode)">{{ formatNumberWithCustomPattern(open.currentCredit) }}</td>
+                            <td>{{ formatNumberWithCustomPattern(open.closingDebit) }}</td>
+                            <td>{{ formatNumberWithCustomPattern(open.closingCredit) }}</td>
+                        </tr> 
+                    </tbody>
+                    <tfoot>
+                        <tr style="font-weight: 700;" >
+                            <td scope="col" style="border-right:none"></td>
+                            <td scope="col" style="border :none"></td>
+                            <td scope="col" style="border :none">Total</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(totalOpeningDebit)}}</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(totalOpeningCredit)}}</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(totalCurrentDebit)}}</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(totalCurrentCredit)}}</td>
+                            <td scope="col">{{formatNumberWithCustomPattern(totalClosingDebit)}}</td>
+                            <td scope="col" >{{formatNumberWithCustomPattern(totalClosingCredit)}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+                    
+        </c-card-body>
+    </c-card>
+</c-container>
+
+
+<c-modal #verticallyCenteredModal alignment="top" id="verticallyCenteredModal" size="lg">
+<c-modal-header>
+  <h5 cModalTitle>Ledger Details</h5>
+  <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+</c-modal-header>
+<c-modal-body>
+  <table bordered cTable hover>
+    <thead cTableColor="dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Account Name</th>
+        <th scope="col">Debit</th>
+        <th scope="col">Credit</th>
+        <th scope="col">Date</th>
+        <th scope="col">Narration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="titleOpening" class="borderr">
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+        <td class="borderr"><c-spinner color="primary"></c-spinner></td>
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+      </tr>
+      <tr *ngFor="let note of listOfAccLedgers ; let i=index">
+         <td>{{i}}</td>
+         <td>{{note.accLedgerName}}</td>
+         <td>{{formatNumberWithCustomPattern(note.debit)}}</td>
+         <td>{{formatNumberWithCustomPattern(note.credit)}}</td>
+         <td>{{note.createdDate | date}}</td>
+         <td>{{note.narration}}</td>
+      </tr>
+      <tr *ngIf="listOfAccLedgers.length==0" class="borderr">
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+        <td class="borderr"><h4 class="text-center">No Data</h4></td>
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+      </tr>
+    </tbody>
+  </table>
+</c-modal-body>
+<c-modal-footer>
+  <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">Close</button>
+</c-modal-footer>
+</c-modal>
+
+<c-modal #verticallyCenteredModall alignment="top" id="verticallyCenteredModall" size="lg">
+<c-modal-header>
+  <h5 cModalTitle>Ledger Details</h5>
+  <button [cModalToggle]="verticallyCenteredModall.id" cButtonClose></button>
+</c-modal-header>
+<c-modal-body>
+  <table bordered cTable hover>
+    <thead cTableColor="dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Account Name</th>
+        <th scope="col">Debit</th>
+        <th scope="col">Credit</th>
+        <th scope="col">Date</th>
+        <th scope="col">Narration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="titleCurrent" class="borderr">
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+        <td class="borderr"><c-spinner color="primary"></c-spinner></td>
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+      </tr>
+      <tr *ngFor="let note of listOfAccLedgersCurrent ; let i=index">
+         <td>{{i}}</td>
+         <td>{{note.accLedgerName}}</td>
+         <td>{{formatNumberWithCustomPattern(note.debit)}}</td>
+         <td>{{formatNumberWithCustomPattern(note.credit)}}</td>
+         <td>{{note.createdDate | date}}</td>
+         <td>{{note.narration}}</td>
+      </tr>
+      <tr *ngIf="listOfAccLedgersCurrent.length==0" class="borderr">
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+        <td class="borderr"><h4 class="text-center">No Data</h4></td>
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+        <td class="borderr"></td>
+      </tr>
+    </tbody>
+  </table>
+</c-modal-body>
+<c-modal-footer>
+  <button [cModalToggle]="verticallyCenteredModall.id" cButton color="secondary">Close</button>
+</c-modal-footer>
+</c-modal>

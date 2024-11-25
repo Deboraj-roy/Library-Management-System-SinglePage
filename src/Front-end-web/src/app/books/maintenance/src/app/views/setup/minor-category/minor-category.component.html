@@ -1,0 +1,212 @@
+<c-container >
+  <c-row>
+    <c-col xs lg="3">
+      <form
+        [formGroup]="addMinorCategoryForm"
+        cForm
+        (ngSubmit)="onAddMinorCategoryFormSubmit()"
+      >
+
+
+
+        <div md="3" class="mb-3" >
+          <label cLabel for="exampleFormControlInput1"
+            >Major Category</label
+          >
+          <ng-select
+          formControlName="MajorCategoryId"
+          cSelect
+
+          (change)="changedMajorCategory($event)"
+          placeholder="Select Major Category">
+
+           <ng-option
+
+            *ngFor="let majorCategories of majorCategories"
+            [value]="majorCategories.majorCategoryId"
+          >
+            {{ majorCategories.majorCategoryName}}
+           </ng-option>
+          </ng-select>
+        </div>
+
+
+
+
+        <div class="mb-3">
+          <label cLabel for="SubHeadCategory">Ledger Name</label>
+          <input
+            formControlName="MinorCategoryName"
+            cFormControl
+            type="text"
+          />
+        </div>
+        <div class="mb-3">
+          <label cLabel for="SubHeadCategory">Ledger Code</label>
+          <input
+            formControlName="MinorCategoryCode"
+            cFormControl
+            type="text"
+            [value]="Code"
+            readonly
+          />
+        </div>
+        <div class="mb-3">
+          <label cLabel >Note Name</label>
+          <ng-select [items]="notesList" bindLabel="noteNameCode" bindValue="noteId" formControlName="noteId" (change)="getType($event)" [placeholder]="'Select Note'">
+          </ng-select>
+        </div>
+
+        <button
+        [disabled]="addMinorCategoryForm.invalid ? true : false"
+
+          cButton
+          type="submit"
+        >
+          Save
+        </button>
+
+
+        <button
+        (click)="resetForm(addMinorCategoryForm)"
+        cButton
+       color="info"
+       variant="outline"
+       class="ms-3"
+      >
+        Reset Form
+      </button>
+      </form>
+    </c-col>
+    <c-col class="wid">
+      <div class="row mt-2 mb-2">
+        <div class="col-md-8" > 
+        </div>
+        <div class="col-md-4" > 
+          <input  type="text" class="form-control" placeholder="Search Ledger...." [(ngModel)]="searchText"/>
+       </div>
+      </div>
+      <table bordered cTable hover>
+        <thead cTableColor="dark">
+          <tr>
+            <th scope="col" style="width:1%">#</th>
+            <th scope="col" style="width:7%">Head</th>
+            <th scope="col" style="width:7%">SubHead</th>
+            <th scope="col" style="width:7%">Category</th>
+            <th scope="col" style="width:7%">Major Category</th>
+            <th scope="col" style="width:7%">Ledger Name</th>
+            <th scope="col" style="width:6%">Code</th>
+            <th scope="col" style="width:1%">NoteCode</th>
+            <th scope="col" style="width:1%">Type</th>
+            <th scope="col" colspan="2" style="width:2%">Option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let minorCategory of minorCategories | filter : searchText | paginate:{
+                id: 'portingTnPagination',
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+               };
+              let i = index
+            "
+          >
+            <td style="width:1%">{{ i + 1 }}</td>
+            <td style="width:7%">{{ minorCategory.accHeadName }}</td>
+            <td style="width:7%">{{ minorCategory.accSubHeadName }}</td>
+            <td style="width:7%">{{ minorCategory.accSubHeadCategoryName }}</td>
+            <td style="width:7%">{{ minorCategory.majorCategoryName }}</td>
+            <td style="width:7%">{{ minorCategory.minorCategoryName }}</td>
+            <td style="width:7%">{{ minorCategory.minorCategoryCode }}</td>
+            <td style="width:7%">{{ minorCategory.noteName }}</td>
+            <td style="width:1%">{{ minorCategory.ledgerType }}</td>
+            <td style="width:1%;color: #1e3050; border-right: none; cursor: pointer;" [cModalToggle]="verticallyCenteredModal.id" (click)="editSubHeadCategory(minorCategory)" ><i class="fa-solid fa-pen-to-square fa-2xl"></i></td>
+            <td style="width:1%;color: #1e3050;border-left: none; cursor: pointer;" [cModalToggle]="deleteModel.id" (click)="editSubHeadCategory(minorCategory)" hidden><i class="fa-solid fa-trash fa-2xl"></i></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <pagination-controls 
+        id="portingTnPagination"
+        previousLavel="Pre"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)"
+        ></pagination-controls>
+      </div>
+    </c-col>
+  </c-row>
+</c-container>
+
+<c-modal #verticallyCenteredModal alignment="top" id="verticallyCenteredModal">
+  <c-modal-header>
+    <h5 cModalTitle>Modal title</h5>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Category Name</label>
+      <input
+        cFormControl
+        #Name
+        type="text"
+        [value]="LedgerName"
+      />
+    </div>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Category Code</label>
+      <input
+        cFormControl
+        #code
+        type="text"
+        [value]="LedgerCode"
+        [readonly]="true"
+      />
+    </div>
+    <div class="mb-3">
+      <label cLabel >Note Name</label>
+      <ng-select [items]="notesList" bindLabel="noteNameCode" bindValue="noteId"  (change)="getType($event)" [(ngModel)]="noteId" [placeholder]="'Select Note'">
+      </ng-select>
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="verticallyCenteredModal.id" (click)="updateSubHeadCategory(Name.value,code.value)"
+    cButton color="primary">Update</button>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">Close</button>
+  </c-modal-footer>
+</c-modal>
+
+<c-modal #deleteModel alignment="top" id="deleteModel">
+  <c-modal-header>
+    <h5 cModalTitle>Modal title</h5>
+    <button [cModalToggle]="deleteModel.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Category Name</label>
+      <input
+        cFormControl
+        #Name
+        type="text"
+        [value]="LedgerName"
+        readonly
+      />
+    </div>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Category Code</label>
+      <input
+        cFormControl
+        #code
+        type="text"
+        [value]="LedgerCode"
+        readonly
+      />
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="deleteModel.id" 
+    cButton color="primary" (click)="deleteLedger()">Delete</button>
+    <button [cModalToggle]="deleteModel.id" cButton color="secondary" >Close</button>
+  </c-modal-footer>
+</c-modal>

@@ -1,0 +1,82 @@
+<c-container>
+  <c-card>
+    <c-card-header ngPreserveWhitespaces>
+      <strong>Setup</strong> <small>Notes</small>
+    </c-card-header>
+    <c-card-body>
+    <c-row  >
+      <c-col xs lg="3">
+        <c-card class="mb-3" style="border:none">
+            <c-card-body style="border:none">
+                <form [formGroup]="noteEntryFrom" >
+                    <div class="container">
+                        <div class="mt-2 mb-4">
+                            <label  class="mb-2 fw-bold" style="margin-left: 5px;">Account Sub Head</label>
+                            <ng-select [items]="accSubHeads" bindLabel="accSubHeadName" bindValue="accSubHeadId" formControlName="accSubHeadId" [placeholder]="'Select Balance Type'">
+                            </ng-select>
+                        </div>
+                          <div class="mt-4 mb-4">
+                              <label for="amount" class="mb-2 fw-bold" style="margin-left: 5px;">Note Name</label>
+                              <input id="amount" name="amount" type="text" formControlName="noteName" placeholder="Enter Name" class="form-control" />
+                          </div>
+
+                          <div class="mt-4 mb-4">
+                            <label for="amount" class="mb-2 fw-bold" style="margin-left: 5px;">Note Code</label>
+                            <input id="amount" name="amount" type="text" formControlName="noteCode" placeholder="Enter Code" class="form-control" />
+                          </div>
+
+                          <div class="mt-4 mb-4">
+                            <label for="amount" class="mb-2 fw-bold" style="margin-left: 5px;">Note Type</label>
+                            <ng-select [items]="noteTypeList" bindLabel="name" bindValue="name" formControlName="noteType" [placeholder]="'Select Balance Type'">
+                            </ng-select>
+                          </div>
+
+                          <div class="mt-4 mb-4">
+                              <button cButton (click)="saveNote()">Save</button>
+                          </div>
+
+                    </div>
+                </form>
+                
+            </c-card-body>
+         </c-card>
+      </c-col>
+      <c-col >
+        <div class="row mt-2 ">
+          <div class="col-md-8" > 
+          </div>
+          <div class="col-md-4" > 
+            <input  type="text" class="form-control" placeholder="Search Ledger...." [(ngModel)]="searchText" />
+         </div>
+        </div>
+        <table bordered cTable hover class="mt-2">
+          <thead cTableColor="dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Notes Name</th>
+              <th scope="col">Account Sub Head Name</th>
+              <th scope="col">Note Code</th>
+              <th scope="col">Note Type</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+            *ngFor="let open of notesList | filter : searchText ; let i=index "
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ open.noteName }}</td>
+              <td>{{ open.accSubHeadName }}</td>
+              <td>{{ open.noteCode }}</td>
+              <td>{{ open.noteType }}</td>
+              <td><button class="btn btn-success" cButton>Edit</button></td>
+              <!-- [cModalToggle]="ModalPopup.id" (click)="editOpeningBalance(open)"  -->
+            </tr>
+            <tr></tr>
+          </tbody>
+        </table>
+      </c-col>
+    </c-row>
+  </c-card-body>
+  </c-card>
+</c-container>

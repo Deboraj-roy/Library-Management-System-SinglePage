@@ -1,0 +1,70 @@
+<div class="card">
+    <div class="card-header text-center">
+      <h3>Voucher List For Note</h3>
+    </div>
+      <div class="card-header" style="border: none;">
+          <div class="container mb-2 mt-4">
+              <div class="row" >
+                  <div class="col-md-4">
+                      <label >Note Name</label>
+                      <ng-select cSelect placeholder="Select Note Name" [items]="noteList"
+                          (change)="getVoucherByNoteId($event)"
+                         bindLabel="noteName" bindValue="noteId" class="mt-2" >
+                      </ng-select>
+                  </div>
+                  <div class="col-md-3">
+                      <label >From Select Date</label>
+                      <input class="form-control mt-2"  type="date" [(ngModel)]="startdate"/>
+                  </div>
+                  <div class="col-md-3">
+                      <label >To Select Date</label>
+                      <input class="form-control mt-2" type="date"   [(ngModel)]="enddate"/>
+                  </div>
+                  <div class="col-md-2 text-end">
+                    <button class="mt-4" cButton (click)="getLedgerByNoteId()" style="width:50%;"> Filter</button>
+                </div>
+                
+              </div>    
+          </div>
+      </div>
+      <div class="card-body">
+        <table bordered cTable hover class="mt-2 text-center">
+          <thead >
+            <tr>
+                <th scope="col" rowspan="2" ><p style="margin-top: -20px;font-weight: 700">#</p></th>
+                <th scope="col" rowspan="2"  ><p style="margin-top: -20px;font-weight: 700;">Date</p></th>
+                <th scope="col" rowspan="2"  style="width:20%;font-weight: 700"><p>Account Name</p></th>
+                <th scope="col" rowspan="2"  style="width:20%;font-weight: 700"><p>Narration</p></th>
+                <th scope="col" rowspan="2"  style="width:20%;font-weight: 700"><p>Voucher No</p></th>
+                <th scope="col" colspan="2" style="font-weight: 700">Transaction</th>
+            </tr>
+            <tr>
+              <th scope="col" style="font-weight: 700"> Debit</th>
+              <th scope="col" style="font-weight: 700">Credit</th>
+          </tr>
+          </thead>
+
+               
+          <tbody>
+            <tr *ngFor="let lg of accLedgerListByNoteId; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ lg.createdDate | date }}</td>
+              <td>{{ lg.accLedgerName }}</td>
+              <td>{{ lg.narration}}</td>
+              <td>{{ lg.voucher}}</td>
+              <td>{{ formatNumberWithCustomPattern(lg.debit) }}</td>
+              <td>{{ formatNumberWithCustomPattern(lg.credit) }}</td>
+            </tr>
+            <tr>
+              <td  scope="col" colspan="5"><strong>Total</strong></td>
+              <td><strong>{{ formatNumberWithCustomPattern(totalDebit) }}</strong></td>
+              <td><strong>{{ formatNumberWithCustomPattern(totalCredit) }}</strong></td>
+            </tr>
+            <tr *ngIf="this.open">
+                <th scope="col" colspan="7" rowspan="2"><h4> No Voucher For this Ledger</h4></th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  </div>

@@ -1,0 +1,136 @@
+<div class="card mt-3">
+  <!-- Card Header -->
+  <div class="card-header text-center">
+    <h4>Inventory Details</h4>
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <form (ngSubmit)="searchInventory()">
+      <div class="row">
+        <!-- From Date -->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="fromDate">From Date:</label>
+            <input type="date" class="form-control" [(ngModel)]="fromDate" name="fromDate">
+          </div>
+        </div>
+    
+        <!-- To Date -->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="toDate">To Date:</label>
+            <input type="date" class="form-control" [(ngModel)]="toDate" name="toDate">
+          </div>
+        </div>
+    
+        <!-- Searchable Dropdown for Item -->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>Select Item:</label>
+            <ng-select [items]="listOfItem"
+                       bindLabel="accountName"
+                       bindValue="id"
+                       [(ngModel)]="selectedItemId"
+                       name="selectedItemId"  
+                       placeholder="Select an item"
+                       (change)="getItemDetails($event)">
+            </ng-select>
+          </div>
+        </div>
+    
+        <div class="col-md-2">
+          <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </div>
+        
+        <!-- <div class="col-md-3 row">
+          <div class="col-md-6">
+            <label style="font-weight: 700">Report Type</label>
+            <ng-select [items]="reportType" class="mt-1"
+                       bindLabel="name" bindValue="id" 
+                       placeholder="Select Type" 
+                       [(ngModel)]="type" name="reportType"> 
+            </ng-select>
+          </div>
+          <div class="col-md-6 d-flex align-items-end">
+            <button type="button" class="btn btn-primary mt-1" (click)="getReport()">Download</button>
+          </div>
+        </div> -->
+      </div>
+    </form>
+
+    <!-- Display Inventory Details -->
+    <div *ngIf="inventoryDetails.length > 0" class="mt-4">
+      <h5>Inventory Details:</h5>
+      <table class="table table-striped">
+        <thead cTableColor="dark">
+          <tr>
+            <th>Date</th>
+            <th>Item Name</th>
+            <th>Opening Stock Qty</th>
+            <th>Purchase Qty</th>
+            <th>Purchase Return Qty</th>
+            <th>Sales Qty</th>
+            <th>Sales Return Qty</th>
+            <th>Closing Stock Qty</th>
+            <th>Opening Stock Value</th>
+            <th>Purchase Value</th>
+            <th>Purchase Return Value</th>
+            <th>Sales Value</th>
+            <th>Sales Return Value</th>
+            <th>Closing Stock Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let detail of inventoryDetails">
+            <td>{{ detail.createdDate | date: 'MM/dd/yyyy' }}</td>
+            <td>{{ detail.itemName }}</td>
+            <td>{{ detail.openingStockQty }}</td>
+            <td>{{ detail.totalPurchaseQty }}</td>
+            <td>{{ detail.totalPurchaseReturnQty }}</td>
+            <td>{{ detail.totalSalesQty }}</td>
+            <td>{{ detail.totalSalesReturnQty }}</td>
+            <td>{{ detail.closingStockQty }}</td>
+            <td>{{ detail.openingStockValue }}</td>
+            <td>{{ detail.totalPurchaseValue }}</td>
+            <td>{{ detail.totalPurchaseReturnValue }}</td>
+            <td>{{ detail.totalSalesValue }}</td>
+            <td>{{ detail.totalSalesReturnValue }}</td>
+            <td>{{ detail.closingStockValue }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="inventoryDetails.length == 0" class="mt-4">
+      <h5>Inventory Details:</h5>
+      <table class="table table-striped">
+        <thead cTableColor="dark">
+          <tr>
+            <th>Date</th>
+            <th>Item Name</th>
+            <th>Opening Stock Qty</th>
+            <th>Purchase Qty</th>
+            <th>Purchase Return Qty</th>
+            <th>Sales Qty</th>
+            <th>Sales Return Qty</th>
+            <th>Closing Stock Qty</th>
+            <th>Opening Stock Value</th>
+            <th>Purchase Value</th>
+            <th>Purchase Return Value</th>
+            <th>Sales Value</th>
+            <th>Sales Return Value</th>
+            <th>Closing Stock Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+            <td colspan="14"  class=" text-center"> No Data found</td>
+           
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

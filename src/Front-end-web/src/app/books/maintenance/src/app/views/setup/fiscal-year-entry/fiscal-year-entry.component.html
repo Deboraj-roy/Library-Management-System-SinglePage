@@ -1,0 +1,116 @@
+<c-container>
+   <c-card>
+      <c-card-header ngPreserveWhitespaces>
+         <strong>Setup</strong> <small>Fiscal Year</small>
+       </c-card-header>
+       <c-card-body>
+         <c-row>
+            <c-col xs lg="3">
+               <div class="mt-2"  >
+                  <from [formGroup]="fiscalYearFrom">
+                     <div class="mt-4 mb-4">
+                        <label class="mb-2 fw-bold" style="margin-left: 5px;">Fiscal Year Name</label>
+                        <input class="form-control"  formControlName="fiscalYearName" type="text" placeholder="Enter Fiscal year Name">
+                     </div>
+
+                     <div class="mt-4 mb-4">
+                        <label class="mb-2 fw-bold" style="margin-left: 5px;">Start Period for Fiscal Year</label>
+                        <input class="form-control"  formControlName="startMonthName" type="month">
+                     </div>
+      
+                    <div class="mt-4 mb-4">
+                        <label class="mb-2 fw-bold" style="margin-left: 5px;">End Period for Fiscal Year</label>
+                        <input class="form-control"  formControlName="endMonthName" type="month" >
+                    </div>
+      
+                    <div class="mt-4 mb-4">
+                        <label class="mb-2 fw-bold" style="margin-left: 5px;">Fiscal Year Status</label>
+                        <ng-select formControlName="status" [items]="statuss" bindLabel="name"  bindValue="id" [placeholder]="'Select status'" ></ng-select>
+                    </div>
+      
+                    <div class="mt-4 mb-4">
+                        <button cButton (click)="saveFiscalYear()">Save </button>
+                    </div>
+      
+                  </from>
+               </div>
+            </c-col>
+            <c-col >
+               <div class="row mt-2 ">
+                 <div class="col-md-8" > 
+                 </div>
+                 <div class="col-md-4" > 
+                   <input  type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search Fiscal Year...."  />
+                </div>
+               </div>
+               <table bordered cTable hover class="mt-2 text-center">
+                 <thead cTableColor="dark">
+                   <tr>
+                     <th scope="col">#</th>
+                     <th scope="col">Fiscal Year Name</th>
+                     <th scope="col">Start Period</th>
+                     <th scope="col">End Period</th>
+                     <th scope="col">Status</th>
+                     <th scope="col">Action</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr
+                   *ngFor="let open of listFiscalYear | filter : searchText ; let i=index "
+                   > 
+                     <td>{{ i + 1 }}</td>
+                     <td>{{ open.fiscalYearName }}</td>
+                     <td>{{ open.startMonthName | date }}</td>
+                     <td>{{ open.endMonthName | date }}</td>
+                     <td >
+                        <div *ngIf="open.status==1; else loggedOut">
+                           Active
+                         </div>
+                         
+                         <ng-template #loggedOut>
+                           InActive
+                         </ng-template>
+                     </td>
+                     <!-- <td><button class="btn btn-danger" >Delete</button></td> -->
+                     <td><button class="btn btn-success" [cModalToggle]="verticallyCenteredModal.id" (click)="editFiscalYear(open)">Edit</button></td>
+                   </tr>
+                   <tr></tr>
+                 </tbody>
+               </table>
+             </c-col>
+          </c-row>
+       </c-card-body>
+   </c-card>
+    
+</c-container>
+
+<c-modal #verticallyCenteredModal alignment="top" id="verticallyCenteredModal">
+   <c-modal-header>
+     <h5 cModalTitle>Edit Fiscal Year</h5>
+     <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+   </c-modal-header>
+   <c-modal-body>
+      <div class="mb-3">
+         <label class="mb-2 fw-bold" style="margin-left: 5px;">Fiscal Year Name</label>
+         <input class="form-control" [(ngModel)]="editName" type="text" placeholder="Enter Fiscal year Name">
+      </div>
+     <!-- <div class="mb-3" >
+         <label class="mb-2 fw-bold" style="margin-left: 5px;">Start Period for Fiscal Year</label>
+         <input class="form-control" [value]="editStartDate" type="month">
+     </div>
+     <div class="mb-3">
+         <label class="mb-2 fw-bold" style="margin-left: 5px;">End Period for Fiscal Year</label>
+         <input class="form-control" [value]="editEndDate" type="month" >
+     </div> -->
+     <div class="mb-3">
+       <label cLabel >Note Name</label>
+       <ng-select [items]="statuss" bindLabel="name" bindValue="id" [(ngModel)]="editStatus"  [placeholder]="'Select Status'">
+       </ng-select>
+     </div>
+   </c-modal-body>
+   <c-modal-footer>
+     <button [cModalToggle]="verticallyCenteredModal.id" 
+     cButton color="primary" (click)="updateFiscalYear()">Update</button>
+     <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">Close</button>
+   </c-modal-footer>
+ </c-modal>

@@ -1,0 +1,63 @@
+<c-container>
+    <c-row style="background-color: aliceblue;" >
+      <c-col xs lg="3">
+        <c-card class="mb-3" style="border:none">
+            <c-card-body style="border:none">
+                <form [formGroup]="noteDetailsEntryFrom" >
+                    <div class="container">
+                        <div class="mt-2 mb-4">
+                            <label  class="mb-2 fw-bold" style="margin-left: 5px;">Note Name</label>
+                            <ng-select [items]="notesList" bindLabel="noteName" bindValue="noteId" formControlName="noteId" [placeholder]="'Select Note'">
+                            </ng-select>
+                        </div>
+                        <div class="mt-2 mb-4">
+                            <label  class="mb-2 fw-bold" style="margin-left: 5px;">Ledger Name</label>
+                            <ng-select [items]="minorCategories" bindLabel="minorCategoryName" bindValue="minorCategoryId" 
+                            (change)="getLedgerCode($event)"
+                            formControlName="minorCategoryId" [placeholder]="'Select Ledger'">
+                            </ng-select>
+                        </div>
+
+                        <div class="mt-4 mb-4">
+                            <button class="btn btn-success" (click)="saveNoteDetails()"  >Save</button>
+                        </div>
+                    </div>
+                </form>
+                
+            </c-card-body>
+         </c-card>
+      </c-col>
+      <c-col >
+        <div class="row mt-2 ">
+          <div class="col-md-8" > 
+          </div>
+          <div class="col-md-4" > 
+            <input  type="text" class="form-control" placeholder="Search Ledger...." />
+            <!-- [(ngModel)]="searchText" -->
+         </div>
+        </div>
+        <table bordered cTable hover class="mt-2">
+          <thead cTableColor="dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Notes Name</th>
+              <th scope="col">Ledger Name</th>
+              <th scope="col">Ledger Code</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let note of noteDetailsList ; let i=index ">
+              <td>{{ i + 1 }}</td>
+              <td>{{ note.noteName }}</td>
+              <td>{{ note.ledgerName }}</td>
+              <td>{{ note.ledgerCode }}</td>
+              <td><button  cButton>Edit</button></td>
+              <!-- [cModalToggle]="ModalPopup.id" (click)="editOpeningBalance(open)"  -->
+            </tr>
+            <tr></tr>
+          </tbody>
+        </table>
+      </c-col>
+    </c-row>
+</c-container>

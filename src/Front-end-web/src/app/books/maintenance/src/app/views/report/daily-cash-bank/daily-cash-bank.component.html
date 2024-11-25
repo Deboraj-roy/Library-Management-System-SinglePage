@@ -1,0 +1,91 @@
+
+<c-container>
+    <c-card>
+      <c-card-header style="border: none;">
+        <h3 class="text-center fw-bold"><u>Accounts_Demo</u></h3>
+        <h4 class="text-center"><u>Daily Bank & Cash Balance</u></h4>
+      </c-card-header>
+        
+        <c-card-body>
+            <div class="card mt-4 mb-2" style="border: none;">
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="mb-2" style="font-weight: 700">Date</label>
+                        <input type="date" class="form-control mb-2" [(ngModel)]="startDate">
+                    </div>
+                    <div class="col-md-1 text-start">
+                        <button type="button" class="mt-4 " (click)="getByDate()" cButton >Filter</button>
+                    </div>
+                    <div class="col-md-2"> 
+                        <label style="font-weight: 700">Report Type</label>
+                        <ng-select  [items]="reportType"  class="mt-2"
+                        bindLabel="name" bindValue="id" placeholder="select Type" [(ngModel)]="type"></ng-select>
+                    </div>
+                    <div class="col-md-1 ">
+                        <button type="button" class="mt-4 " (click)="getReport()" cButton >Download</button>
+                    </div>
+                </div>
+            </div>
+            <c-row>
+                <c-col xs lg="12" >
+                    <table bordered cTable hover>
+                        <thead cTableColor="dark">
+                            <tr >
+                                <th scope="col" style="text-align: center;">#</th>
+                                <th scope="col" style="text-align: center;">Name Of Bank</th>
+                                <th scope="col" style="text-align: center;">Account Type</th>
+                                <th scope="col" style="text-align: center;">Usable-Balance</th>
+                                <th scope="col" style="text-align: center;">NotUsable-Balance</th>
+                                <th scope="col" style="text-align: center;">Cash Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let x of listOfDailyBankCash  ; let i=index " >
+                                <td scope="col" style="text-align: center;">{{i+1}}</td>
+                                <td scope="col" style="text-align: center;">{{x.bankName}}</td>
+                                <td scope="col" style="text-align: center;">{{x.accountType}}</td>
+                                <td scope="col" style="text-align: center;"><span *ngIf="x.openingBalance > 100000">{{formatNumberWithCustomPattern(x.openingBalance)}}</span><span *ngIf="x.openingBalance <= 100000">{{formatNumberWithCustomPattern(0)}}</span></td>
+                                <td scope="col" style="text-align: center;"><span *ngIf="x.openingBalance <= 100000">{{formatNumberWithCustomPattern(x.openingBalance)}}</span><span *ngIf="x.openingBalance > 100000">{{formatNumberWithCustomPattern(0)}}</span></td>
+                                <td scope="col" style="text-align: center;">{{formatNumberWithCustomPattern(x.cashBalance)}}</td>
+                            </tr>
+                            <tr  >
+                                <td scope="col" style="border-right: none;"></td>
+                                <td scope="col" style="border: none;"></td>
+                                <td scope="col" style="border: none;text-align: center;"><b>Total</b></td>
+                                <td scope="col" style="text-align: center;"><b>{{formatNumberWithCustomPattern(totalUsableBalance)}}</b></td>
+                                <td scope="col" style="text-align: center;"><b>{{formatNumberWithCustomPattern(totalUnusableBalance)}}</b></td>
+                                <td scope="col" style="text-align: center;"><b>{{formatNumberWithCustomPattern(totalCashBalance)}}</b></td>
+                            </tr>
+                              
+                        </tbody>
+                    </table>
+                </c-col>
+                <c-col xs lg="4" >
+                </c-col>
+                <c-col xs lg="4" >
+                    <c-card>
+                        <c-card-body>
+                            <div class="row">
+                                <div class="col-md-6"><span>Total Bank Balance</span></div>
+                                <div class="col-md-6"><span>{{formatNumberWithCustomPattern(totalBankBalance)}}</span></div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6"><span>Cash In Hand</span></div>
+                                <div class="col-md-6"><span>{{formatNumberWithCustomPattern(totalCashBalance)}}</span></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6"><span><b>Total Bank & Cash</b></span></div>
+                                <div class="col-md-6"><span><b><u>{{formatNumberWithCustomPattern(totalCashBalance+totalBankBalance)}}</u></b></span></div>
+                            </div>
+                        </c-card-body>
+                    </c-card>
+                </c-col>
+                <c-col xs lg="4" >
+                </c-col>
+            </c-row>
+        </c-card-body>
+    </c-card>
+</c-container>

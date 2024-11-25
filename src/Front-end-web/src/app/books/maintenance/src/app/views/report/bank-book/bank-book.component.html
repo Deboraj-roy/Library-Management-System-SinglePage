@@ -1,0 +1,232 @@
+<c-container>
+    <c-card class="mb-3">
+      <c-card-header style="border: none;">
+          <h3 class="text-center fw-bold"><u>Accounts_Demo</u></h3>
+          <h4 class="text-center"><u>Bank Book</u></h4>
+       </c-card-header>
+      <c-card-body class="row margn">
+          <div class="col-md-2">
+              <label class="mb-2" style="font-weight: 700">Start Date</label>
+              <input type="date" class="form-control mb-2" [(ngModel)]="startDate">
+          </div>
+          <div class="col-md-2 ">
+              <label class="mb-2" style="font-weight: 700">End Date</label>
+              <input type="date" class="form-control mb-2"  [(ngModel)]="endDate">
+          </div>
+          <div class="col-md-4 ">
+            <label  class="mb-2 fw-bold" style="margin-left: 5px;">Banks</label>
+            <ng-select [items]="ddlBanks" bindLabel="minorSubCategoryName" bindValue="minorSubCategoryId" formControlName="MinorSubCategoryId" [placeholder]="'Select Bank Name'" (change)="onBankSelected($event)">
+            </ng-select>
+          </div>
+          <div class="col-md-1 mt-4">
+            <div class="alin"><button cButton color="primary" (click)="getFirstStatement()" >Filter</button> </div>
+          </div>
+          <div *ngIf="IsDownload" class="col-md-3 row">
+            <div class="col-md-6"> 
+              <label style="font-weight: 700">Report Type</label>
+              <ng-select  [items]="reportType"  class="mt-1"
+              bindLabel="name" bindValue="id" placeholder="select Type" [(ngModel)]="type"></ng-select>
+          </div>
+          <div class="col-md-6">
+              <button type="button" class="mt-4 " (click)="getReport()" cButton >Download</button>
+          </div>
+          </div>
+      </c-card-body>
+      <c-card-body class="margn">
+          <c-container>
+              <c-row>
+                  <c-col xs lg="8" *ngIf="firstTbl">
+                      <table bordered cTable hover class="mt-2 text-center" >
+                          <thead cTableColor="dark">
+                              <tr>
+                                <th scope="col" class="text-start">Sl.</th>
+                                  <th scope="col" class="text-start">Particular</th>
+                                  <th scope="col">Dr</th>
+                                  <th scope="col">Cr</th>
+                                  <th scope="col" class="text-center">Transactions</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <!-- <tr >
+                              <td class="text-start"><strong>Opening Balance</strong></td>
+                              <td><strong>{{formatNumberWithCustomPattern(openingDebit)}}</strong></td>
+                              <td><strong>{{formatNumberWithCustomPattern(openingCredit)}}</strong></td>
+                            </tr> -->
+                          <tr *ngIf="isOpnDebit">
+                            <td><strong></strong></td>
+                            <td class="text-start"><strong>Opening Balance</strong></td>
+                            <td><strong>{{formatNumberWithCustomPattern(openingDebit-openingCredit)}}</strong></td>
+                            <td><strong>0.00</strong></td>
+                            <td><strong></strong></td>
+                          </tr>
+                          <tr *ngIf="!isOpnDebit">
+                            <td><strong></strong></td>
+                            <td class="text-start"><strong>Opening Balance</strong></td>
+                            <td><strong>0.00</strong></td>
+                            <td><strong>{{formatNumberWithCustomPattern(openingCredit-openingDebit)}}</strong></td>
+                            <td><strong></strong></td>
+                          </tr>
+
+  
+
+                              <tr *ngFor="let ld of listOfBooks; let i=index;">
+                                  
+                                  <td>{{ i + 1 }}</td>
+                                  <td class="text-start">{{ld.accLedgerName}}</td>
+                                  <td>{{formatNumberWithCustomPattern(ld.debit)}}</td>
+                                  <td>{{formatNumberWithCustomPattern(ld.credit)}}</td>
+                                  <td class="text-center"><button class="btn btn-info" [cModalToggle]="verticallyCenteredModalInfo.id" (click)="ViewTransactions(ld)">View</button></td>
+                              </tr>
+                              <!-- <tr *ngFor="let ld of listOfCashPayment ; let i=index;">
+                                  
+                                  <td class="text-start">{{ld.accLedgerName}}</td>
+                                  <td>{{formatNumberWithCustomPattern(ld.firstBalance)}}</td>
+                                  <td ></td>
+                              </tr>
+                              <tr *ngFor="let ld of listOfReceipt ; let i=index;">
+                                  
+                                <td class="text-start">{{ld.accLedgerName}}</td>
+                                <td ></td>
+                                <td>{{formatNumberWithCustomPattern(ld.firstBalance)}}</td>
+                              </tr>
+                              <tr >
+                                <td class="text-start"><strong>Receipt</strong></td>
+                                <td ></td>
+                                <td><strong>{{formatNumberWithCustomPattern(receipts)}}</strong></td>
+                              </tr> -->
+                              <tr >
+                                <td><strong></strong></td>
+                                <td class="text-start"><strong>Total (Date-wise)</strong></td>
+                                <td><strong>{{formatNumberWithCustomPattern(totalDebit)}}</strong></td>
+                                <td><strong>{{formatNumberWithCustomPattern(totalCredit)}}</strong></td>
+                                <td><strong></strong></td>
+                              </tr>
+                              <!-- <tr >
+                                <td class="text-start"><strong>Closing Balance</strong></td>
+                                <td><strong>{{formatNumberWithCustomPattern(closingDebit)}}</strong></td>
+                                <td><strong>{{formatNumberWithCustomPattern(closingCredit)}}</strong></td>
+                              </tr> -->
+                            <tr *ngIf="isClsDebit">
+                              <td><strong></strong></td>
+                              <td class="text-start"><strong>Closing Balance</strong></td>
+                              <td><strong>{{formatNumberWithCustomPattern(closingDebit - closingCredit)}}</strong></td>
+                              <td><strong>0.00</strong></td>
+                              <td><strong></strong></td>
+                            </tr>
+                            <tr *ngIf="!isClsDebit">
+                              <td><strong></strong></td>
+                              <td class="text-start"><strong>Closing Balance</strong></td>
+                              <td><strong>0.00</strong></td>
+                              <td><strong>{{formatNumberWithCustomPattern(closingCredit - closingDebit)}}</strong></td>
+                              <td><strong></strong></td>
+                            </tr>
+                              <!-- <tr *ngIf="secondTbl">
+                                <td class="text-start"><strong>Balance</strong></td>
+                                <td ><strong>{{formatNumberWithCustomPattern(restBalance)}}</strong></td>
+                                <td></td>
+                              </tr>
+                              <tr *ngIf="second">
+                                <td class="text-start"><strong>Balance</strong></td>
+                                <td></td>
+                                <td ><strong>{{formatNumberWithCustomPattern(restBalance)}}</strong></td>
+                              </tr>
+                              <tr *ngIf="opening">
+                                <td class="text-start"><strong>Opening Balance</strong></td>
+                                <td ><strong>{{formatNumberWithCustomPattern(openBalance)}}</strong></td>
+                                <td></td>
+                              </tr>
+                              <tr *ngIf="opening1">
+                                <td class="text-start"><strong>Opening Balance</strong></td>
+                                <td></td>
+                                <td ><strong>{{formatNumberWithCustomPattern(openBalance)}}</strong></td>
+                              </tr>
+                              <tr *ngIf="closing">
+                                <td class="text-start"><strong>Closing Balance</strong></td>
+                                <td ><strong>{{formatNumberWithCustomPattern(closingBalance)}}</strong></td>
+                                <td></td>
+                              </tr>
+                              <tr *ngIf="closing1">
+                                <td class="text-start"><strong>Closing Balance</strong></td>
+                                <td></td>
+                                <td ><strong>{{formatNumberWithCustomPattern(closingBalance)}}</strong></td>
+                              </tr> -->
+                          </tbody>
+                      </table>
+                  </c-col>
+              </c-row>
+              <c-row>
+                <c-col xs lg="8">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span style="margin-right: 5px;"><strong>Go For Create Voucher</strong></span>
+                            <svg cIcon class="me-4" name="cilArrowRight"></svg>
+                        </div>
+                        <div class="col-md-2">
+                              <a href="/AccountsUi/#/admin/entry/payment-voucher" style="text-decoration: none;">
+                                Payment Voucher
+                              </a>
+                            </div>
+                        <div class="col-md-2">
+                            <a href="/AccountsUi/#/admin/entry/receipt-entry" style="text-decoration: none;">
+                                Receipt Voucher
+                            </a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="/AccountsUi/#/admin/entry/journal-entry" style="text-decoration: none;">
+                                Journal Voucher
+                            </a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="/AccountsUi/#/admin/entry/contra-entry" style="text-decoration: none;">
+                                Contra Voucher
+                            </a>
+                        </div>
+                    </div>
+                </c-col>
+              </c-row>
+          </c-container>
+      </c-card-body>
+    </c-card>
+</c-container>
+
+
+<c-modal #verticallyCenteredModalInfo alignment="top" id="verticallyCenteredModalInfo" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Transactions</h5>
+    <button [cModalToggle]="verticallyCenteredModalInfo.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <table bordered cTable hover class="mt-2">
+      <thead cTableColor="dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Date</th>
+          <th scope="col">Particular</th>
+          <th scope="col">Voucher No.</th>
+          <th scope="col">Debit</th>
+          <th scope="col">Credit</th>
+          <th scope="col">Narration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+        *ngFor="let tl of transactionList; let i=index"
+        >
+          <td>{{ i + 1 }}</td>
+          <td>{{ tl.createdDate | date }}</td>
+          <td>{{ tl.accLedgerName }}</td>
+          <td>{{ tl.voucher }}</td>
+          <td>{{ tl.debit | number: '1.2-2' }}</td>
+          <td>{{ tl.credit | number: '1.2-2' }}</td>
+          <td>{{ tl.narration }}</td>
+          </tr>
+        <tr></tr>
+      </tbody>
+    </table>
+    
+  </c-modal-body>
+  <c-modal-footer>
+    <!-- <button cButton color="info" (click)="getReport(editPurchaseOrderId)">Download</button> -->
+    <button [cModalToggle]="verticallyCenteredModalInfo.id" cButton color="secondary">Close</button>
+  </c-modal-footer>
+</c-modal>

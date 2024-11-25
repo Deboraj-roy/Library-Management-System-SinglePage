@@ -1,0 +1,273 @@
+<c-container>
+    <c-card>
+        <c-card-header style="border: none;">
+          <h3 class="text-center fw-bold"><u>Accounts_Demo</u></h3>
+          <h4 class="text-center"><u>Statement of Cash Flow</u></h4>
+       </c-card-header>
+        <c-card-body class="row margn">
+          <div class="col-md-2">
+              <label class="mb-2" style="font-weight: 700">Start Date</label>
+              <input type="date" class="form-control mb-2" #start [(ngModel)]="startDate" >
+          </div>
+          <div class="col-md-2 ">
+              <label class="mb-2" style="font-weight: 700">End Date</label>
+              <input type="date" class="form-control mb-2" #end [(ngModel)]="endDate">
+              <div class="alin"><button cButton color="primary" (click)="getCashFlowChart()" >Filter</button> </div>
+          </div>
+          <div class="col-md-2" style="margin-top: 30px;">
+              <span style="font-weight: 700;margin-left: 15%;">Compare with</span> 
+          </div>
+          <div class="col-md-2">
+              <label class="mb-2" style="font-weight: 700">Start Date</label>
+              <input type="date" class="form-control mb-2" #starting [(ngModel)]="strt">
+          </div>
+          <div class="col-md-2">
+              <label class="mb-2" style="font-weight: 700">End Date</label>
+              <input type="date" class="form-control mb-2" #ending [(ngModel)]="endt">
+              <div class="alin"><button cButton color="primary" (click)="getsecond()"  >Filter</button> </div>
+          </div>
+      </c-card-body>
+        <c-card-body>
+            <c-row>
+                <c-col xs lg="8" *ngIf="firstOpen">
+                      <table class="mt-2" style="margin-left: 20%;"  >
+                        <thead >
+                            <tr>
+                                <th style="width: 80%;"><h5>A. Cash Flows from Operating Activities</h5></th>
+                                <th style="width: 8%;"></th>
+                                <th></th>
+                                <th></th>
+                                <th style="margin-left: 25%; width: 12%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Cash Received from Customer</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="t-border text-center" >{{formatNumberWithCustomPattern(receipt)}}</td>
+                          </tr>
+                          <tr>
+                            <td>Paid to Supplier</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="c-border text-center">{{formatNumberWithCustomPattern(paidSupplire)}}</td>
+                          </tr>
+                          <tr>
+                            <td>Paid for operating Expenses</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="b-border text-center">{{formatNumberWithCustomPattern(paidExpenses)}}</td>
+                          </tr> 
+                          <tr>
+                            <td><b>Net Cash generated from Operating activites</b></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center"><u><b>{{formatNumberWithCustomPattern(cashGenerate)}}</b></u></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table class="mt-2" style="margin-left: 20%;"  >
+                        <thead >
+                            <tr>
+                                <th style="width: 80%;"><h5>B. Cash Flows from Investing Activities</h5></th>
+                                <th style="width: 8%;"></th>
+                                <th></th>
+                                <th></th>
+                                <th style="margin-left: 25%; width: 12%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td >Acquisition of Fixed Assets</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="t-border text-center">{{formatNumberWithCustomPattern(acquisitionOfFixedAssets)}}</td>
+                          </tr>
+                          <tr>
+                            <td>Payment against Advance</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="c-border text-center">{{formatNumberWithCustomPattern(paymentAgainstAdvance)}}</td>
+                          </tr>
+                          <tr>
+                            <td>Short Term Investment</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="b-border text-center">{{formatNumberWithCustomPattern(shortTermInvestment)}}</td>
+                          </tr> 
+                          <tr>
+                            <td><b>Net cash used in investing activities</b></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center"><u><b>{{formatNumberWithCustomPattern(investingActivites)}}</b></u></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table class="mt-2" style="margin-left: 20%;"  >
+                        <thead >
+                            <tr>
+                                <th style="width: 80%;"><h5>C. Cash Flows from Financing  Activities</h5></th>
+                                <th style="width: 8%;"></th>
+                                <th></th>
+                                <th></th>
+                                <th style="margin-left: 25%; width: 12%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Share money Receipts</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="t-border text-center" >-</td>
+                          </tr>
+                          <tr>
+                            <td>Short term Loan received</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="b-border text-center">{{formatNumberWithCustomPattern(finantialCashFlow)}}</td>
+                          </tr>
+                          <tr>
+                            <td><b>Net cash flow in financing activities</b></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center"><u><b>{{formatNumberWithCustomPattern(finantialCashFlow)}}</b></u></td>
+                          </tr> 
+                        </tbody>
+                      </table>
+                      <table class="mt-2" style="margin-left: 20%;"  >
+                        <thead >
+                            <tr>
+                                <th style="width: 80%;"><h5>D. Net Cash increase /(Decrease) during the year (A+B+C)</h5></th>
+                                <th style="width: 8%;"></th>
+                                <th></th>
+                                <th></th>
+                                <th class="text-center" style="margin-left: 25%; width: 12%;"><u><b>{{formatNumberWithCustomPattern(cashGenerate+investingActivites+finantialCashFlow)}}</b></u> </th>
+                            </tr>
+                        </thead>
+                      </table>
+                      <table class="mt-2" style="margin-left: 20%;"  >
+                        <thead >
+                            <tr>
+                                <th style="width: 80%;"><h5>Opening cash & cash equivalents</h5></th>
+                                <th style="width: 8%;"></th>
+                                <th></th>
+                                <th></th>
+                                <th class="text-center" style="margin-left: 25%; width: 12%;"><u><b>{{formatNumberWithCustomPattern(cashAndCashEquvilentCashFlow)}}</b></u></th>
+                            </tr>
+                        </thead>
+                      </table>
+                      <table class="mt-2" style="margin-left: 20%;"  >
+                        <thead >
+                            <tr>
+                                <th style="width: 80%;"><h5>Closing cash & cash equivalents</h5></th>
+                                <th style="width: 8%;"></th>
+                                <th></th>
+                                <th></th>
+                                <th class="text-center" style="margin-left: 25%; width: 12%;"><u><b>{{formatNumberWithCustomPattern(cashAndCashEquvilentCashFlow+cashGenerate+investingActivites+finantialCashFlow)}}</b></u> </th>
+                            </tr>
+                        </thead>
+                      </table>
+                </c-col>
+                <c-col xs lg="2" *ngIf="seconfOpen">
+                  <table class="mt-2" style="margin-left: 10%;"  >
+                    <thead >
+                        <tr>
+                            <th style="margin-left: 25%; width: 12%;"><h5>&nbsp;</h5></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        
+                        <td class="t-border text-center" >{{formatNumberWithCustomPattern(receipt1)}}</td>
+                      </tr>
+                      <tr>
+                        
+                        <td class="c-border text-center">{{formatNumberWithCustomPattern(paidSupplire1)}}</td>
+                      </tr>
+                      <tr>
+                        
+                        <td class="b-border text-center">{{formatNumberWithCustomPattern(paidExpenses1)}}</td>
+                      </tr> 
+                      <tr>
+                        
+                        <td class="text-center"><u><b>{{formatNumberWithCustomPattern(cashGenerate1)}}</b></u></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table class="mt-2" style="margin-left: 10%;"  >
+                    <thead >
+                        <tr>
+                            <th style="margin-left: 25%; width: 12%;"><h5>&nbsp;</h5></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="t-border text-center">{{formatNumberWithCustomPattern(acquisitionOfFixedAssets1)}}</td>
+                      </tr>
+                      <tr>
+                        <td class="c-border text-center">{{formatNumberWithCustomPattern(paymentAgainstAdvance1)}}</td>
+                      </tr>
+                      <tr>
+                        <td class="b-border text-center">{{formatNumberWithCustomPattern(shortTermInvestment1)}}</td>
+                      </tr> 
+                      <tr>
+                        <td class="text-center"><u><b>{{formatNumberWithCustomPattern(investingActivites1)}}</b></u></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table class="mt-2" style="margin-left: 10%;"  >
+                    <thead >
+                        <tr>
+                            <th style="margin-left: 25%; width: 12%;"><h5>&nbsp;</h5></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="t-border text-center" >-</td>
+                      </tr>
+                      <tr>
+                        <td class="b-border text-center">{{formatNumberWithCustomPattern(finantialCashFlow1)}}</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center"><u><b>{{formatNumberWithCustomPattern(finantialCashFlow1)}}</b></u></td>
+                      </tr> 
+                    </tbody>
+                  </table>
+                  <table class="mt-2" style="margin-left: 10%;"  >
+                    <thead >
+                        <tr>
+                            <th class="text-center" style="margin-left: 25%; width: 12%;"><u><b>{{formatNumberWithCustomPattern(cashGenerate1+investingActivites1+finantialCashFlow1)}}</b></u> </th>
+                        </tr>
+                    </thead>
+                  </table>
+                  <table class="mt-2" style="margin-left: 10%;"  >
+                    <thead >
+                        <tr>
+                            <th class="text-center" style="margin-left: 25%; width: 12%;"><u><b>{{formatNumberWithCustomPattern(cashAndCashEquvilentCashFlow1)}}</b></u></th>
+                        </tr>
+                    </thead>
+                  </table>
+                  <table class="mt-2" style="margin-left: 10%;" >
+                    <thead >
+                        <tr>
+                            <th class="text-center" style="margin-left: 25%; width: 12%;"><u><b>{{formatNumberWithCustomPattern(cashAndCashEquvilentCashFlow1+cashGenerate1+investingActivites1+finantialCashFlow1)}}</b></u> </th>
+                        </tr>
+                    </thead>
+                  </table>
+            </c-col>
+            </c-row>
+        </c-card-body>
+    </c-card>
+</c-container>

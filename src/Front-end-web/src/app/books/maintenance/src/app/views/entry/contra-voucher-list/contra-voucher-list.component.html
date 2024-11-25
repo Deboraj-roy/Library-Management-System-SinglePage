@@ -1,0 +1,89 @@
+
+<c-row>
+    <c-col xs="12">
+      <c-card class="mb-3">
+        <c-card-header ngPreserveWhitespaces>
+          <strong>Contra Voucher List</strong>
+        </c-card-header>
+        <c-card-body>
+            <div class="row" >
+                <div class="col-md-2">
+                    <label >From Select Date</label>
+                    <input class="form-control mt-2"  type="date" [(ngModel)]="startdatePipeString"/>
+                </div>
+                <div class="col-md-2">
+                    <label >To Select Date</label>
+                    <input class="form-control mt-2" type="date"  [(ngModel)]="enddatePipeString" />
+                </div>
+                <div class="col-md-2 text-start">
+                  <button class="mt-4" cButton (click)="getLedgerByVoucher()"  style="width:50%;"> Filter</button>
+              </div>
+              <div class="col-md-2">
+            </div>
+              <div class="col-md-2">
+                <label >Select Voucher for Delete</label>
+                <ng-select  [items]="ListOfvoucher"  class="mt-2"
+                bindLabel="ListOfvoucher" bindValue="ListOfvoucher" placeholder="select Voucher type" (change)="getVoucher($event)"></ng-select>
+            </div>
+            <div class="col-md-2 text-start" *ngIf="openModal">
+               <button class="mt-4" cButton [cModalToggle]="verticallyCenteredModal.id" >Delete Voucher</button>
+            </div>
+            </div>
+                <table bordered cTable hover class="mt-4">
+                    <thead cTableColor="dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Voucher No</th>
+                            <th scope="col">Narration</th>
+                            <th scope="col">Account Name</th>
+                            <th scope="col">ledger Code</th>
+                            <th scope="col">Sub Ledger Code</th>
+                            <th scope="col">Debit</th>
+                            <th scope="col">Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let lg of listOfLedger  | filter : searchText ; let i = index">
+                            <th scope="col">{{i}}</th>
+                            <th scope="col">{{lg.createdDate | date}}</th>
+                            <th scope="col">{{lg.voucher}}</th>
+                            <th scope="col">{{lg.narration}}</th>
+                            <th scope="col">{{lg.accLedgerName}}</th>
+                            <th scope="col">{{lg.ledgerCode}}</th>
+                            <th scope="col">{{lg.subLedgerCode}}</th>
+                            <th scope="col">{{numberFormat(lg.debit)}}</th>
+                            <th scope="col">{{numberFormat(lg.credit)}}</th>
+                        </tr>
+                        <tr *ngIf="listOfLedger.length==0 && open" class="text-center">
+                            <th colspan="9" rowspan="4">
+                                <h5>No data here</h5>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+        </c-card-body>
+      </c-card>
+    </c-col>
+</c-row>
+
+<c-modal #verticallyCenteredModal alignment="top" id="verticallyCenteredModal">
+    <c-modal-body>
+      
+      <div class="mb-3">
+        <h5>Are You Sure to Delete this</h5>
+        <input
+          cFormControl
+          #code
+          type="text"
+          [value]="searchText"
+          style="border: none; font-weight: 600;"
+        />
+      </div>
+    </c-modal-body>
+    <c-modal-footer>
+      <button [cModalToggle]="verticallyCenteredModal.id" 
+      cButton color="primary" (click)="deleteVoucher()">Confirm</button>
+      <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">Close</button>
+    </c-modal-footer>
+  </c-modal>

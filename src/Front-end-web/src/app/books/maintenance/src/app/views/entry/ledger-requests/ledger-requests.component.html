@@ -1,0 +1,139 @@
+<c-container>
+  <c-card>
+    <div class="card-header text-center">
+      <h3>Ledgers Waiting For Approval</h3>
+    </div>
+    <c-card-body>
+    <c-row>
+      <c-col >
+        <div class="row mt-2 ">
+          <div class="col-md-8" > 
+          </div>
+          <div class="col-md-4" > 
+            <input  type="text" class="form-control" placeholder="Search Ledger...." [(ngModel)]="searchText" />
+         </div>
+        </div>
+        <table bordered cTable hover class="mt-2 table table-striped cTable hover">
+          <thead cTableColor="dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Ref. Code</th>
+              <th scope="col">Voucher Date</th>
+              <th scope="col">Voucher Type</th>
+              <th scope="col">Narration</th>
+              <th scope="col">Total Debit</th>
+              <th scope="col">Total Credit</th>
+              <th scope="col">Party Name</th>
+              <th scope="col">Purchase Order Code</th>
+              <th scope="col">Entry Date</th>
+              <th scope="col">Entry By</th>
+              <th scope="col">Approved?</th>
+              <th scope="col" class="text-center">Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+            *ngFor="let lr of ledgerReqList | filter : searchText | paginate:{
+              id: 'portingTnPagination',
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count
+             }; let i=index"
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ lr.voucherNumber }}</td>
+              <td>{{ lr.createdDate | date }}</td>
+              <td>{{ lr.voucherType }}</td>
+              <td>{{ lr.narration }}</td>
+              <td>{{ lr.drAmount | number: '1.2-2' }}</td>
+              <td>{{ lr.crAmount | number: '1.2-2' }}</td>
+              <td>{{ lr.partyName }}</td>
+              <td>{{ lr.purchaseOrderCode }}</td>
+              <td>{{ lr.entryDate | date: 'MM/dd/yyyy, h:mm a' }}</td>
+              <td>{{ lr.entryUserName }}</td>
+              <td>{{ lr.isApproved == 1 ? "Approved" : "Not Approved" }}</td>
+              <td class="text-center"><button class="btn btn-info" [cModalToggle]="verticallyCenteredModalInfo.id" (click)="ViewLedgerRequestsDetails(lr)"  [disabled]="lr.isApproved == 1">View</button></td>
+            </tr>
+            <tr></tr>
+          </tbody>
+        </table>
+        <div>
+          <pagination-controls 
+          id="portingTnPagination"
+          previousLavel="Pre"
+          nextLabel="Next"
+          (pageChange)="onTableDataChange($event)"
+          ></pagination-controls>
+        </div>
+      </c-col>
+    </c-row>
+  </c-card-body>
+  </c-card>
+</c-container>
+
+
+
+
+<c-modal #verticallyCenteredModalInfo alignment="top" id="verticallyCenteredModalInfo" size="lg">
+<c-modal-header>
+  <h5 cModalTitle>Ledger Request Details</h5>
+  <button [cModalToggle]="verticallyCenteredModalInfo.id" cButtonClose></button>
+</c-modal-header>
+<c-modal-body>
+  <!-- <div class="row">
+    <label class="col-6 mb-2 fw-bold">Order Code: <input class="border-0" type="text" [(ngModel)]="editOrderCode" [readOnly]="true"></label>
+    <div class="col-6">
+      <label class="mb-2 fw-bold">Quantity: <input class="border-0" type="text" [(ngModel)]="editQuantity" [readOnly]="true" [ngModelOptions]="{standalone: true}"></label>
+   </div>
+ </div>
+ <div class="row">
+  <label class="col-6 mb-2 fw-bold">Model: <input class="border-0" type="text" [(ngModel)]="editMinorSubCategoryName" [readOnly]="true"></label>
+  <div class="col-6">
+    <label class="mb-2 fw-bold">Status: <input class="border-0" type="text" [(ngModel)]="editStatus" [readOnly]="true"></label>
+ </div>
+</div>
+<div class="row">
+<label class="mb-2"><span class="fw-bold">FOB: </span><span>${{ editfob }}</span></label>
+</div> -->
+  <table bordered cTable hover class="mt-2 table table-striped cTable hover">
+    <thead cTableColor="dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Particulars</th>
+        <th scope="col">Debit(Tk.)</th>
+        <th scope="col">Credit(Tk.)</th>
+        <th scope="col">Narration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+      *ngFor="let dl of detailsList; let i=index"
+      >
+        <td>{{ i + 1 }}</td>
+        <td>{{ dl.ledgerType == "Dr" ? dl.debitAccLedgerName : dl.creaditAccLedgerName }}</td>
+        <td>{{ (dl.ledgerType == "Dr" ? dl.amount : 0.00) | number: '1.2-2'  }}</td>
+        <td>{{ (dl.ledgerType == "Cr" ? dl.amount : 0.00) | number: '1.2-2'  }}</td>
+        <td>{{ dl.narration }}</td>
+        </tr>
+      <tr>
+        <td></td>
+        <td>Total</td>
+        <td>{{ (totalDebit) | number: '1.2-2'  }}</td>
+        <td>{{ (totalCredit) | number: '1.2-2'  }}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+ <!-- <div class="row">
+  <label class="col-6 mb-2 fw-bold">Total Cost: <input class="border-0" type="text" [(ngModel)]="totalCost" [readOnly]="true"></label>
+  <div class="col-6">
+    <label class="mb-2 fw-bold">Unit Cost: <input class="border-0" type="text" [(ngModel)]="unitCost" [readOnly]="true"></label>
+ </div>
+</div> -->
+</c-modal-body>
+<c-modal-footer>
+  <button cButton color="info" (click)="ApproveLedgerReq(voucherNo)" [disabled]="isButtonClicked">Approve</button>
+  <button [cModalToggle]="verticallyCenteredModalInfo.id" cButton color="secondary">Close</button>
+</c-modal-footer>
+</c-modal>

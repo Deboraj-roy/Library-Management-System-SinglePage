@@ -1,0 +1,81 @@
+.tabl{
+    width: 60%;
+    margin-left: 10%;
+}
+
+.borderTopLeftRight{
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.borderLeftRight{
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.borderBottomLeftRight{
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.headName{
+    font-weight: 700;
+    text-align: start;
+    padding-bottom: 20px;
+}
+.operating{
+    font-weight: 700;
+    text-align: start;
+}
+.fnclr{
+    color:white;
+}
+.headBalance{
+    font-weight: 700;
+    text-align: center;
+    padding-bottom: 20px;
+}
+.name{
+    text-align: start;
+    padding-left: 20px;
+    width:40%;
+}
+.noteCode{
+    text-align: center;
+}
+
+.margn{
+    margin-left: 8%;
+}
+
+.wd{
+    width:25%;
+}
+.alin{
+    text-align: end;
+}
+
+.mark{
+    text-align:center;
+    cursor:pointer;
+     background-color: white;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    position: relative;
+}
+
+.mark::before{
+  content: 'click';
+  display: none;
+  position: absolute;
+  top: 95%;
+  left: 80%;    
+  font-size: 10px;
+  font-weight: 700;
+  transform: translate(-70%, -70%);
+  background-color: white;
+  color:rgb(6, 6, 105);
+}
+.mark:hover::before {
+    display: block;
+  }

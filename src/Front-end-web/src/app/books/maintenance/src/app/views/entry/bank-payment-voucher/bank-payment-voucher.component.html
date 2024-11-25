@@ -1,0 +1,213 @@
+
+
+<c-row>
+    <c-col xs="12">
+      <c-card class="mb-3">
+        <c-card-header ngPreserveWhitespaces>
+          <strong>Bank Payment Voucher</strong>
+        </c-card-header>
+        <c-card-body>
+        
+
+          <div class="container">
+            <form [formGroup]="bankPaymentForm">
+              <div class="row">
+                  <div class="col-md-2 mb-3" >
+                    <label cLabel for="exampleFormControlInput1">Voucher Number</label><br>
+                    <input type="text" cFormControl formControlName="voucherNumber" [(ngModel)]="voucher"  readonly  />
+                  </div>
+                  <div class="col-md-2 mb-3" >
+                     <label cLabel >Select Date</label>
+                     <input type="date" formControlName="createdDate" cFormControl />
+                  </div>
+                  
+                <div class="col-md-2 mb-3" *ngIf="showFields">
+                  <label cLabel>Order Codes</label>
+                  <ng-select [items]="ddlOrders" bindLabel="purchaseOrderCode" bindValue="purchaseOrderId" formControlName="purchaseOrderId" [placeholder]="'Select Order Code'" [(ngModel)]="purchaseOrderId" cFormControl>
+                  </ng-select>
+              </div>
+              <div class="col-md-2 mb-3" style="margin-left: 1%;" *ngIf="showFields">
+                <label cLabel>Select Approver</label>
+                <ng-select [items]="ddlUsers" bindLabel="userFullName" bindValue="userId" formControlName="userId" [placeholder]="'Select Voucher Approver'" [(ngModel)]="userId" cFormControl>
+                </ng-select>
+            </div>
+                  <div class="col-md-2" *ngIf="showFields">  
+                    <label cLabel >Particular Name</label>
+                    <ng-select cFormControl  [items]="partyList" bindLabel="partyName" formControlName="partyId"  bindValue="partyId" [(ngModel)]="partyId" [placeholder]="'Select Particular'">
+                    </ng-select>
+                  </div>
+                  <div class="col-md-1 mt-3 text-end" *ngIf="showFields">
+                    <button class="btn btn-success" [cModalToggle]="verticallyCenteredModal.id">Add Particular</button>
+                  </div>
+              </div>
+               
+
+              
+                <div class="row" style="margin:0% !important;padding: 0% !important;">
+                  
+
+                   <div class="col-md-6" style="background-color: rgb(235, 225, 225);margin:0% !important;padding: 0% !important;border-right: 3px solid white">
+                      <div class="row mb-2">
+                          <div class="col-md-8 mt-2 text-center">
+                            <label cLabel class="fw-bold">Paid To</label>
+                          </div>
+                          <div class="col-md-3 mt-2 text-center">
+                            <label cLabel class="fw-bold" style="margin-left: -20%;">Amount</label>
+                          </div>
+                          <div class="col-md-1">
+                          </div>
+                      </div>
+                      
+
+                      <div formArrayName="multipleDebitEntry" *ngFor="let ledger of bankPaymentForm.get('multipleDebitEntry')['controls']; let i = index">
+                        
+                        <div class="row" [formGroupName]="i">
+                          <div class="row">
+                            <div class="col-md-8" style="margin-left:3% !important;margin-right:1% !important;padding: 0% !important;width: 65% !important;">
+                                <ng-select
+                              cSelect
+                              placeholder="Paid To"
+                              (change)="getledgerTo($event,i)" formControlName="debitUniqId" id="{{'UniqId'+i}}"
+                            >
+                              <ng-option
+                                *ngFor="let Cat of ledgerSubLedger"
+                                [value]="Cat.uniqId" 
+                              >
+                                {{ Cat.nameCode }}
+                              </ng-option>
+                              </ng-select>
+                              <ng-select
+                              cSelect
+                              placeholder="Select Advance Received Account" formControlName="supplierCostingHeadId" [hidden]="!showaAvanceLedgerNgSelect(i)">
+                              <ng-option
+                                *ngFor="let Cat of advanceLedgerList"
+                                [value]="Cat.supplierCostingHeadId" 
+                              >
+                                {{ Cat.supplierCostingHeadName }}
+                              </ng-option>
+                              </ng-select>
+                                <input type="text" formControlName="debitAccLedgerName"  id="{{'debitLedgerName'+i}}" hidden>
+                                <input type="text" formControlName="debitLedgerId" id="{{'debitLedgerId'+i}}" hidden>
+                                <input type="text" formControlName="debitSubLedgerId" id="{{'debitSubLedgerId'+i}}" hidden>
+                                <input type="text" formControlName="debitLedgerCode" id="{{'debitLedgerCode'+i}}" hidden>
+                                <input type="text" formControlName="debitSubLedgerCode" id="{{'debitSubLedgerCode'+i}}" hidden> 
+                                <input type="text" formControlName="fromName"  id="{{'fromName'+i}}" 
+                                style="border: none;background-color: rgb(235, 225, 225);font-weight: 500 ;width: 150%; font-size: 10px;" readonly> 
+                                <input type="text" formControlName="debitbalance"  id="{{'debitbalance'+i}}" style="border: none;background-color: rgb(235, 225, 225);font-weight: 700" readonly >
+                            </div>
+                            <div class="col-md-3 text-center" style="width:25% !important;margin:0% !important;padding: 0% !important;">
+                              <input formControlName="amount" #dd id="{{'amount'+i}}" cFormControl type="number" (change)="getDebitAmount(dd.value)" />
+                            </div>
+                            <div class="text-center" style="width:1% !important" *ngIf="i>0">
+                              <button (click)="removeCreadit(i)" class="btn btn-danger btn-sm pull-right" >
+                                <i class="fa-solid fa-delete-left" style="color:whitesmoke;"></i>
+                              </button>
+                            </div>
+                          </div>
+                          
+                        </div>
+                        <hr>
+                      </div>
+                      <div class="row">
+                        <div class="mb-4 mt-2 col-md-5" style="margin-left: 9px;" >
+                          <a (click)="addCreadit()"><span cButton> Add More</span></a>
+                        </div>
+                        <div class="mt-3 text-end col-md-2" style="margin-left:5%;"><span class="fw-bold" >Total Debit</span></div>
+                        <div class="mb-4 mt-2 col-md-4" style="width:29%;" >
+                          <input class="form-control" placeholder="Total" [value]="numberFormat(debitAmounttotal)" readonly/>
+                        </div>
+                      </div>
+                   </div>
+                   <div class="col-md-6" style="background-color: rgb(235, 225, 225);margin:0% !important;padding: 0% !important;border-left: 3px solid white">
+                    <div class="row mb-2" style="margin:0% !important;padding: 0% !important;">
+                      <div class="col-md-9 mt-2 text-center" >
+                          <label cLabel class="fw-bold">Paid From</label>
+                      </div>
+                      <div class="col-md-3 mt-2 text-center" style="margin-left: -10%;">
+                      <label cLabel class="fw-bold" >Amount</label>
+                    </div>
+                    </div>
+
+                    <div formArrayName="multipleCreaditEntry" *ngFor="let ledger of bankPaymentForm.get('multipleCreaditEntry')['controls']; let i = index">
+                        <div class="row" [formGroupName]="i" style="margin-top:8px !important; margin-left:1%;margin-right:1%;padding: 0% !important;">
+                          <div class="row"  style="margin:0% !important;padding: 0% !important;">
+                            <div class="col-md-8"  style="margin:0% !important;padding-left: 0% !important;padding-right: 1% !important;">
+ 
+                                <ng-select cSelect placeholder="Account Name" formControlName="creaditUniqId" 
+                                 id="{{'debitUniqId'+i}}" (change)="getledgerFrom($event,i)">
+                                   <ng-option *ngFor="let Cat of ledgerList" [value]="Cat.uniqId">
+                                    {{ Cat.nameCode }}
+                                   </ng-option>
+                              </ng-select>
+                                <input type="text" formControlName="creaditAccLedgerName" id="{{'creaditLedgerName'+i}}" hidden>
+                                <input type="text" formControlName="creaditLedgerId" id="{{'creaditLedgerId'+i}}" hidden>
+                                <input type="text" formControlName="creaditSubLedgerId" id="{{'creaditSubLedgerId'+i}}" hidden>
+                                <input type="text" formControlName="creaditLedgerCode" id="{{'creaditLedgerCode'+i}}" hidden>
+                                <input type="text" formControlName="creaditSubLedgerCode" id="{{'creaditSubLedgerCode'+i}}" hidden>
+                                <input type="text" formControlName="toName"  id="{{'toName'+i}}" 
+                                style="border: none;background-color: rgb(235, 225, 225);font-weight: 500 ;width: 145%; font-size: 10px;" readonly>
+                                <input type="text" formControlName="creaditbalance"  id="{{'creaditbalance'+i}}" style="border: none;background-color: rgb(235, 225, 225);font-weight: 700" readonly >
+                            </div>
+                            <div class="col-md-3" style="width:24%;margin: 0% !important;padding: 0% !important;" >
+                              <input formControlName="amount" #dd id="{{'amount'+i}}" (change)="getCreaditAmount(dd.value)" cFormControl type="number" />
+                            </div>
+                            <div class="text-center" style="width:1% !important" *ngIf="i>0">
+                              <button (click)="removeDebit(i)" class="btn btn-danger btn-sm pull-right" >
+                                <i class="fa-solid fa-delete-left" style="color:whitesmoke;"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                      <div class="mb-4 mt-2 col-md-5" style="margin-left: 9px;" >
+                        <a (click)="addDebit()"><span cButton> Add More</span></a>
+                      </div>
+                      <div class="mt-3 text-end col-md-2" style="margin-left:5%;"><span class="fw-bold" >Total Credit</span></div>
+                      <div class="mb-4 mt-2 col-md-4" style="width:29%;" >
+                        <input class="form-control" placeholder="Total" [value]="numberFormat(creditAmounttotal)" readonly/>
+                      </div>
+                    </div>
+                   </div>
+                
+                   
+                
+                </div>
+                <div class="row">
+                  <div md="3" class="mb-3">
+                      <label cLabel for="exampleFormControlInput1">Narration</label>
+                      <div class="col-md-4">
+                        <textarea cFormControl formControlName="narration" type="text"></textarea>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <button class="btn btn-secondary" style="padding-left: 30px;padding-right: 30px;" (click)="saveReceipt()"  [disabled]="isButtonClicked">Save</button>
+                </div>
+            </form>
+              
+          </div>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+
+  <c-modal #verticallyCenteredModal alignment="top" id="verticallyCenteredModal">
+    <c-modal-header>
+      <h5 cModalTitle>Add Party</h5>
+      <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+      <div class="mb-3">
+         <label class="mb-2 fw-bold" style="margin-left: 5px;">Party Name</label>
+         <input class="form-control" #name type="text">
+     </div>
+    </c-modal-body>
+    <c-modal-footer>
+      <button [cModalToggle]="verticallyCenteredModal.id" 
+      cButton color="primary" (click)="saveParty(name.value)">Save</button>
+      <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">Close</button>
+    </c-modal-footer>
+  </c-modal>

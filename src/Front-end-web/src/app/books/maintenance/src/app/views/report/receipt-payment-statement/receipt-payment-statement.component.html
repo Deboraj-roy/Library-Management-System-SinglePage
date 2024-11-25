@@ -1,0 +1,178 @@
+<c-container>
+          <c-card class="mb-3">
+            <c-card-header style="border: none;">
+                <h3 class="text-center fw-bold"><u>Accounts_Demo</u></h3>
+                <h4 class="text-center"><u>Receipt & Payment Statement</u></h4>
+             </c-card-header>
+            <c-card-body class="row margn">
+                <div class="col-md-2">
+                    <label class="mb-2" style="font-weight: 700">Start Date</label>
+                    <input type="date" class="form-control mb-2" [(ngModel)]="startDate">
+                </div>
+                <div class="col-md-2 ">
+                    <label class="mb-2" style="font-weight: 700">End Date</label>
+                    <input type="date" class="form-control mb-2"  [(ngModel)]="endDate">
+                    <div class="alin"><button cButton color="primary" (click)="getFirstStatement()">Filter</button> </div>
+                </div>
+                <div class="col-md-2" style="margin-top: 30px;">
+                    <span style="font-weight: 700;margin-left: 15%;">Compare with</span> 
+                </div>
+                <div class="col-md-2">
+                    <label class="mb-2" style="font-weight: 700">Start Date</label>
+                    <input type="date" class="form-control mb-2" [(ngModel)]="strt">
+                </div>
+                <div class="col-md-2">
+                    <label class="mb-2" style="font-weight: 700">End Date</label>
+                    <input type="date" class="form-control mb-2"[(ngModel)]="endt">
+                    <div class="alin"><button cButton color="primary" (click)="getSecondStatement()" >Filter</button> </div>
+                </div>
+            </c-card-body>
+            <c-card-body class="margn">
+                <c-container>
+                    <c-row>
+                        <c-col xs lg="8" *ngIf="firstTbl">
+                            <table bordered cTable hover class="mt-2 text-center" >
+                                <thead cTableColor="dark">
+                                    <tr>
+                                        <th scope="col">SL No</th>
+                                        <th scope="col" class="text-start">Account Name</th>
+                                        <th scope="col">Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr >
+                                        <td></td>
+                                        <td class="text-start"><strong>Opening Balance</strong></td>
+                                        <td>{{formatNumberWithCustomPattern(openBalance)}}</td>
+                                    </tr>
+                                    <tr >
+                                        <td></td>
+                                        <td class="text-start"><strong>Receipt</strong></td>
+                                        <td>{{formatNumberWithCustomPattern(receipts)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-start"><strong>Total Receipt</strong></td>
+                                        <td><strong>{{formatNumberWithCustomPattern(totalReceipt)}}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-start"><strong>Bank Payment</strong></td>
+                                        <td style="color: white;">date</td>
+                                    </tr>
+                                    <tr *ngFor="let ld of listOfBankPayment ; let i=index;">
+                                        <td>{{i+1}}</td>
+                                        <td class="text-start">{{ld.accLedgerName}}</td>
+                                        <td>{{formatNumberWithCustomPattern(ld.firstBalance)}}</td>
+                                    </tr>
+                                    <tr *ngIf="listOfBankPayment.length==0" class="text-center">
+                                        <th colspan="3" ><h5>No Bank Payment</h5></th>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-start"><strong>Cash Payment</strong></td>
+                                        <td style="color: white;">date</td>
+                                    </tr>
+                                    <tr *ngFor="let ld of listOfCashPayment ; let i=index;">
+                                        <td>{{i+1}}</td>
+                                        <td class="text-start">{{ld.accLedgerName}}</td>
+                                        <td>{{formatNumberWithCustomPattern(ld.firstBalance)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-start"><strong>Total Payment</strong></td>
+                                        <td><strong>{{formatNumberWithCustomPattern(totalPayment)}}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-start"><strong>Closing Balance</strong></td>
+                                        <td><strong>{{formatNumberWithCustomPattern(totalReceipt-totalPayment)}}</strong></td>
+                                    </tr>
+                                    <tr *ngIf="listOfCashPayment.length==0" class="text-center">
+                                        <th colspan="3" ><h5>No Cash Payment</h5></th>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </c-col>
+                        <c-col xs lg="10" *ngIf="secondTbl" >
+                            <table bordered cTable hover class="mt-2 text-center">
+
+                                <thead cTableColor="dark">
+                                    <tr>
+                                        <th scope="col">SL No</th>
+                                        <th scope="col" class="text-start">Account Name</th>
+                                        <th scope="col">Balance</th>
+                                        <th scope="col">Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr >
+                                        <td></td>
+                                        <td class="text-start"><strong>Opening Balance</strong></td>
+                                        <td>{{formatNumberWithCustomPattern(openBalance)}}</td>
+                                        <td>{{formatNumberWithCustomPattern(openBalanceSecond)}}</td>
+                                    </tr>
+                                    <tr >
+                                        <td></td>
+                                        <td class="text-start"><strong>Receipt</strong></td>
+                                        <td>{{formatNumberWithCustomPattern(receipts)}}</td>
+                                        <td>{{formatNumberWithCustomPattern(receiptsSecond)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-start"><strong>Total Receipt</strong></td>
+                                        <td><strong>{{formatNumberWithCustomPattern(totalReceipt)}}</strong></td>
+                                        <td><strong>{{formatNumberWithCustomPattern(totalReceipt1)}}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-start"><strong>Bank Payment</strong></td>
+                                        <td style="color: white;">date</td>
+                                        <td style="color: white;">date</td>
+                                    </tr>
+                                    <tr *ngFor="let ld of listOfPayment ; let i=index;">
+                                        <td>{{i+1}}</td>
+                                        <td class="text-start">{{ld.accLedgerName}}</td>
+                                        <td>{{formatNumberWithCustomPattern(ld.firstBalance)}}</td>
+                                        <td>{{formatNumberWithCustomPattern(ld.secondBalance)}}</td>
+                                    </tr>
+                                    <tr *ngIf="listOfPayment.length==0" class="text-center">
+                                        <th colspan="4" ><h5>No Bank Payment</h5></th>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-start"><strong>Cash Payment</strong></td>
+                                        <td style="color: white;">date</td>
+                                        <td style="color: white;">date</td>
+                                    </tr>
+                                    <tr *ngFor="let ld of listOfCashPaymentComp ; let i=index;">
+                                        <td>{{i+1}}</td>
+                                        <td class="text-start">{{ld.accLedgerName}}</td>
+                                        <td>{{formatNumberWithCustomPattern(ld.firstBalance)}}</td>
+                                        <td>{{formatNumberWithCustomPattern(ld.secondBalance)}}</td>
+                                    </tr>
+                                    <tr *ngIf="listOfCashPaymentComp.length==0" class="text-center">
+                                        <th colspan="4" ><h5>No Cash Payment</h5></th>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-start"><strong>Total Payment</strong></td>
+                                        <td><strong>{{formatNumberWithCustomPattern(totalPayment)}}</strong></td>
+                                        <td><strong>{{formatNumberWithCustomPattern(totalPayment1)}}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-start"><strong>Closing Balance</strong></td>
+                                        <td><strong>{{formatNumberWithCustomPattern(totalReceipt-totalPayment)}}</strong></td>
+                                        <td><strong>{{formatNumberWithCustomPattern(totalReceipt1-totalPayment1)}}</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                        </c-col>
+                    </c-row>
+                </c-container>
+            </c-card-body>
+          </c-card>
+</c-container>

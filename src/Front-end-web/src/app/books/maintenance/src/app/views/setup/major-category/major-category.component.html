@@ -1,0 +1,112 @@
+<c-container>
+  <c-row>
+    <c-col xs lg="3">
+      <form
+        [formGroup]="addMajorCategoryForm"
+        cForm
+        (ngSubmit)="onAddMajorCategoryFormSubmit()"
+      >
+
+
+        <div md="3" class="mb-3">
+          <label cLabel for="exampleFormControlInput1"
+            >Category</label
+          >
+          <ng-select
+            formControlName="AccSubHeadCategoryId"
+            cSelect
+
+            (change)="changedAccSubHeadCategory($event)"
+            placeholder="Select Sub Head Category">
+
+            <ng-option
+
+              *ngFor="let accSubHeadCategory of accSubHeadCategories"
+              [value]="accSubHeadCategory.accSubHeadCategoryId"
+            >
+              {{ accSubHeadCategory.accSubHeadCategoryName}}
+            </ng-option>
+          </ng-select>
+
+
+
+        </div>
+
+
+
+
+        <div class="mb-3">
+          <label cLabel for="SubHeadCategory">Major Category Name</label>
+          <input
+            formControlName="MajorCategoryName"
+            cFormControl
+
+            type="text"
+          />
+        </div>
+        <div class="mb-3">
+          <label cLabel for="SubHeadCategory">Major Category Code</label>
+          <input
+            formControlName="MajorCategoryCode"
+            cFormControl
+
+            type="text"
+          />
+          <div cFormText>
+            This code is provided by you to easily identify this
+            major category in future
+          </div>
+        </div>
+
+        <button
+          [disabled]="addMajorCategoryForm.invalid ? true : false"
+          cButton
+          type="submit"
+        >
+          Save
+        </button>
+
+        <button
+          (click)="resetForm(addMajorCategoryForm)"
+          cButton
+         color="info"
+         variant="outline"
+         class="ms-3"
+        >
+          Reset Form
+        </button>
+      </form>
+    </c-col>
+    <c-col>
+      <table bordered cTable hover>
+        <thead cTableColor="dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Head</th>
+            <th scope="col">SubHead</th>
+            <th scope="col">Category</th>
+            <th scope="col">Major Category</th>
+            <th scope="col">Code</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let majorCategory of majorCategories;
+              let i = index
+            "
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ majorCategory.accHeadName }}</td>
+            <td>{{ majorCategory.accSubHeadName }}</td>
+            <td>{{ majorCategory.accSubHeadCategoryName }}</td>
+            <td>{{ majorCategory.majorCategoryName }}</td>
+            <td>{{ majorCategory.majorCategoryCode }}</td>
+          </tr>
+          <tr></tr>
+        </tbody>
+      </table>
+    </c-col>
+  </c-row>
+</c-container>
+

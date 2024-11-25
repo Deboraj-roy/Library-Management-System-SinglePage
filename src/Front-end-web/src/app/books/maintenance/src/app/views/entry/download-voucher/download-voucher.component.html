@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="card-header text-center">
+        <h3>Download Voucher</h3>
+    </div>
+
+    <div class="card-body">
+        <div class="row mt-2 ">
+
+            <div class="col-md-3">
+                <label style="font-weight: 700">Select Voucher (By Searching)</label>
+                <!-- <input  type="text" class="form-control" placeholder="enter voucher no." [(ngModel)]="voucher" /> -->
+                
+                <ng-select [items]="ddlVouchers" bindLabel="voucher" bindValue="voucher" formControlName="voucher" [placeholder]="'Select Voucher'" [(ngModel)]="voucher" (search)="onChanged($event)" (change)="onVoucherChanged($event)" cFormControl>
+                </ng-select>
+            </div>
+            <div class="col-md-2" [hidden]="true">
+                <label style="font-weight: 700">Report Type</label>
+                <ng-select [items]="reportType" bindLabel="name" bindValue="id" placeholder="select Type"
+                    [(ngModel)]="report"></ng-select>
+            </div>
+            <div class="col-md-2 mt-3">
+                <button (click)="getVoucherReport()" cButton >Download & Print</button>
+            </div>
+        </div>
+    </div>
+
+</div>

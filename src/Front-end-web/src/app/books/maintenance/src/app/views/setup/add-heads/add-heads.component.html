@@ -1,0 +1,98 @@
+<c-row>
+  <c-col xs="12">
+    <c-card class="mb-3">
+      <c-card-header ngPreserveWhitespaces>
+        <strong>Setup</strong> <small>Heads</small>
+      </c-card-header>
+      <c-card-body>
+        
+        <c-nav variant="tabs">
+          <!-- <c-nav-item>
+            <a [cTabContent]="tabContent1" [routerLink] [tabPaneIdx]="0" cNavLink >
+              <svg cIcon class="me-2" name="cilHome"></svg>
+              Categories
+            </a>
+          </c-nav-item>
+          <c-nav-item>
+            <a
+              [cTabContent]="tabContent1"
+              [routerLink]
+              [tabPaneIdx]="1"
+              cNavLink 
+            >
+              <svg cIcon class="me-2" name="cilArrowRight"></svg>
+              Major Categories
+            </a>
+          </c-nav-item> -->
+          <c-nav-item>
+            <a
+              [cTabContent]="tabContent1"
+              [routerLink]
+              [tabPaneIdx]="0"
+              cNavLink 
+
+            >
+              <svg cIcon class="me-2" name="cilHome"></svg>
+               Ledger
+            </a>
+          </c-nav-item>
+          <c-nav-item>
+            <a
+              [cTabContent]="tabContent1"
+              [routerLink]
+              [tabPaneIdx]="1"
+              cNavLink 
+            >
+            <svg cIcon class="me-2" name="cilArrowRight"></svg>
+              Sub Ledger
+            </a>
+          </c-nav-item>
+          <c-nav-item>
+            <a
+              [cTabContent]="tabContent1"
+              [routerLink]
+              [tabPaneIdx]="2"
+              cNavLink 
+            >
+            <svg cIcon class="me-2" name="cilCode"></svg>
+              Opening Balance Entry
+            </a>
+          </c-nav-item>
+        </c-nav>
+        <c-tab-content #tabContent1="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom">
+
+            <!-- <c-tab-pane class="p-3 preview" role="tabpanel">
+
+              <app-acc-sub-head-category></app-acc-sub-head-category>
+
+            </c-tab-pane>
+
+            <c-tab-pane class="p-3 preview" role="tabpanel">
+
+              <app-major-category></app-major-category>
+
+            </c-tab-pane> -->
+
+            <c-tab-pane class="p-3 preview" role="tabpanel">
+
+            <app-minor-category></app-minor-category>
+
+            </c-tab-pane>
+
+            <c-tab-pane class="p-3 preview" role="tabpanel">
+
+              <app-minor-sub-category></app-minor-sub-category>
+
+            </c-tab-pane>
+
+            <c-tab-pane class="p-3 preview" role="tabpanel">
+
+              <app-opening-balance></app-opening-balance>
+
+            </c-tab-pane>
+
+        </c-tab-content>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

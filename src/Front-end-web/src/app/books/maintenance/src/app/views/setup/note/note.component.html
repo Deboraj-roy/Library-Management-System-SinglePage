@@ -1,0 +1,44 @@
+<c-nav variant="tabs">
+    <c-nav-item>
+      <a
+        [cTabContent]="tabContent1"
+        [routerLink]
+        [tabPaneIdx]="0"
+        cNavLink 
+      >
+        <svg cIcon class="me-2" name="cilHome"></svg>
+        Note Entry
+      </a>
+    </c-nav-item>
+    <c-nav-item>
+      <a
+        [cTabContent]="tabContent1"
+        [routerLink]
+        [tabPaneIdx]="1"
+        cNavLink 
+      >
+        <svg cIcon class="me-2" name="cilArrowRight"></svg>
+        Note Details Entry
+      </a>
+    </c-nav-item>
+  </c-nav>
+  <c-tab-content
+            #tabContent1="cTabContent"
+            [activeTabPaneIdx]="0"
+            cRounded="bottom"
+          >
+            <c-tab-pane class="p-3 preview" role="tabpanel">
+             
+                <app-note-entry></app-note-entry>
+              
+  
+            </c-tab-pane>
+            <c-tab-pane
+              class="p-3 preview"
+              role="tabpanel"
+            >
+             <app-note-details-entry></app-note-details-entry>
+  
+            </c-tab-pane>
+            
+  </c-tab-content>

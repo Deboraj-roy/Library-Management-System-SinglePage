@@ -1,0 +1,59 @@
+
+<c-container>
+    <c-card>
+      <c-card-header style="border: none;">
+        <h3 class="text-center fw-bold"><u>Accounts_Demo</u></h3>
+        <h4 class="text-center"><u>List of Customer</u></h4>
+      </c-card-header>
+        
+        <c-card-body>
+            <div class="card mt-4 mb-2 " style="border: none;">
+                <div class="row">
+                    <div class="col-md-9">
+                    </div>
+                    <div class="col-md-3">
+                        <input cFormControl type="text" placeholder="search..." [(ngModel)]="searchText">
+                    </div>
+                </div>
+            </div>
+            <c-row>
+                <c-col xs lg="12" >
+                    <table bordered cTable hover>
+                        <thead cTableColor="dark">
+                            <tr >
+                                <th scope="col">#</th>
+                                <th scope="col">Customer Name</th>
+                                <th scope="col">Code</th>
+                                <th scope="col">Balance</th>
+                                <th scope="col" style="text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let x of subLedgerList | filter : searchText ; let i=index" >
+                                <td>{{i}}</td>
+                                <td>{{x.subLedgerName}}</td>
+                                <td>{{x.subLedgerCode}}</td>
+                                <td>{{x.balance}}</td>
+                                <td style="text-align: center;"><button cButton color="secondary" (click)="gotoDetails(x)">View Details</button></td>
+                            </tr>
+                            <tr *ngIf="subLedgerList.length==0" style="border-bottom: none;">
+                                <td class="borderddd"></td>
+                                <td class="borderdd"></td>
+                                <td class="borderdd"></td>
+                                <td class="borderdd"></td>
+                                <td class="borderdddd"></td>
+                              </tr>
+                              <tr *ngIf="subLedgerList.length==0" style="border-top: none;">
+                                <td class="borderddd"></td>
+                                <td class="borderdd"></td>
+                                <td class="borderdd"><h4 class="text-center">No Data</h4></td>
+                                <td class="borderdd"></td>
+                                <td class="borderdddd"></td>
+                              </tr>
+                        </tbody>
+                    </table>
+                </c-col>
+            </c-row>
+        </c-card-body>
+    </c-card>
+</c-container>

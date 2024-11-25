@@ -1,0 +1,81 @@
+
+<c-container>
+    <c-card>
+      <c-card-header style="border: none;">
+        <h3 class="text-center fw-bold"><u>Accounts_Demo</u></h3>
+        <h4 class="text-center"><u>Party Details</u></h4>
+      </c-card-header>
+        
+        <c-card-body>
+            <div class="card mt-4 mb-2" style="border: none;">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label style="font-weight: 700">Select Particular</label>
+                        <ng-select  [items]="party"  class="mt-2"
+                        bindLabel="partyName" bindValue="partyId" placeholder="select Particular" [(ngModel)]="partyId"></ng-select>
+                    </div>
+                    <div class="col-md-2">
+                        <label style="font-weight: 700">Select Account</label>
+                        <ng-select  [items]="ledgerSubLedger"  class="mt-2"
+                        bindLabel="subLedgerName" bindValue="subLedgerName" placeholder="select Account" [(ngModel)]="ledgerName"></ng-select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="mb-2" style="font-weight: 700">Start Date</label>
+                        <input type="date" class="form-control mb-2" [(ngModel)]="startDate">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="mb-2" style="font-weight: 700">End Date</label>
+                        <input type="date" class="form-control mb-2" [(ngModel)]="endDate">
+                    </div>
+                    <div class="col-md-1 text-center">
+                        <button type="button" class="mt-4 " (click)="filteredList()" cButton >Filter</button>
+                    </div>
+                    
+                    <div class="col-md-2"> 
+                        <label style="font-weight: 700">Report Type</label>
+                        <ng-select  [items]="reportType"  class="mt-2"
+                        bindLabel="name" bindValue="id" placeholder="select Type" [(ngModel)]="type"></ng-select>
+                    </div>
+                    <div class="col-md-1 ">
+                        <button type="button" class="mt-4 " (click)="getReport()" cButton >Download</button>
+                    </div>
+                </div>
+            </div>
+            <c-row>
+                <c-col xs lg="12" >
+                    <table bordered cTable hover>
+                        <thead cTableColor="dark">
+                            <tr >
+                                <th scope="col" style="text-align: center;">#</th>
+                                <th scope="col" style="text-align: center;">Created Date</th>
+                                <th scope="col" style="text-align: center;">Particular Name</th>
+                                <th scope="col" style="text-align: center;">Account</th>
+                                <th scope="col" style="text-align: center;">Voucher Type</th>
+                                <th scope="col" style="text-align: center;">Voucher</th>
+                                <th scope="col" style="text-align: center;">Amount</th>
+                                <th scope="col" style="text-align: center;">Transaction Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let x of partyList  ; let i=index " >
+                                <td scope="col" style="text-align: center;">{{i+1}}</td>
+                                <td scope="col" style="text-align: center;">{{x.createdDate | date}}</td>
+                                <td scope="col" style="text-align: center;">{{x.partyName}}</td>
+                                <td scope="col" style="text-align: center;">{{x.accountCode}}-{{x.accountName}}</td>
+                                <td scope="col" style="text-align: center;">{{x.voucherType}}</td>
+                                <td scope="col" style="text-align: center;">{{x.voucher}}</td>
+                                <td scope="col" style="text-align: center;">{{formatNumberWithCustomPattern(x.amount)}}</td>
+                                <td scope="col" style="text-align: center;">{{x.transactionType}}</td>
+                            </tr>
+                            <tr>
+                                <td scope="col" colspan="6" style="text-align: center;"><strong>Total</strong></td>
+                                <td scope="col" style="text-align: center;"><strong>{{formatNumberWithCustomPattern(totalAmt)}}</strong></td>
+                                <td scope="col" style="text-align: center;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </c-col>
+            </c-row>
+        </c-card-body>
+    </c-card>
+</c-container>

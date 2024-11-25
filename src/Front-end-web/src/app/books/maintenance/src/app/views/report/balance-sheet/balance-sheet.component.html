@@ -1,0 +1,345 @@
+<c-container>
+    <c-card>
+      <c-card-header style="border: none;">
+        <h3 class="text-center fw-bold"><u>Accounts_Demo</u></h3>
+        <h4 class="text-center"><u>Statement of Financial Position</u></h4>
+      </c-card-header>
+        <c-card-body style="border: none;">
+            <div class="row mt-4 mb-2">
+              <div class="col-md-1">
+              </div>
+              <div class="col-md-2">
+                <label style="font-weight: 700">Select Date</label>
+                <input type="date" class="form-control" [(ngModel)]="datePipeString">
+              </div>
+              <div class="col-md-1 mt-3">
+                <button cButton (click)="getByDate()" >Filter</button>
+              </div>
+              <div class="col-md-2 mt-4 text-start" style="width:10%">
+                <h5>Compare with</h5>
+              </div>
+              <div class="col-md-2 text-start">
+                <label style="font-weight: 700">Select Date</label>
+                <input type="date" class="form-control"  [(ngModel)]="secoundDate">
+              </div>
+              <div class="col-md-1 mt-3">
+                <button cButton (click)="getByDateSecond()" >Filter</button>
+              </div>
+              <div class="col-md-2"> 
+                <label style="font-weight: 700">Report Type</label>
+                <ng-select  [items]="reportType" 
+                bindLabel="name" bindValue="id" placeholder="select Type" [(ngModel)]="type"></ng-select>
+              </div>
+              <div class="col-md-1 mt-3">
+                  <button (click)="getReport()" cButton >Download</button>
+              </div>
+
+            </div>
+        </c-card-body>
+        <c-card-body>
+            <c-row>
+                <c-col xs lg="8">
+                      <table class="mt-2" style="margin-left: 20%;"  >
+                        <thead >
+                          <tr>
+                            <th scope="col"><h4><u>ASSETS</u></h4></th>
+                            <th scope="col" style="text-align: center;"><h4><u>Note</u></h4></th>
+                            <th scope="col" style="text-align: center;"></th>
+                            <th scope="col" style="text-align: center;"></th>
+                            <th scope="col" style="text-align: center;"><h4><u>Amount (BDT)</u></h4></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border: none;" >
+                                <h5 >{{headName1}}</h5>
+                            </tr>
+
+                            
+                          <tr *ngFor="let sheet of balanceSheet1 ; let i=index;let last = last;let first = first ">
+                            <td>{{ sheet.noteName }}</td>
+                            <td style="text-align: center;">{{ sheet.noteCode }}</td>
+                            <td></td>
+                            <td></td>
+                            <td [ngClass]="{'t-border': first,'c-border': (first!=true && last!=true),'b-border': last  }" 
+                            class="mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteDetails(sheet.noteId)">{{ formatNumberWithCustomPattern(sheet.balance) }}</td>
+                          </tr>
+
+
+                          <tr style="border: none;border-bottom: none;">
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;text-align: left; font-weight: 700;"></td>
+                            <td style="border: none;text-align: center;font-weight: 700">{{formatNumberWithCustomPattern(totalBalance1)}}</td>
+                          </tr>
+
+                          <tr style="border: none;" >
+                            <h5>{{headName2}}</h5>
+                          </tr>
+                          <!-- Dynamic Data Loading! -->
+                          <tr *ngFor="let sheet of balanceSheet2 ; let i=index;let last = last;let first = first ;" >
+                            <td>{{ sheet.noteName }}</td>
+                            <td style="text-align: center;">{{ sheet.noteCode }}</td>
+                            <td></td>
+                            <td></td>
+                            <td   [ngClass]="{'t-border': first,'c-border': (first!=true && last!=true),'b-border': last  }" 
+                            class="mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteDetails(sheet.noteId)">{{ formatNumberWithCustomPattern(sheet.balance) }}</td>
+                          </tr>
+
+                          <tr style="border: none;border-bottom: none;">
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;text-align: left;font-weight: 700"></td>
+                            <td style="border: none;text-align: center;font-weight: 700"><u>{{formatNumberWithCustomPattern(totalBalance2)}}</u></td>
+                          </tr>
+                          <tr style="margin-bottom: 20px;margin-top: 20px;">
+                            <td style="font-weight: 800;"> <h4>
+                              TOTAL ASSETS
+                             </h4></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="font-weight: 800; text-align: center;"><u>{{formatNumberWithCustomPattern(totalBalance1+totalBalance2)}}</u></td>
+
+                          </tr>
+                          <hr style="width:175%"/>
+                          <br/>
+                          <tr>
+                            <h4><u>EQUITY AND LIABILITIES</u></h4>
+                          </tr>
+                          <tr >
+                            <h5 >Equity</h5>
+                          </tr>
+                          
+                          <tr
+                          *ngFor="let sheet of balanceSheet3 ; let i=index;let last = last;let first = first "
+                          >
+                            <td>{{ sheet.noteName }}</td>
+                            <td style="text-align: center;">{{ sheet.noteCode }}</td>
+                            <td></td>
+                            <td></td>
+                            <td [ngClass]="{'t-border': first,'c-border': (first!=true && last!=true),'b-border': last  }" 
+                            class="mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteDetails(sheet.noteId)">{{ formatNumberWithCustomPattern(sheet.balance) }}</td>
+                          </tr>
+
+                          <tr style="border: none;border-bottom: none;">
+                            
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;text-align: left;font-weight: 700"></td>
+                            <td style="border: none;text-align: center;font-weight: 700">{{formatNumberWithCustomPattern(totalBalance3)}}</td>
+                          </tr>
+                          <tr style="border: none;" >
+                            <h5 >{{headName5}}</h5>
+                          </tr>
+                          <tr
+                          *ngFor="let sheet of balanceSheet5 ; let i=index;let last = last;let first = first "
+                          >
+                           
+                            <td>{{ sheet.noteName }}</td>
+                            <td style="text-align: center;">{{ sheet.noteCode }}</td>
+                            <td></td>
+                            <td></td>
+                            <td [ngClass]="{'t-border': first,'c-border': (first!=true && last!=true),'b-border': last  }" 
+                            class="mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteDetails(sheet.noteId)">{{ formatNumberWithCustomPattern(sheet.balance) }}</td>
+                            
+                          </tr>
+
+
+                          <tr style="border: none;border-bottom: none;">
+                            
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;text-align: left;font-weight: 700"></td>
+                            <td style="border: none;text-align: center;font-weight: 700">{{formatNumberWithCustomPattern(totalBalance5) }}</td>
+                          </tr>
+                          <tr style="border: none;" >
+                            <h5 >{{headName6}}</h5>
+                          </tr>
+                          <!-- Dynamic Data Loading! -->
+                          <tr
+                          *ngFor="let sheet of balanceSheet6 ; let i=index;let last = last;let first = first "
+                          >
+                           
+                            <td>{{ sheet.noteName }}</td>
+                            <td style="text-align: center;">{{ sheet.noteCode }}</td>
+                            <td></td>
+                            <td></td>
+                            <td [ngClass]="{'t-border': first,'c-border': (first!=true && last!=true),'b-border': last  }" 
+                            class="mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteDetails(sheet.noteId)">{{ formatNumberWithCustomPattern(sheet.balance) }}</td>
+                            
+                          </tr>
+
+
+                          <tr style="border: none;border-bottom: none;">
+                            
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;"></td>
+                            <td style="border: none;text-align: left;font-weight: 700"></td>
+                            <td style="border: none;text-align: center;font-weight: 700">{{formatNumberWithCustomPattern(totalBalance6)}}</td>
+                          </tr>
+
+                          <tr style="margin-bottom: 20px;margin-top: 20px;">
+                            <td style="font-weight: 800;"> <h4>
+                              TOTAL EQUITIES AND LIABILITIES
+                             </h4></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="font-weight: 800; text-align: center;"><u>{{formatNumberWithCustomPattern(totalBalance3+totalBalance5+totalBalance6)}}</u></td>
+                          </tr>
+                          
+
+                        </tbody>
+                      </table>
+                </c-col>
+                <c-col xs lg="2">
+                  <table class="mt-2" style="margin:0%;padding:0%" *ngIf="open" >
+                    <thead >
+                      <tr>
+                        <th scope="col" style="text-align: center;"><h4><u>Amount (BDT)</u></h4></th>
+                      </tr>
+                      <tr style="border: none;" >
+                        <h5 >&nbsp;</h5>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let sheet of balanceSheet7 ; let i=index;let last = last;let first = first ">
+                        <td [ngClass]="{'t-border': first,'c-border': (first!=true && last!=true),'b-border': last  }" 
+                        class="mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteDetailSecond(sheet.noteId)">{{ formatNumberWithCustomPattern(sheet.balance) }}</td>
+                      </tr>
+
+                      <tr style="border: none;border-bottom: none;">
+                        <td style="border: none;text-align: center;font-weight: 700">{{formatNumberWithCustomPattern(totalBalance7)}}</td>
+                      </tr>
+                      <tr >
+                        <h4>&nbsp;</h4>
+                      </tr>
+
+                      <tr *ngFor="let sheet of balanceSheet8 ; let i=index;let last = last;let first = first ;" >
+                        <td   [ngClass]="{'t-border': first,'c-border': (first!=true && last!=true),'b-border': last  }" 
+                        class="mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteDetailSecond(sheet.noteId)">{{ formatNumberWithCustomPattern(sheet.balance)}}</td>
+                      </tr>
+
+                      <tr style="border: none;border-bottom: none;">
+                        
+                        <td style="border: none;text-align: center;font-weight: 700"><u>{{formatNumberWithCustomPattern(totalBalance8)}}</u></td>
+                      </tr>
+                      <tr style="margin-bottom: 20px;margin-top: 20px;">
+                        
+                        <td style="font-weight: 800; text-align: center;"><u>{{formatNumberWithCustomPattern(totalBalance7+totalBalance8)}}</u></td>
+
+                      </tr>
+                      
+                      <hr style="width:175%;margin-top: 23px;"/>
+                      <br/>
+                      <tr > 
+                        <h4>&nbsp;</h4>
+                      </tr>
+                      <tr  >
+                        <h5 >&nbsp;</h5>
+                      </tr>
+                      <!--  -->
+                      <tr
+                      *ngFor="let sheet of balanceSheet11 ; let i=index;let last = last;let first = first "
+                      >
+                        
+                        <td [ngClass]="{'t-border': first,'c-border': (first!=true && last!=true),'b-border': last  }" 
+                        class="mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteDetailSecond(sheet.noteId)">{{formatNumberWithCustomPattern( sheet.balance) }}</td>
+                      </tr>
+
+                      <tr style="border: none;border-bottom: none;">
+                        
+                        
+                        <td style="border: none;text-align: center;font-weight: 700">{{formatNumberWithCustomPattern(totalBalance11)}}</td>
+                      </tr>
+                      <tr style="border: none;" >
+                        <h5 >&nbsp;</h5>
+                      </tr>
+                      <tr
+                      *ngFor="let sheet of balanceSheet9 ; let i=index;let last = last;let first = first "
+                      >
+                       
+                        
+                        <td [ngClass]="{'t-border': first,'c-border': (first!=true && last!=true),'b-border': last  }" 
+                        class="mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteDetailSecond(sheet.noteId)">{{ formatNumberWithCustomPattern(sheet.balance) }}</td>
+                        
+                      </tr>
+
+
+                      <tr style="border: none;border-bottom: none;">
+                        
+                        
+                        <td style="border: none;text-align: center;font-weight: 700">{{formatNumberWithCustomPattern(totalBalance9)}}</td>
+                      </tr>
+                      <tr style="border: none;">
+                        <h5 >&nbsp;</h5>
+                      </tr>
+                      <tr
+                      *ngFor="let sheet of balanceSheet10 ; let i=index;let last = last;let first = first "
+                      >
+                       
+                        
+                        <td [ngClass]="{'t-border': first,'c-border': (first!=true && last!=true),'b-border': last  }" 
+                        class="mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteDetailSecond(sheet.noteId)">{{ formatNumberWithCustomPattern(sheet.balance) }}</td>
+                        
+                      </tr>
+
+
+                      <tr style="border: none;border-bottom: none;">
+                        
+                        
+                        <td style="border: none;text-align: center;font-weight: 700">{{formatNumberWithCustomPattern(totalBalance10)}}</td>
+                      </tr>
+
+                      <tr style="margin-bottom: 20px;margin-top: 20px;">
+                        
+                        <td style="font-weight: 800; text-align: center;"><u>{{formatNumberWithCustomPattern(totalBalance11+totalBalance9+totalBalance10)}}</u></td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </c-col>
+            </c-row>
+        </c-card-body>
+    </c-card>
+</c-container>
+
+<c-modal #verticallyCenteredModal alignment="top" id="verticallyCenteredModal">
+  <c-modal-header>
+    <h5 cModalTitle>Note Details</h5>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <table bordered cTable hover>
+      <thead cTableColor="dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Account Name</th>
+          <th scope="col">Debit</th>
+          <th scope="col">Credit</th>
+          <th scope="col">Debit Balance</th>
+          <th scope="col">Credit Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let note of noteDetails ; let i=index">
+           <td>{{i+1}}</td>
+           <td>{{note.accLedgerName}}</td>
+           <td>{{formatNumberWithCustomPattern(note.debit)}}</td>
+           <td>{{formatNumberWithCustomPattern(note.credit)}}</td>
+           <td>{{formatNumberWithCustomPattern(note.debitBalance)}}</td>
+           <td>{{formatNumberWithCustomPattern(note.creditBalance)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">Close</button>
+  </c-modal-footer>
+</c-modal>
+

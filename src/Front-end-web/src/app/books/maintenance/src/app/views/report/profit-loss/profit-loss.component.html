@@ -1,0 +1,411 @@
+<c-container>
+    <c-card>
+        <c-card-header style="border: none;">
+            <h3 class="text-center fw-bold"><u>Accounts_Demo</u></h3>
+            <h4 class="text-center"><u>Statement of Profit or Loss and Other Comprehensive Income</u></h4> 
+         </c-card-header>
+        
+        <c-card-body class="row margn">
+            <div class="col-md-2">
+                <label class="mb-2" style="font-weight: 700">Start Date</label>
+                <input type="date" class="form-control mb-2" #start [(ngModel)]="startDate" >
+            </div>
+            <div class="col-md-2 ">
+                <label class="mb-2" style="font-weight: 700">End Date</label>
+                <input type="date" class="form-control mb-2" #end [(ngModel)]="endDate">
+                <div class="alin"><button cButton color="primary" (click)="getFirstStatement()">Filter</button> </div>
+            </div>
+            <div class="col-md-1" style="margin-top: 30px;">
+                <span style="font-weight: 700">Compare with</span> 
+            </div>
+            <div class="col-md-2">
+                <label class="mb-2" style="font-weight: 700">Start Date</label>
+                <input type="date" class="form-control mb-2" #starting [(ngModel)]="startCompairDate">
+            </div>
+            <div class="col-md-2">
+                <label class="mb-2" style="font-weight: 700">End Date</label>
+                <input type="date" class="form-control mb-2" #ending [(ngModel)]="endCompairDate">
+                <div class="alin"><button cButton color="primary" (click)="getSecondStatement()" >Filter</button> </div>
+            </div>
+            <div class="col-md-2"> 
+                <label style="font-weight: 700">Report Type</label>
+                <ng-select  [items]="reportType"  class="mt-2"
+                bindLabel="name" bindValue="id" placeholder="select Type" [(ngModel)]="type"></ng-select>
+            </div>
+            <div class="col-md-1 ">
+                <button type="button" class="mt-4 " (click)="getReport()" cButton >Download</button>
+            </div>
+        </c-card-body>
+
+        <c-card-body>
+            <c-row>
+                <div class="col-md-9 tabl">
+                    <table class="mt-2 " *ngIf="open" >
+                        <thead >
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col" class="noteCode"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col" class="noteCode wd" *ngIf="startDate!=''"><u>{{startDate |date}}</u> to <u>{{endDate |date}}</u></th>
+                          </tr>
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col" class="noteCode"><h4><u>Note</u></h4></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col" class="noteCode wd"><h4><u>Amount (BDT)</u></h4></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr  >
+                                <th scope="col" class="name">{{balanceSheet.noteName}}</th>
+                                <th scope="col" class="noteCode">{{balanceSheet.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="borderTopLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNote(balanceSheet)">{{formatNumberWithCustomPattern(balanceSheet.balance)}}</th>
+                            </tr>
+                            <tr >
+                                <th scope="col" class="name">{{balanceSheetForLedger.accSubHeadName}}</th>
+                                <th scope="col" class="noteCode">{{balanceSheetForLedger.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="borderLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getAllLedgerByLedgerCode(1)" >{{formatNumberWithCustomPattern(balanceSheetForLedger.balance)}}</th>
+                            </tr>
+                            <tr >
+                                <th scope="col" class="name">{{materialCost.noteName}}</th>
+                                <th scope="col" class="noteCode">{{materialCost.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="borderLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNote(materialCost)">{{formatNumberWithCustomPattern(materialCost.balance)}}</th>
+                            </tr>
+                            <tr >
+                                <th scope="col" class="name">{{directExpences.noteName}}</th>
+                                <th scope="col" class="noteCode">{{directExpences.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNote(directExpences)">{{formatNumberWithCustomPattern(directExpences.balance)}}</th>
+                            </tr>
+                            <tr  >
+                                <th scope="col" class="headName">Gross Profit</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="headBalance" >{{formatNumberWithCustomPattern(grossTotal)}}</th>
+                            </tr>
+                            <tr  >
+                                <th scope="col" class="operating">Operating Expenses</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" ></th>
+                            </tr>
+
+                            <tr >
+                                <th scope="col" class="name">{{AdministrativeExpences.noteName}}</th>
+                                <th scope="col" class="noteCode">{{AdministrativeExpences.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="borderTopLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNote(AdministrativeExpences)">{{formatNumberWithCustomPattern(AdministrativeExpences.balance)}}</th>
+                            </tr>
+                            
+                            <tr >
+                                <th scope="col" class="name">{{MarketingExpences.noteName}}</th>
+                                <th scope="col" class="noteCode">{{MarketingExpences.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNote(MarketingExpences)">{{formatNumberWithCustomPattern(MarketingExpences.balance)}}</th>
+                            </tr>
+                            <!-- <tr >
+                                <th scope="col" class="name">{{SellingExpences.noteName}}</th>
+                                <th scope="col" class="noteCode">{{SellingExpences.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="borderLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNote(SellingExpences)">{{formatNumberWithCustomPattern(SellingExpences.balance)}}</th>
+                            </tr>
+                            <tr >
+                                <th scope="col" class="name">{{DistributionExpences.noteName}}</th>
+                                <th scope="col" class="noteCode">{{DistributionExpences.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNote(DistributionExpences)">{{formatNumberWithCustomPattern(DistributionExpences.balance)}}</th>
+                            </tr> -->
+                            <tr  >
+                                <th scope="col" ></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="noteCode" ><u>{{formatNumberWithCustomPattern(OperatingTotal)}}</u></th>
+                            </tr>
+                            <tr >
+                                <th scope="col" class="headName">Operating Profit</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="headBalance noteCode" >{{formatNumberWithCustomPattern(grossTotal-OperatingTotal)}}</th>
+                            </tr>
+                            
+                            <tr  >
+                                <th scope="col" class="name">{{FinancialExpences.noteName}}</th>
+                                <th scope="col" class="noteCode">{{FinancialExpences.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"class="borderTopLeftRight borderBottomLeftRight  noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNote(FinancialExpences)">{{formatNumberWithCustomPattern(FinancialExpences.balance)}}</th>
+                            </tr>
+
+                            <tr  >
+                                <th scope="col" ></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="noteCode wd" ><u>{{formatNumberWithCustomPattern(FinancialExpences.balance)}}</u></th>
+                            </tr>
+                            
+                            <tr  >
+                                <th scope="col" class="name">{{IncomeTax.noteName}}</th>
+                                <th scope="col" class="noteCode">{{IncomeTax.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="borderTopLeftRight borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNote(IncomeTax)">{{formatNumberWithCustomPattern(IncomeTax.balance)}}</th>
+                            </tr>
+                            <tr  >
+                                <th scope="col" ></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="noteCode wd" ><u>{{formatNumberWithCustomPattern(IncomeTax.balance)}}</u></th>
+                            </tr>
+                            <tr >
+                                <th scope="col" class="headName"> Profit Before Tax</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="headBalance noteCode" >{{formatNumberWithCustomPattern(grossTotal-OperatingTotal-FinancialExpences.balance+IncomeTax.balance)}}</th>
+                            </tr>
+
+                            <tr  >
+                                <th scope="col" class="name" >{{Comprehensive.noteName}}</th>
+                                <th scope="col" class="noteCode">{{Comprehensive.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="borderTopLeftRight borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNote(Comprehensive)">{{formatNumberWithCustomPattern(Comprehensive.balance)}}</th>
+                            </tr>
+                            <tr  >
+                                <th scope="col" ></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="noteCode wd" ><u>{{formatNumberWithCustomPattern(Comprehensive.balance)}}</u></th>
+                            </tr>
+                            <tr >
+                                <th scope="col" class="headName"> Profit After Tax</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="headBalance noteCode" >{{formatNumberWithCustomPattern(grossTotal-OperatingTotal-FinancialExpences.balance-Comprehensive.balance+IncomeTax.balance)}}</th>
+                            </tr>
+                            <!-- <tr  >
+                                <th scope="col" class="name">{{IncomeTax.noteName}}</th>
+                                <th scope="col" class="noteCode">{{IncomeTax.noteCode}}</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="borderTopLeftRight borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNote(IncomeTax)">{{formatNumberWithCustomPattern(IncomeTax.balance)}}</th>
+                            </tr>
+                            <tr  >
+                                <th scope="col" ></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="noteCode wd" ><u>{{formatNumberWithCustomPattern(IncomeTax.balance)}}</u></th>
+                            </tr> -->
+                            <tr >
+                                <th scope="col" class="headName">Total Comprehensive Income for the Period</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="headBalance noteCode wd"  ><u style="border-bottom: 1px solid black;">{{formatNumberWithCustomPattern(grossTotal-OperatingTotal-FinancialExpences.balance-Comprehensive.balance+IncomeTax.balance)}}</u></th>
+                            </tr>
+                           
+                           
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-3">
+                    <table class="mt-2 " *ngIf="open1" >
+                        <thead >
+                          <tr>
+                            <th scope="col" class="noteCode wd" *ngIf="startDate!=''"><u>{{startCompairDate |date}}</u> to <u>{{endCompairDate |date}}</u></th>
+                          </tr>
+                          <tr>
+                            
+                            <th scope="col" class="noteCode wd"><h4><u>Amount (BDT)</u></h4></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr  >
+                                
+                                <th scope="col" class="borderTopLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteById(balanceSheet1)">{{formatNumberWithCustomPattern(balanceSheet1.balance)}}</th>
+                            </tr>
+                            <tr >
+                                
+                                <th scope="col" class="borderLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getAllLedgerByCode(1)">{{formatNumberWithCustomPattern(balanceSheetForLedger1.balance)}}</th>
+                            </tr>
+                            <tr >
+                                
+                                <th scope="col" class="borderLeftRight noteCode wd mark"[cModalToggle]="verticallyCenteredModal.id" (click)="getNoteById(materialCost1)">{{formatNumberWithCustomPattern(materialCost1.balance)}}</th>
+                            </tr>
+                            <tr >
+                                
+                                <th scope="col" class="borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteById(directExpences1)">{{formatNumberWithCustomPattern(directExpences1.balance)}}</th>
+                            </tr>
+                            <tr  >
+                                
+                                <th scope="col" class="headBalance" >{{formatNumberWithCustomPattern(grossTotal1)}}</th>
+                            </tr>
+                            <tr  >
+                                <th scope="col" class="operating fnclr">Operating Expenses</th>
+                                
+                            </tr>
+
+                            <tr >
+                               
+                                <th scope="col" class="borderTopLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteById(AdministrativeExpences1)">{{formatNumberWithCustomPattern(AdministrativeExpences1.balance)}}</th>
+                            </tr>
+                            
+                            <tr >
+                                
+                                <th scope="col" class="borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteById(MarketingExpences1)">{{formatNumberWithCustomPattern(MarketingExpences1.balance)}}</th>
+                            </tr>
+                            <!-- <tr >
+                                
+                                <th scope="col" class="borderLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteById(SellingExpences1)">{{formatNumberWithCustomPattern(SellingExpences1.balance)}}</th>
+                            </tr>
+                            <tr >
+                                
+                                <th scope="col" class="borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteById(DistributionExpences1)">{{formatNumberWithCustomPattern(DistributionExpences1.balance)}}</th>
+                            </tr> -->
+                            <tr  >
+                                
+                                <th scope="col" class="noteCode" ><u>{{formatNumberWithCustomPattern(OperatingTotal1)}}</u></th>
+                            </tr>
+                            <tr >
+                                
+                                <th scope="col" class="headBalance noteCode" >{{formatNumberWithCustomPattern(grossTotal1-OperatingTotal1)}}</th>
+                            </tr>
+                            
+                            <tr  >
+                                
+                                <th scope="col"class="borderTopLeftRight borderBottomLeftRight  noteCode wd mark"[cModalToggle]="verticallyCenteredModal.id" (click)="getNoteById(FinancialExpences1)" >{{formatNumberWithCustomPattern(FinancialExpences1.balance)}}</th>
+                            </tr>
+
+                            <tr  >
+                               
+                                <th scope="col" class="noteCode wd" ><u>{{formatNumberWithCustomPattern(FinancialExpences1.balance)}}</u></th>
+                            </tr>
+                            <tr  >
+                                
+                                <th scope="col" class="borderTopLeftRight borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteById(IncomeTax1)">{{formatNumberWithCustomPattern(IncomeTax1.balance)}}</th>
+                            </tr>
+                            <tr  >
+                                
+                                <th scope="col" class="noteCode wd" ><u>{{formatNumberWithCustomPattern(IncomeTax1.balance)}}</u></th>
+                            </tr>
+                            <tr >
+                                
+                                <th scope="col" class="headBalance noteCode" >{{formatNumberWithCustomPattern(grossTotal1-OperatingTotal1-FinancialExpences1.balance+IncomeTax1.balance)}}</th>
+                            </tr>
+
+                            <tr  >
+                                
+                                <th scope="col" class="borderTopLeftRight borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteById(Comprehensive1)">{{formatNumberWithCustomPattern(Comprehensive1.balance)}}</th>
+                            </tr>
+                            <tr  >
+                               
+                                <th scope="col" class="noteCode wd" ><u>{{formatNumberWithCustomPattern(Comprehensive1.balance)}}</u></th>
+                            </tr>
+                            <tr >
+                                
+                                <th scope="col" class="headBalance noteCode" >{{formatNumberWithCustomPattern(grossTotal1-OperatingTotal1-FinancialExpences1.balance-Comprehensive1.balance+IncomeTax1.balance)}}</th>
+                            </tr>
+                            <!-- <tr  >
+                                
+                                <th scope="col" class="borderTopLeftRight borderBottomLeftRight noteCode wd mark" [cModalToggle]="verticallyCenteredModal.id" (click)="getNoteById(IncomeTax1)">{{formatNumberWithCustomPattern(IncomeTax1.balance)}}</th>
+                            </tr>
+                            <tr  >
+                                
+                                <th scope="col" class="noteCode wd" ><u>{{formatNumberWithCustomPattern(IncomeTax1.balance)}}</u></th>
+                            </tr> -->
+                            <tr >
+                               
+                                <th scope="col" class="headBalance noteCode"  ><u style="border-bottom: 1px solid black;">{{formatNumberWithCustomPattern(grossTotal1-OperatingTotal1-FinancialExpences1.balance-Comprehensive1.balance+IncomeTax1.balance)}}</u></th>
+                            </tr>
+                           
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </c-row>
+        </c-card-body>
+    </c-card>
+</c-container>
+
+<c-modal #verticallyCenteredModal alignment="top" id="verticallyCenteredModal">
+    <c-modal-header>
+      <h5 cModalTitle>Note Details</h5>
+      <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+      <table bordered cTable hover>
+        <thead cTableColor="dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Account Name</th>
+            <th scope="col">Debit</th>
+            <th scope="col">Credit</th>
+            <th scope="col">Date</th>
+            <th scope="col">Narration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let note of noteDetails ; let i=index">
+             <td>{{i}}</td>
+             <td>{{note.accLedgerName}}</td>
+             <td>{{formatNumberWithCustomPattern(note.debit)}}</td>
+             <td>{{formatNumberWithCustomPattern(note.credit)}}</td>
+             <td>{{note.createdDate | date}}</td>
+             <td>{{note.narration}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </c-modal-body>
+    <c-modal-footer>
+      <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">Close</button>
+    </c-modal-footer>
+</c-modal>
+
+

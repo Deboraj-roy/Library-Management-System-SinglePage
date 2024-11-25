@@ -1,0 +1,208 @@
+<c-nav variant="tabs">
+  <!-- app-receipt-voucher -->
+  <!-- <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="0"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilHome"></svg>
+      Receipt Voucher
+    </a>
+  </c-nav-item> -->
+  <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="0"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilHome"></svg>
+      Cash Receipt Voucher
+    </a>
+  </c-nav-item>
+  <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="1"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilArrowRight"></svg>
+      Bank Receipt Voucher
+    </a>
+  </c-nav-item>
+  <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="2"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilArrowRight"></svg>
+      Receipt Voucher List
+    </a>
+  </c-nav-item>
+</c-nav>
+<c-tab-content
+          #tabContent1="cTabContent"
+          [activeTabPaneIdx]="0"
+          cRounded="bottom"
+        >
+          <!-- <c-tab-pane class="p-3 preview" role="tabpanel">
+
+            <app-receipt-voucher></app-receipt-voucher>
+
+          </c-tab-pane> -->
+          <c-tab-pane class="p-3 preview" role="tabpanel">
+
+            <app-cash-receipt-voucher></app-cash-receipt-voucher>
+
+          </c-tab-pane>
+          <c-tab-pane
+            class="p-3 preview"
+            role="tabpanel"
+          >
+
+          <app-bank-receipt-voucher></app-bank-receipt-voucher>
+
+          </c-tab-pane>
+          <c-tab-pane
+            class="p-3 preview"
+            role="tabpanel"
+          >
+
+          <app-voucher-list></app-voucher-list>
+
+          </c-tab-pane>
+          
+</c-tab-content>
+
+
+
+
+
+<!-- 
+
+<c-row>
+    <c-col xs="12">
+      <c-card class="mb-3">
+        <c-card-header ngPreserveWhitespaces>
+          <strong>Receipt Voucher</strong>
+        </c-card-header>
+        <c-card-body>
+          
+          <div class="container">
+            <form [formGroup]="receiptFrom">
+
+              <div class="row">
+                  <div class="col-md-2 mb-3" >
+                    <label cLabel for="exampleFormControlInput1">Voucher Number</label><br>
+                    <input type="text" cFormControl readonly [(ngModel)]="voucher" formControlName="voucherNumber" />
+                  </div>
+                  <div class="col-md-2 mb-3" style="margin-left: 1%;">
+                     <label cLabel >Select Date</label>
+                     <input type="date" formControlName="createdDate" cFormControl />
+                  </div>
+              </div>
+              <div class="container row" style="background-color: rgb(237, 234, 229);">
+                <div class="col-md-5 row" style="background-color: gainsboro;margin: 10px;width: 40%;">
+                    <div  class="col-md-8 mb-3">
+                      <label cLabel for="exampleFormControlInput1">Received At</label>
+                      <ng-select  
+                        cSelect
+                        placeholder="Select Received Account"
+                        (change)="getledgerTo($event)" formControlName="debitUniqId"
+                      >
+                      
+                        <ng-option
+                          *ngFor="let Cat of ledgerSubLedger"
+                          [value]="Cat.uniqId" 
+                        >
+                          {{ Cat.nameCode }}
+                        </ng-option>
+                      </ng-select>
+  
+                      <input type="text" formControlName="debitAccLedgerName" [(ngModel)]="debitLedgerName" hidden>
+                      <input type="text" formControlName="debitLedgerId" [(ngModel)]="debitLedgerId" hidden>
+                      <input type="text" formControlName="debitSubLedgerId" [(ngModel)]="debitSubLedgerId" hidden>
+                      <input type="text" formControlName="debitLedgerCode" [(ngModel)]="debitLedgerCode" hidden>
+                      <input type="text" formControlName="debitSubLedgerCode" [(ngModel)]="debitSubLedgerCode" hidden>  
+                      <div class="text-start" style="font-weight: 700;padding-left: 10px;"  *ngIf="fromamount!=null" >
+                        <span style="margin-top: 20px;">{{fromamount}}</span>
+                      </div>
+                    </div>
+                    <div  class="col-md-4 mb-3">
+                        <label cLabel for="exampleFormControlInput1">Amount</label>
+                          <input formControlName="amount"
+                          cFormControl
+                          type="number"
+                        />
+                    </div>
+                </div>
+                <div class="col-md-7 row" style="background-color: gainsboro;margin: 10px;width: 55%;">
+                  
+                    <div class="col-md-7 mb-3">
+                        <label cLabel for="exampleFormControlInput1">Party Name</label>
+                        <ng-select 
+                          cSelect
+                          placeholder="Select Party" formControlName="creaditUniqId"
+                          (change)="getledgerFrom($event)"
+                        >
+                          <ng-option
+                            *ngFor="let Cat of ledger_SubLedger"
+                            [value]="Cat.uniqId" 
+                          >
+                            {{ Cat.nameCode }}
+                          </ng-option>
+                        </ng-select>
+    
+                        <input type="text" formControlName="creaditAccLedgerName" [(ngModel)]="creaditLedgerName" hidden>
+                        <input type="text" formControlName="creaditLedgerId" [(ngModel)]="creaditLedgerId" hidden>
+                        <input type="text" formControlName="creaditSubLedgerId" [(ngModel)]="creaditSubLedgerId" hidden>
+                        <input type="text" formControlName="creaditLedgerCode" [(ngModel)]="creaditLedgerCode" hidden>
+                        <input type="text" formControlName="creaditSubLedgerCode" [(ngModel)]="creaditSubLedgerCode" hidden>
+                        
+                        <div class="text-start" style="font-weight: 700;padding-left: 10px;"  *ngIf="toamount!=null" >
+                          <span style="margin-top: 20px;">{{toamount}}</span>
+                        </div>
+    
+                    </div>
+                    <div  class="col-md-3 mb-3">
+                      <label cLabel for="exampleFormControlInput1">Amount</label>
+                        <input 
+                        cFormControl
+                        type="number"
+                      />
+                    </div>
+                    <div class="col-md-1 text-end">
+                      <button class="btn btn-danger mt-4">
+                        <i class="fa-solid fa-delete-left" style="color:whitesmoke;"></i>
+                      </button>
+                    </div>
+                    </div>
+              </div>
+ 
+                <div class="row">
+                  <div md="3" class="mb-3">
+                      <label cLabel for="exampleFormControlInput1">Narration</label>
+                      <div class="col-md-4">
+                        <textarea formControlName="narration"
+                        cFormControl
+                        type="text"></textarea>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <button class="btn btn-secondary" style="padding-left: 30px;padding-right: 30px;" (click)="saveReceipt()" >Save</button>
+                </div>
+            </form>
+              
+          </div>
+
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row> -->

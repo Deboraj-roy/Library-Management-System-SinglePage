@@ -1,0 +1,122 @@
+<c-nav variant="tabs">
+    <c-nav-item>
+      <a
+        [cTabContent]="tabContent1"
+        [routerLink]
+        [tabPaneIdx]="0"
+        cNavLink 
+      >
+        <svg cIcon class="me-2" name="cilHome"></svg>
+        Purchase Voucher
+      </a>
+    </c-nav-item>
+    <c-nav-item>
+      <a
+        [cTabContent]="tabContent1"
+        [routerLink]
+        [tabPaneIdx]="1"
+        cNavLink 
+      >
+        <svg cIcon class="me-2" name="cilArrowRight"></svg>
+        Purchase Return Voucher 
+      </a>
+    </c-nav-item>
+     <c-nav-item>
+      <a
+        [cTabContent]="tabContent1"
+        [routerLink]
+        [tabPaneIdx]="2"
+        cNavLink 
+      >
+        <svg cIcon class="me-2" name="cilArrowRight"></svg>
+        Purchase Voucher List
+      </a>
+    </c-nav-item> 
+
+     <c-nav-item>
+      <a
+        [cTabContent]="tabContent1"
+        [routerLink]
+        [tabPaneIdx]="3"
+        cNavLink 
+      >
+        <svg cIcon class="me-2" name="cilArrowRight"></svg>
+        Purchase Return Voucher List
+      </a>
+    </c-nav-item>
+    <c-nav-item>
+      <a
+        [cTabContent]="tabContent1"
+        [routerLink]
+        [tabPaneIdx]="4"
+        cNavLink 
+      >
+        <svg cIcon class="me-2" name="cilArrowRight"></svg>
+        Purchase  Details List
+      </a>
+    </c-nav-item>
+    <c-nav-item>
+      <a
+        [cTabContent]="tabContent1"
+        [routerLink]
+        [tabPaneIdx]="5"
+        cNavLink 
+      >
+        <svg cIcon class="me-2" name="cilArrowRight"></svg>
+        Purchase Return Details List
+      </a>
+    </c-nav-item>
+    
+  </c-nav>
+  <c-tab-content
+            #tabContent1="cTabContent"
+            [activeTabPaneIdx]="0"
+            cRounded="bottom"
+          >
+            <c-tab-pane class="p-3 preview" role="tabpanel">
+  
+                <app-purchase-voucher></app-purchase-voucher>
+                
+            </c-tab-pane>
+            <c-tab-pane
+              class="p-3 preview"
+              role="tabpanel"
+            >
+  
+               <app-purchase-return-voucher></app-purchase-return-voucher>
+  
+            </c-tab-pane>
+  
+            <c-tab-pane
+              class="p-3 preview" role="tabpanel"
+            >
+  
+               <app-purchase-voucher-list></app-purchase-voucher-list>
+  
+            </c-tab-pane> 
+            <c-tab-pane
+              class="p-3 preview" role="tabpanel"
+            >
+  
+               <app-purchase-return-voucher-list></app-purchase-return-voucher-list>
+  
+            </c-tab-pane> 
+
+            <c-tab-pane
+              class="p-3 preview" role="tabpanel"
+            >
+  
+               <app-purchase-voucher-details-list></app-purchase-voucher-details-list>
+  
+            </c-tab-pane> 
+
+            <c-tab-pane
+              class="p-3 preview" role="tabpanel"
+            >
+  
+               <app-purchase-return-voucher-details-list></app-purchase-return-voucher-details-list>
+  
+            </c-tab-pane> 
+            
+  </c-tab-content>
+  

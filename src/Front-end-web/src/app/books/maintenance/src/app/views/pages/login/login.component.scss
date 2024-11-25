@@ -1,0 +1,249 @@
+
+/*--responsive--*/
+@media(max-width:1680px) {
+    .login-form input[type="text"], .login-form input[type="password"] {
+        width: 93.5%;
+    }
+    #mainbody{
+        width: 93.5%;
+    }
+}
+
+@media(max-width:1600px) {
+    .login-form input[type="text"], .login-form input[type="password"] {
+        width: 92.5%;
+    }
+    #mainbody{
+        width: 92.5%;
+    }
+}
+
+@media(max-width:1440px) {
+    .main-content-agileits {
+        width: 70%;
+    }
+    .login-form input[type="text"], .login-form input[type="password"] {
+        width: 93.5%;
+    }
+    #mainbody{
+        width: 93.5%;
+    }
+}
+
+@media(max-width:1366px) {
+    .login-form input[type="submit"] {
+        font-size: 16px;
+        padding: 11px 0;
+        margin-top: 10px;
+    }
+    .login-form input[type="text"], .login-form input[type="password"] {
+        width: 93%;
+    }
+    #mainbody{
+        width: 93%;
+    }
+    
+}
+
+@media(max-width:1280px) {
+    .login-form input[type="text"], .login-form input[type="password"] {
+        width: 92%;
+    }
+    #mainbody{
+        width: 92%;
+    }
+}
+
+@media(max-width:1080px) {
+    .main-content-agileits {
+        width: 80%;
+    }
+    #mainbody{
+        width: 90%;
+    }
+}
+
+@media(max-width:900px) {
+    .left-text-w3ls h3 {
+        font-size: 1.5em;
+    }
+    .main-content-agileits {
+        width: 85%;
+    }
+    .left-text-w3ls p {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+    .login-form input[type="text"], .login-form input[type="password"] {
+        width: 91%;
+    }
+    #mainbody{
+        width: 85%;
+    }
+}
+
+@media(max-width:800px) {
+    .login-form {
+        padding: 1.6em;
+    }
+        .login-form input[type="text"], .login-form input[type="password"] {
+            width: 91.5%;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+    .login-w3l {
+        width: 39.6%;
+    }
+    .login-form input[type="submit"] {
+        font-size: 15px;
+        padding: 10px 0;
+        margin-top: 8px;
+    }
+    .login-form input[type="text"], .login-form input[type="password"] {
+        width: 89.5%;
+    }
+}
+
+@media(max-width:768px) {
+    .left-text-w3ls {
+        width: 100%;
+        margin: 0 auto;
+        float: none;
+        text-align: center;
+        padding-right: 0;
+    }
+        .left-text-w3ls h3 {
+            margin: 0em 0 0.5em;
+        }
+    .login-w3l {
+        margin-top: 23%;
+        margin-left: 57%;
+    }
+
+
+    .login-form input[type="text"], .login-form input[type="password"] {
+        width: 94%;
+    }
+
+    #mainbody{
+        width: 80%;
+    }
+}
+
+@media(max-width:767px) {
+    h1 {
+        margin: 1.8em 0 0.9em;
+    }
+
+    .footer-agileits p {
+        margin: 3em 0;
+    }
+}
+
+@media(max-width:736px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .footer-agileits p {
+        font-size: 13.5px;
+    }
+
+    .login-form input[type="text"], .login-form input[type="password"] {
+        width: 93.9%;
+    }
+}
+
+@media(max-width:667px) {
+    h1 {
+        letter-spacing: 3px;
+    }
+
+    
+
+    .footer-agileits p {
+        margin: 2.5em 2em;
+        line-height: 28px;
+    }
+
+    .left-text-w3ls p {
+        line-height: 33px;
+    }
+    #mainbody{
+        width: 70%;
+    }
+}
+
+@media(max-width:600px) {
+    #mainbody{
+        width: 65%;
+    }
+}
+
+@media(max-width:568px) {
+    .login-w3l {
+        margin-left: 60%;
+    }
+
+    
+    #mainbody{
+        width: 60%;
+    }
+}
+
+@media(max-width:480px) {
+
+    .login-w3l {
+        width: 60%;
+        margin: 1em auto 0;
+        margin-top: 27%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #mainbody{
+        width: 50%;
+    }
+}
+
+@media(max-width:440px) {
+
+    .main-content-agileits {
+        width: 90%;
+    }
+    #mainbody{
+        width: 45%;
+    }
+}
+
+@media(max-width:414px) {
+    .login-form input[type="text"], .login-form input[type="password"] {
+        width: 92.9%;
+    }
+
+    #mainbody{
+        width: 40%;
+    }
+}
+
+@media(max-width:384px) {
+    
+    .login-form input[type="text"], .login-form input[type="password"] {
+        width: 92%;
+    }
+    #mainbody{
+        width: 30%;
+    }
+}
+
+@media(max-width:320px) {
+    .main-content-agileits {
+        width: 95%;
+    }
+    .login-form input[type="text"], .login-form input[type="password"] {
+        padding: 9px 10px;
+        width: 90.5%;
+    }
+    #mainbody{
+        width: 25%;
+    }
+}

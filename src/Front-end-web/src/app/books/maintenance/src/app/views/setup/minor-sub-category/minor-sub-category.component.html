@@ -1,0 +1,209 @@
+<c-container *ngIf="shouldRefresh">
+  <c-row>
+    <c-col xs lg="3">
+      <form
+        [formGroup]="addMinorSubCategoryForm"
+        cForm
+        (ngSubmit)="onAddMinorSubCategoryFormSubmit()"
+      >
+        <div md="3" class="mb-3">
+          <label cLabel for="exampleFormControlInput1">Major Category (Not Required)</label>
+
+          <ng-select
+
+            (change)="changedMajorCategory($event)"
+            cSelect
+            placeholder="Select Major Category"
+          >
+
+            <ng-option
+              *ngFor="let majorCategory of majorCategories"
+              [value]="majorCategory.majorCategoryId"
+            >
+              {{ majorCategory.majorCategoryName }}
+            </ng-option>
+          </ng-select>
+          <div cFormText>
+            use if need to filter Ledgers..
+          </div>
+        </div>
+
+        <div md="3" class="mb-3" >
+          <label cLabel for="exampleFormControlInput1">Ledger</label>
+          <ng-select
+            formControlName="MinorCategoryId"
+            (change)="changedMinorCategory($event)"
+            cSelect
+            placeholder="Select Minor Category"
+          >
+            <ng-option
+              *ngFor="let minorCategory of minorCategories"
+              [value]="minorCategory.minorCategoryId"
+            >
+              {{ minorCategory.minorCategoryName +"("+ minorCategory.minorCategoryCode +")"}}
+            </ng-option>
+          </ng-select>
+        </div>
+
+        <div class="mb-3">
+          <label cLabel for="SubHeadCategory">Sub-Ledger Name</label>
+          <input
+            formControlName="MinorSubCategoryName"
+            cFormControl
+            type="text"
+          />
+        </div>
+        <div class="mb-3">
+          <label cLabel for="SubHeadCategory">Sub-Ledger Code</label>
+          <input
+            formControlName="MinorSubCategoryCode"
+            cFormControl
+            type="text"
+            [value]="subCode"
+            readonly
+          />
+          
+        </div>
+
+        <button
+          [disabled]="addMinorSubCategoryForm.invalid ? true : false"
+          cButton
+          type="submit"
+        >
+          Save
+        </button>
+
+        <button
+          (click)="resetForm(addMinorSubCategoryForm)"
+          cButton
+          color="info"
+          variant="outline"
+          class="ms-3"
+        >
+          Reset Form
+        </button>
+      </form>
+    </c-col>
+    <c-col>
+      <div class="row mt-2 mb-2">
+        <div class="col-md-8" > 
+        </div>
+        <div class="col-md-4" > 
+          <input  type="text" class="form-control" placeholder="Search Ledger...." [(ngModel)]="searchText"/>
+       </div>
+      </div>
+      <table bordered cTable hover>
+        <thead cTableColor="dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Head</th>
+            <th scope="col">SubHead</th>  
+            <th scope="col">Category</th>
+            <th scope="col">Major Category</th>
+            <th scope="col">Ledger</th>
+            <th scope="col">Sub-Ledger Name</th>
+            <th scope="col">Code</th>
+            <th scope="col" colspan="2">Option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let minorSubCategory of minorSubCategories | filter : searchText| paginate:{
+              id: 'portingTnPaginations',
+             itemsPerPage: tableSize,
+             currentPage: page,
+             totalItems: count
+            }; let i = index"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ minorSubCategory.accHeadName }}</td>
+            <td>{{ minorSubCategory.accSubHeadName }}</td>
+            <td>{{ minorSubCategory.accSubHeadCategoryName }}</td>
+            <td>{{ minorSubCategory.majorCategoryName }}</td>
+            <td>{{ minorSubCategory.minorCategoryName }}</td>
+            <td>{{ minorSubCategory.minorSubCategoryName }}</td>
+            <td>{{ minorSubCategory.minorSubCategoryCode }}</td>
+            <td style="width:4%;color: #1e3050; border-right: none; cursor: pointer;" [cModalToggle]="verticallyCenteredModal.id" (click)="editMinorSubCategory(minorSubCategory)" ><i class="fa-solid fa-pen-to-square fa-2xl"></i></td>
+            <td style="width:4%;color: #1e3050;border-left: none; cursor: pointer;" [cModalToggle]="deleteModel.id" (click)="editMinorSubCategory(minorSubCategory)" hidden><i class="fa-solid fa-trash fa-2xl"></i></td>
+          </tr>
+          <tr></tr>
+        </tbody>
+      </table>
+      <div>
+        <pagination-controls 
+        id="portingTnPaginations"
+        previousLavel="Pre"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)"
+        ></pagination-controls>
+      </div>
+    </c-col>
+  </c-row>
+</c-container>
+
+<c-modal #verticallyCenteredModal alignment="top" id="verticallyCenteredModal">
+  <c-modal-header>
+    <h5 cModalTitle>Modal title</h5>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Sub Ledger Name</label>
+      <input
+        cFormControl
+        #Name
+        type="text"
+        [value]="minorSubCetegoryName"
+      />
+    </div>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Sub Ledger Code</label>
+      <input
+        cFormControl
+        #code
+        type="text"
+        [value]="minorSubCetegoryCode"
+        [readonly]="true"
+      />
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="verticallyCenteredModal.id" (click)="updateMinorSubCategory(Name.value,code.value)"
+    cButton color="primary">Update</button>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">Close</button>
+  </c-modal-footer>
+</c-modal>
+
+<c-modal #deleteModel alignment="top" id="deleteModel">
+  <c-modal-header>
+    <h5 cModalTitle>Modal title</h5>
+    <button [cModalToggle]="deleteModel.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Category Name</label>
+      <input
+        cFormControl
+        #Name
+        type="text"
+        [value]="minorSubCetegoryName"
+        readonly
+      />
+    </div>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Category Code</label>
+      <input
+        cFormControl
+        #code
+        type="text"
+        [value]="minorSubCetegoryCode"
+        readonly
+      />
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="deleteModel.id" 
+    cButton color="primary" (click)="deleteSubLedger()" >Delete</button>
+    <button [cModalToggle]="deleteModel.id" cButton color="secondary" >Close</button>
+  </c-modal-footer>
+</c-modal>

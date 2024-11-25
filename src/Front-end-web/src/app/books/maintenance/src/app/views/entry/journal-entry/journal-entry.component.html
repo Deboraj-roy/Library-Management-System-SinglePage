@@ -1,0 +1,45 @@
+
+<c-nav variant="tabs">
+    <c-nav-item>
+      <a
+        [cTabContent]="tabContent1"
+        [routerLink]
+        [tabPaneIdx]="0"
+        cNavLink 
+      >
+        <svg cIcon class="me-2" name="cilHome"></svg>
+        Journal Voucher
+      </a>
+    </c-nav-item>
+    <c-nav-item>
+      <a
+        [cTabContent]="tabContent1"
+        [routerLink]
+        [tabPaneIdx]="1"
+        cNavLink 
+      >
+        <svg cIcon class="me-2" name="cilArrowRight"></svg>
+        Journal Voucher List
+      </a>
+    </c-nav-item>
+  </c-nav>
+  <c-tab-content
+            #tabContent1="cTabContent"
+            [activeTabPaneIdx]="0"
+            cRounded="bottom"
+          >
+            <c-tab-pane class="p-3 preview" role="tabpanel">
+  
+                <app-journal-voucher></app-journal-voucher>
+                
+            </c-tab-pane>
+            <c-tab-pane
+              class="p-3 preview"
+              role="tabpanel"
+            >
+  
+             <app-journal-voucher-list></app-journal-voucher-list>
+
+            </c-tab-pane>
+            
+  </c-tab-content>

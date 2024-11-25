@@ -1,0 +1,136 @@
+<c-nav variant="tabs">
+  <!-- <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="0"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilHome"></svg>
+      Sales Voucher
+    </a>
+  </c-nav-item> -->
+    <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="0"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilHome"></svg>
+      Sales Voucher
+    </a>
+  </c-nav-item> 
+  <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="1"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilArrowRight"></svg>
+      Sales Return Voucher 
+    </a>
+  </c-nav-item>
+  <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="2"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilArrowRight"></svg>
+      Sales Voucher List
+    </a>
+  </c-nav-item>
+
+  <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="3"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilArrowRight"></svg>
+      Sales Return Voucher List
+    </a>
+  </c-nav-item>
+  <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="4"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilArrowRight"></svg>
+      Sales Voucher Details
+    </a>
+  </c-nav-item>
+
+  <c-nav-item>
+    <a
+      [cTabContent]="tabContent1"
+      [routerLink]
+      [tabPaneIdx]="5"
+      cNavLink 
+    >
+      <svg cIcon class="me-2" name="cilArrowRight"></svg>
+      Sales Voucher Return Details
+    </a>
+  </c-nav-item>
+</c-nav>
+<c-tab-content
+          #tabContent1="cTabContent"
+          [activeTabPaneIdx]="0"
+          cRounded="bottom"
+        >
+          <!-- <c-tab-pane class="p-3 preview" role="tabpanel">
+
+              <app-sales-voucher></app-sales-voucher>
+              
+          </c-tab-pane> -->
+           <c-tab-pane class="p-3 preview" role="tabpanel">
+
+              <app-sales-voucher-discount></app-sales-voucher-discount>
+              
+          </c-tab-pane> 
+          <c-tab-pane
+            class="p-3 preview"
+            role="tabpanel"
+          >
+
+             <app-sales-return-voucher></app-sales-return-voucher>
+
+          </c-tab-pane>
+
+          <c-tab-pane
+            class="p-3 preview" role="tabpanel"
+          >
+
+             <app-sales-voucher-list></app-sales-voucher-list>
+
+          </c-tab-pane>
+          <c-tab-pane
+          class="p-3 preview" role="tabpanel"
+        >
+
+           <app-sales-return-voucher-list></app-sales-return-voucher-list>
+
+        </c-tab-pane>
+          <c-tab-pane
+            class="p-3 preview" role="tabpanel"
+          >
+
+             <app-sales-voucher-details-list></app-sales-voucher-details-list>
+
+          </c-tab-pane>
+
+          <c-tab-pane
+            class="p-3 preview" role="tabpanel"
+          >
+
+             <app-sales-voucher-return-details-list></app-sales-voucher-return-details-list>
+
+          </c-tab-pane>
+          
+</c-tab-content>

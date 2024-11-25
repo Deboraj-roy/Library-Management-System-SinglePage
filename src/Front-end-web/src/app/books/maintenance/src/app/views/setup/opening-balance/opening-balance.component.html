@@ -1,0 +1,129 @@
+<c-container>
+    <c-row>
+      <c-col xs lg="3">
+         <div class="mt-2"  >
+          
+            <from [formGroup]="openingBalanceFrom">
+                <div class="mt-4 mb-4">
+                    <label class="mb-2 fw-bold" style="margin-left: 5px;">Account Name</label>
+                    <ng-select [items]="listAccLedger" bindLabel="nameCode"  bindValue="uniqId"  style="font-size: 12px;"
+                        (change)="getLedger($event)"
+                        [placeholder]="'Select Ledger '" >
+                    </ng-select>
+                    <input type="text" formControlName="minorCategoryId"   hidden>
+                    <input type="text" formControlName="minorSubCategoryId"  hidden>
+                </div>
+                
+                <div class="mt-4 mb-4">
+                    <label  class="mb-2 fw-bold" style="margin-left: 5px;">Amount Type</label>
+                    <ng-select [items]="listBalanceType" bindLabel="name" bindValue="name" formControlName="balanceType" [placeholder]="'Select Balance Type'">
+                    </ng-select>
+                </div>
+                
+                <div class="mt-4 mb-4">
+                    <label for="amount" class="mb-2 fw-bold" style="margin-left: 5px;">Amount</label>
+                    <input id="amount" name="amount" type="number" formControlName="balance" class="form-control" />
+                </div>
+
+                <div class="mt-4 mb-4">
+                  <label for="amount" class="mb-2 fw-bold" style="margin-left: 5px;">Quantity</label>
+                  <input id="amount" name="amount" type="number" formControlName="quantity" class="form-control" />
+              </div>
+    
+                <div class="mt-4 mb-4">
+                    <label for="date" class="mb-2 fw-bold" style="margin-left: 5px;">Opening Date</label>
+                    <input id="date" name="date" type="date" formControlName="openingBalanceDate" class="form-control" />
+                </div>
+
+                <div class="mt-4 mb-4">
+                    <button cButton (click)="saveOpeningBalance()">{{buttonStatus}}</button>
+                </div>
+            </from>
+            
+
+         </div>
+      </c-col>
+      <c-col >
+        <div class="row mt-2">
+          <div class="col-md-8" > 
+          </div>
+          <div class="col-md-4" > 
+            <input  type="text" class="form-control" placeholder="Search Ledger...." [(ngModel)]="searchText"/>
+         </div>
+        </div>
+        <table bordered cTable hover class="mt-2">
+          <thead cTableColor="dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Ledger Name</th>
+              <th scope="col">Sub-Ledger Name</th>
+              <th scope="col">Ledger Code</th>
+              <th scope="col">Sub-Ledger Code</th>
+              <th scope="col">Balance</th>
+              <th scope="col">Balance Type</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Opening Date</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+            *ngFor="let open of listOpeningBalance | filter : searchText; let i=index "
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ open.minorCategoryName }}</td>
+              <td>{{ open.minorSubCategoryName }}</td>
+              <td>{{ open.minorCategoryCode }}</td>
+              <td>{{ open.minorsubCategoryCode }}</td>
+              <td>{{ formatNumberWithCustomPattern(open.balance) }}</td>
+              <td>{{ open.balanceType }}</td>
+              <td>{{ formatNumberWithCustomPattern(open.quantity) }}</td>
+              <td>{{ open.openingBalanceDate | date }}</td>
+              <td><button [cModalToggle]="ModalPopup.id" (click)="editOpeningBalance(open)"  cButton>Edit</button></td>
+            </tr>
+            <tr></tr>
+          </tbody>
+        </table>
+      </c-col>
+    </c-row>
+</c-container>
+
+
+<c-modal #ModalPopup alignment="top" id="ModalPopup">
+  <c-modal-header>
+    <h5 cModalTitle>Modal title</h5>
+    <button [cModalToggle]="ModalPopup.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Balance Type</label>
+      <ng-select [items]="listBalanceType" bindLabel="name" bindValue="name"  [(ngModel)]="type"  [placeholder]="'Select Balance Type'">
+      </ng-select>
+    </div>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Balance</label>
+      <input
+        cFormControl
+        #code
+        type="text"
+        [value]="amount"
+      />
+    </div>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Opening Balance Date</label>
+      <input
+        cFormControl
+        #Name
+        type="date"
+        [value]="openingBalanceDate"
+      />
+    </div>
+    
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="ModalPopup.id" (click)="updateOpeningBalanc(Name.value,code.value)"
+    cButton color="primary">Update</button>
+    <button [cModalToggle]="ModalPopup.id" cButton color="secondary">Close</button>
+  </c-modal-footer>
+  
+</c-modal>

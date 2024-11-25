@@ -1,0 +1,174 @@
+<c-row>
+    <c-col xs="12">
+      <c-card class="mb-3">
+        <c-card-header ngPreserveWhitespaces>
+          <strong>Purchase Return Voucher</strong>
+        </c-card-header>
+        <c-card-body>
+        
+
+          <div class="container">
+            <form [formGroup]="purchaseForm">
+              <div class="row">
+                  <div class="col-md-2 mb-3" >
+                    <label cLabel for="exampleFormControlInput1">Voucher Number</label><br>
+                    <input type="text" cFormControl formControlName="voucherNumber" [(ngModel)]="voucher"  readonly  />
+                  </div>
+                  <div class="col-md-2 mb-3" >
+                     <label cLabel >Select Date</label>
+                     <input type="date" formControlName="createdDate" cFormControl />
+                  </div>
+                  <div class="col-md-2 mb-3" style="margin-left: 1%;">
+                    <label cLabel>Select Approver</label>
+                    <ng-select [items]="ddlUsers" bindLabel="userFullName" bindValue="userId" formControlName="userId" [placeholder]="'Select Voucher Approver'" [(ngModel)]="userId" cFormControl>
+                    </ng-select>
+                </div>
+                  <div class="col-md-2">  
+                  </div>
+              </div>
+               
+
+              
+                <div class="row" style="margin:0% !important;padding: 0% !important;">
+                   <div class="col-md-6" style="background-color: rgb(235, 225, 225);margin:0% !important;padding: 0% !important;border-right: 3px solid white" hidden>
+                      <div class="row mb-2" >
+                          <div class="col-md-8 mt-2 text-center">
+                            <label cLabel class="fw-bold">Paid To</label>
+                          </div>
+                          <div class="col-md-3 mt-2 text-center">
+                            <label cLabel class="fw-bold" style="margin-left: -20%;">Amount</label>
+                          </div>
+                          <div class="col-md-1">
+                          </div>
+                      </div>
+                      <div formArrayName="multipleDebitEntry" *ngFor="let ledger of purchaseForm.get('multipleDebitEntry')['controls']; let i = index">
+                        <div class="row" [formGroupName]="i">
+                          <div class="row">
+                            <div class="col-md-8 mb-4" >
+                                <ng-select [items]="listOfPurchase" 
+                                        bindLabel="accountName" 
+                                        bindValue="id"
+                                        placeholder="Select Purchase Account"
+                                        formControlName="debitUniqId">
+                                </ng-select>
+                            </div>
+                            <div class="col-md-4">
+                              <input type="number" formControlName="amount" cFormControl id="{{'amount'+i}}" readonly >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   </div>
+
+                   <div class="col-md-6" style="background-color: rgb(235, 225, 225);margin:0% !important;padding: 0% !important;border-left: 3px solid white">
+                    <div class="row mb-2" style="margin:0% !important;padding: 0% !important;">
+                      <div class="col-md-9 mt-2 text-center" >
+                          <label cLabel class="fw-bold">Supplier Name</label>
+                      </div>
+                      <div class="col-md-3 mt-2 text-center" style="margin-left: -10%;">
+                      <label cLabel class="fw-bold" >Amount</label>
+                    </div>
+                    </div>
+
+                    <div formArrayName="multipleCreaditEntry" *ngFor="let ledger of purchaseForm.get('multipleCreaditEntry')['controls']; let i = index" class="mb-4">
+                      
+                        <div class="row" [formGroupName]="i" style="margin-top:8px !important; margin-left:1%;margin-right:1%;padding: 0% !important;">
+                          <div class="row"  style="margin:0% !important;padding: 0% !important;">
+                            <div class="col-md-8 mb-4"  style="margin:0% !important;padding-left: 0% !important;padding-right: 1% !important;">
+                              <ng-select [items]="listOfMinorCategory" 
+                                        bindLabel="accountName" 
+                                        bindValue="id"
+                                        placeholder="Select Supplier"
+                                        formControlName="creaditUniqId"
+                                        (change)="getDebitValue($event,i)">
+                                </ng-select>
+                            </div>
+                            <div class="col-md-4">
+                              <input type="number" formControlName="amount" cFormControl id="{{'amount'+i}}" readonly>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                   </div>
+                </div>
+
+                <div class="col-md-12 mt-2" style="background-color: rgb(235, 225, 225);">
+                  <div class="row mt-2" style="margin-left: 5% !important;" >
+                    <div class="row mb-2">
+                      <div class="col-md-3 mt-2 text-center">
+                        <label cLabel class="fw-bold">Item Name</label>
+                      </div>
+                      <div class="col-md-2 mt-2 text-center">
+                        <label cLabel class="fw-bold">Purchase Price</label>
+                      </div>
+                      <div class="col-md-2 mt-2 text-center">
+                        <label cLabel class="fw-bold">Unit Price</label>
+                      </div>
+                      <div class="col-md-2 mt-2 text-center">
+                        <label cLabel class="fw-bold">Quantity</label>
+                      </div>
+                      <div class="col-md-2 mt-2 text-center">
+                        <label cLabel class="fw-bold">Total Price</label>
+                      </div>
+                      <div class="col-md-1">
+                      </div>
+                    </div>
+                    <div formArrayName="multipleItemEntry" *ngFor="let ledger of purchaseForm.get('multipleItemEntry')['controls']; let i = index">
+                        <div class="row" [formGroupName]="i" >
+                          <div class="row"  >
+                            <div class="col-md-3 mb-4" >
+                              <ng-select [items]="listOfItem" 
+                                        bindLabel="accountName" 
+                                        bindValue="id"
+                                        placeholder="Select Item"
+                                        (change)="getItemDetails($event,i)">
+                                </ng-select>
+                                <span class="fw-bold" id="{{'amountt'+i}}" style="margin-left: 5px;"></span>
+                            </div>
+                            <div class="col-md-2">
+                              <input type="number" formControlName="costPrice" cFormControl id="{{'costPrice'+i}}" readonly>
+                            </div>
+                            <div class="col-md-2">
+                              <input type="number" formControlName="itemPrice" cFormControl id="{{'itemPrice'+i}}" >
+                            </div>
+                            <div class="col-md-2">
+                              <input type="number" formControlName="quantity" cFormControl id="{{'quantity'+i}}" (keyup)="getItemTotal(i)"  (keyup)="getAmount()">
+                            </div>
+                            <div class="col-md-2">
+                              <input type="number" formControlName="totalPrice" cFormControl id="{{'totalPrice'+i}}" readonly >
+                            </div>
+                            <div class="col-md-1 text-end" >
+                              <a (click)="addItems()" ><span cButton > Add</span></a>
+                            </div>
+                            <div class="col-md-1 text-center" style="width:1% !important" *ngIf="i>0">
+                              <button (click)="removeItem(i)" class="btn btn-danger btn-sm pull-right" >
+                                <i class="fa-solid fa-delete-left" style="color:whitesmoke;"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+               
+
+                <div class="row">
+                  <div md="3" class="mb-3">
+                      <label cLabel for="exampleFormControlInput1">Narration</label>
+                      <div class="col-md-4">
+                        <textarea cFormControl formControlName="narration" type="text"></textarea>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <button class="btn btn-secondary" style="padding-left: 30px;padding-right: 30px;" (click)="savePurchase()" [disabled]="isButtonClicked">Save</button>
+                </div>
+            </form>
+              
+          </div>
+        </c-card-body>
+      </c-card>
+    </c-col>
+</c-row>
+

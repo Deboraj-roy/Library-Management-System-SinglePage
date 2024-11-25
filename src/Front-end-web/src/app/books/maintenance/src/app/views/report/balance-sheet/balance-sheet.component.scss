@@ -1,0 +1,26 @@
+.mark{
+    text-align:center;
+    cursor:pointer;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.mark::before{
+  content: 'click';
+  display: none;
+  position: absolute;
+  top: 95%;
+  left: 90%;    
+  font-size: 10px;
+  font-weight: 700;
+  transform: translate(-70%, -70%);
+  background-color: white;
+  color:rgb(6, 6, 105);
+}
+.mark:hover::before {
+    display: block;
+  }
+  

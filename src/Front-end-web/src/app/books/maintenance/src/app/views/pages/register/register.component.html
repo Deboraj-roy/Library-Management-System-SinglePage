@@ -1,0 +1,76 @@
+<!-- <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="7" md="9" xl="6">
+        <c-card class="mx-4">
+          <c-card-body class="p-4">
+            <form [formGroup]="signUpForm" cForm class="needs-validation" ngNativeValidate  (ngSubmit) ="onSignUpFormSubmit()">
+              <h1>Register</h1>
+              <p class="text-medium-emphasis">Create your account</p>
+
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilUser"></svg>
+                </span>
+                <input formControlName="UserFullName" 
+                
+                [valid]="
+                signUpForm.controls['UserFullName'].touched && !signUpForm.hasError('required','UserFullName')
+                  ? true
+                  : (signUpForm.controls['UserFullName'].touched) && signUpForm.hasError('required','UserFullName')
+                  ? false
+                  : undefined
+                   "  
+                cFormControl placeholder="Full Name" />
+                <c-form-feedback [valid]="false">Please provide Full Name</c-form-feedback>
+              </c-input-group>
+              
+
+
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilMobile"></svg>
+                </span>
+                <input formControlName="UserMobileNumber"  
+                [valid]="
+                signUpForm.controls['UserMobileNumber'].touched && !signUpForm.hasError('required','UserMobileNumber')
+                  ? true
+                  : (signUpForm.controls['UserMobileNumber'].touched) && signUpForm.hasError('required','UserMobileNumber')
+                  ? false
+                  : undefined
+                   "  
+                
+                
+                cFormControl placeholder="Mobile" />
+                <c-form-feedback [valid]="false">Please write your mobile.</c-form-feedback>
+              </c-input-group>
+              
+
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilLockLocked"></svg>
+                </span>
+                <input formControlName="Password"  [valid]="
+                signUpForm.controls['Password'].touched && !signUpForm.hasError('required','Password')
+                  ? true
+                  : (signUpForm.controls['Password'].touched) && signUpForm.hasError('required','Password')
+                  ? false
+                  : undefined
+                   " 
+              autoComplete="new-password" cFormControl placeholder="Password" type="password" />
+                <c-form-feedback [valid]="false">Please write your password.</c-form-feedback>
+              </c-input-group>
+           
+              <div class="d-grid">
+                <button [disabled]="
+                  signUpForm.invalid
+                  ? true: false
+                   "  type="submit"  cButton color="success">Create Account</button>
+              </div>
+            </form>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-container>
+</div> -->

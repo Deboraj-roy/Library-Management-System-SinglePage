@@ -1,0 +1,141 @@
+<c-container>
+  <c-row>
+    <c-col xs lg="3">
+      <form
+        [formGroup]="addSubHeadCategoryForm"
+        cForm
+        (ngSubmit)="onAddSubHeadCategoryFormSubmit()"
+      >
+
+
+        <div md="3" class="mb-3">
+          <label cLabel for="exampleFormControlInput1"
+            >Account Sub Head</label
+          >
+          <ng-select
+            formControlName="AccSubHeadId"
+           placeholder="Select Sub Head"
+            cSelect
+            (change)="changedAccSubHead($event)"
+          >
+
+            <ng-option
+
+              *ngFor="let accSubHead of accSubHeads"
+              [value]="accSubHead.accSubHeadId"
+            >
+              {{ accSubHead.accSubHeadName }}
+            </ng-option>
+          </ng-select>
+        </div>
+        <div class="mb-3">
+          <label cLabel for="SubHeadCategory">Category Name</label>
+          <input
+            formControlName="AccSubHeadCategoryName"
+            cFormControl
+            id="SubHeadCategory"
+            type="text"
+          />
+        </div>
+        <div class="mb-3">
+          <label cLabel for="SubHeadCategory">Category Code</label>
+          <input
+            formControlName="AccSubHeadCategoryCode"
+            cFormControl
+            id="SubHeadCategory"
+            type="text"
+          />
+          <div cFormText>
+            This code is provided by you to easily identify this
+            category in future
+          </div>
+        </div>
+
+        <button
+          [disabled]="addSubHeadCategoryForm.invalid ? true : false"
+          cButton
+          type="submit"
+        >
+          Save
+        </button>
+
+
+        <button
+        (click)="resetForm(addSubHeadCategoryForm)"
+        cButton
+       color="info"
+       variant="outline"
+       class="ms-3"
+      >
+        Reset Form
+      </button>
+      </form>
+    </c-col>
+    <c-col>
+      <table bordered cTable hover>
+        <thead cTableColor="dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Head</th>
+            <th scope="col">SubHead</th>
+            <th scope="col">Category</th>
+            <th scope="col">Code</th>
+            <th scope="col">Option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let accSubHeadCategory of accSubHeadCategories;
+              let i = index
+            "
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ accSubHeadCategory.accHeadName }}</td>
+            <td>{{ accSubHeadCategory.accSubHeadName }}</td>
+            <td>{{ accSubHeadCategory.accSubHeadCategoryName }}</td>
+            <td>{{ accSubHeadCategory.accSubHeadCategoryCode }}</td>
+            <td><button [cModalToggle]="verticallyCenteredModal.id" (click)="editSubHeadCategory(accSubHeadCategory)" cButton>Edit</button></td>
+          </tr>
+          <tr></tr>
+        </tbody>
+      </table>
+    </c-col>
+  </c-row>
+</c-container>
+
+<c-modal #verticallyCenteredModal alignment="top" id="verticallyCenteredModal">
+  <c-modal-header>
+    <h5 cModalTitle>Modal title</h5>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Category Name</label>
+      <input
+        cFormControl
+        #Name
+        type="text"
+        [value]="subHeadCategoryName"
+      />
+    </div>
+    <div class="mb-3">
+      <label cLabel for="SubHeadCategory">Category Code</label>
+      <input
+        cFormControl
+        #code
+        type="text"
+        [value]="subHeadCategoryCode"
+      />
+      <div cFormText>
+        This code is provided by you to easily identify this
+        category in future
+      </div>
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="verticallyCenteredModal.id" (click)="updateSubHeadCategory(Name.value,code.value)"
+    cButton color="primary">Update</button>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">Close</button>
+  </c-modal-footer>
+</c-modal>

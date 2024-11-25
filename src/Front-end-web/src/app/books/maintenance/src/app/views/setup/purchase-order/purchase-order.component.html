@@ -1,0 +1,198 @@
+<c-container>
+    <c-card>
+      <c-card-header ngPreserveWhitespaces>
+        <strong>Purchase Order</strong>
+      </c-card-header>
+      <c-card-body>
+      <c-row  >
+        <c-col xs lg="3">
+          <c-card class="mb-3" style="border:none">
+              <c-card-body style="border:none">
+                  <form [formGroup]="PurchaseOrderForm" >
+                      <div class="container">
+                        <div class="mt-4 mb-4">
+                            <label for="txtPurchaseOrderCode" class="mb-2 fw-bold" style="margin-left: 5px;">Order Code</label>
+                            <input id="txtPurchaseOrderCode" name="txtPurchaseOrderCode" type="text" formControlName="PurchaseOrderCode" placeholder="Enter Order Code" class="form-control" />
+                        </div>
+
+                          <div class="mt-2 mb-4">
+                              <label  class="mb-2 fw-bold" style="margin-left: 5px;">Models</label>
+                              <ng-select [items]="ddlModels" bindLabel="minorSubCategoryName" bindValue="minorSubCategoryId" formControlName="MinorSubCategoryId" [placeholder]="'Select Model Name'" (change)="onModelSelected($event)">
+                              </ng-select>
+                          </div>
+
+                            <div class="mt-4 mb-4">
+                              <label for="txtQuantity" class="mb-2 fw-bold" style="margin-left: 5px;">Quantity</label>
+                              <input id="txtQuantity" name="txtQuantity" type="number" formControlName="Quantity" placeholder="Enter Quantity" class="form-control" />
+                            </div>
+  
+                            <div class="mt-4 mb-4">
+                              <label for="txtFOB" class="mb-2 fw-bold" style="margin-left: 5px;">FOB <span>($)</span></label>
+                              <input id="txtFOB" name="txtFOB" type="number" formControlName="fob" placeholder="Enter FOB" class="form-control" />
+                            </div>
+  
+                            <div class="mt-4 mb-4">
+                              <label for="ddlStatus" class="mb-2 fw-bold" style="margin-left: 5px;">Payment Status</label>
+                              <ng-select [items]="ddlStatusList" bindLabel="name" bindValue="name" formControlName="Status" [placeholder]="'Select Payment Status'">
+                              </ng-select>
+                            </div>
+  
+                            <div class="mt-4 mb-4">
+                                <button cButton (click)="savePurchaseOrder()">Save</button>
+                            </div>
+  
+                      </div>
+                  </form>
+                  
+              </c-card-body>
+           </c-card>
+        </c-col>
+        <c-col >
+          <div class="row mt-2 ">
+            <div class="col-md-8" > 
+            </div>
+            <div class="col-md-4" > 
+              <input  type="text" class="form-control" placeholder="Search Order...." [(ngModel)]="searchText" />
+           </div>
+          </div>
+          <table bordered cTable hover class="mt-2">
+            <thead cTableColor="dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Order Code</th>
+                <th scope="col">Model Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">FOB <span>($)</span></th>
+                <th scope="col">Order Date</th>
+                <th scope="col" class="text-center">Payment Status</th>
+                <th scope="col" class="text-center">Transactions</th>
+                <th scope="col" class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+              *ngFor="let orders of ordersList | filter : searchText ; let i=index "
+              >
+                <td>{{ i + 1 }}</td>
+                <td>{{ orders.purchaseOrderCode }}</td>
+                <td>{{ orders.minorSubCategoryName }}</td>
+                <td>{{ orders.quantity | number: '1.2-2' }}</td>
+                <td><span>$</span>{{ orders.fob | number: '1.2-2' }}</td>
+                <td>{{ orders.entryDate | date }}</td>
+                <td class="text-center"> <button [class.bg-warning]="orders.status === 'Open'" [class.bg-success]="orders.status !== 'Open'" [disabled]="true"><b>{{ orders.status }}</b></button></td>
+                <!-- <td><button  cButton>Edit</button></td> -->
+                <td class="text-center"><button class="btn btn-info" [cModalToggle]="verticallyCenteredModalInfo.id" (click)="ViewPurchaseOrderTransactions(orders)">View</button></td>
+                <td class="text-center"><button class="btn btn-success" [cModalToggle]="verticallyCenteredModal.id" (click)="editPurchaseOrder(orders)" [disabled]="orders.status === 'Closed'">Close ord.</button></td>
+              </tr>
+              <tr></tr>
+            </tbody>
+          </table>
+        </c-col>
+      </c-row>
+    </c-card-body>
+    </c-card>
+  </c-container>
+
+  
+<c-modal #verticallyCenteredModal alignment="top" id="verticallyCenteredModal">
+  <c-modal-header>
+    <h5 cModalTitle>Edit Purchase Order</h5>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+     <div class="mb-3">
+        <label class="mb-2 fw-bold" style="margin-left: 5px;">Order Code</label>
+        <input class="form-control" [(ngModel)]="editOrderCode" type="text" placeholder="Enter Order Code" [readonly]="true">
+     </div>
+     <div class="mb-3">
+        <label  class="mb-2 fw-bold" style="margin-left: 5px;">Models</label>
+        <ng-select [items]="ddlModels" bindLabel="minorSubCategoryName" bindValue="minorSubCategoryId" [(ngModel)]="editMinorSubCategoryId" [placeholder]="'Select Model Name'" (change)="onModelSelected($event)">
+        </ng-select>
+     </div>
+     <div class="mb-3">
+      <label class="mb-2 fw-bold" style="margin-left: 5px;">Quantity</label>
+      <input class="form-control" [(ngModel)]="editQuantity" type="number" placeholder="Enter Quantity">
+   </div>
+   <div class="mb-3">
+    <label class="mb-2 fw-bold" style="margin-left: 5px;">FOB <span>($)</span></label>
+    <input class="form-control" [(ngModel)]="editfob" type="number" placeholder="Enter FOB">
+ </div>
+    <div class="mb-3">
+      <label class="mb-2 fw-bold" style="margin-left: 5px;">Payment Status</label>
+      <ng-select [items]="ddlStatusList" bindLabel="name" bindValue="name" [(ngModel)]="editStatus"  [placeholder]="'Select Status'">
+      </ng-select>
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="verticallyCenteredModal.id" 
+    cButton color="primary" (click)="updatePurchaseOrder()">Update</button>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">Close</button>
+  </c-modal-footer>
+</c-modal>
+
+  
+<c-modal #verticallyCenteredModalInfo alignment="top" id="verticallyCenteredModalInfo" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Costing Sheet</h5>
+    <button [cModalToggle]="verticallyCenteredModalInfo.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="row">
+      <label class="col-6 mb-2 fw-bold">Order Code: <input class="border-0" type="text" [(ngModel)]="editOrderCode" [readOnly]="true"></label>
+      <div class="col-6">
+        <!-- <label class="mb-2 fw-bold">Quantity: <input class="border-0" type="text" [(ngModel)]="editQuantity" [readOnly]="true" [ngModelOptions]="{standalone: true}"></label> -->
+        <label class="mb-2 fw-bold">Quantity:</label><span> {{ formatNumberWithCustomPattern(editQuantity) }}</span>
+     </div>
+   </div>
+   <div class="row">
+    <label class="col-6 mb-2 fw-bold">Model: <input class="border-0" type="text" [(ngModel)]="editMinorSubCategoryName" [readOnly]="true"></label>
+    <div class="col-6">
+      <label class="mb-2 fw-bold">Status: <input class="border-0" type="text" [(ngModel)]="editStatus" [readOnly]="true"></label>
+   </div>
+ </div>
+ <div class="row">
+  <!-- <label class="mb-2 fw-bold">FOB: <input class="border-0" type="text" [(ngModel)]="editfob" [readOnly]="true" [ngModelOptions]="{standalone: true}"></label> -->
+  <label class="mb-2"><span class="fw-bold">FOB: </span><span>${{ editfob }}</span></label>
+</div>
+    <table bordered cTable hover class="mt-2">
+      <thead cTableColor="dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Paid Date</th>
+          <th scope="col">Paid To</th>
+          <th scope="col">Voucher No.</th>
+          <th scope="col">Paid Amount</th>
+          <th scope="col">Narration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+        *ngFor="let pay of payList; let i=index"
+        >
+          <td>{{ i + 1 }}</td>
+          <td>{{ pay.createDate | date }}</td>
+          <td>{{ pay.debitLedgerName }}</td>
+          <td>{{ pay.voucherNumber }}</td>
+          <td>{{ pay.amount | number: '1.2-2' }}</td>
+          <td>{{ pay.narration }}</td>
+          </tr>
+        <tr></tr>
+      </tbody>
+    </table>
+    
+   <div class="row">
+    <div class="col-6">
+      <!-- <label class="mb-2 fw-bold">Total Cost: <input class="border-0" type="text" [(ngModel)]="totalCost" [readOnly]="true"></label> -->
+      <label class="mb-2 fw-bold">Total Cost:</label><span> {{ formatNumberWithCustomPattern(totalCost) }}</span>
+      </div>
+    <div class="col-6">
+      <!-- <label class="mb-2 fw-bold">Unit Cost: <input class="border-0" type="text" [(ngModel)]="unitCost" [readOnly]="true"></label> -->
+      <label class="mb-2 fw-bold">Unit Cost:</label><span> {{ formatNumberWithCustomPattern(unitCost) }}</span>
+   </div>
+ </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button cButton color="info" (click)="getReport(editPurchaseOrderId)">Download & Print</button>
+    <button [cModalToggle]="verticallyCenteredModalInfo.id" cButton color="secondary">Close</button>
+  </c-modal-footer>
+</c-modal>
