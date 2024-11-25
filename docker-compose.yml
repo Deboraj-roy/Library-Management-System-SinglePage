@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  api:
+    # Build the ASP.NET API from DockerFile in the current directory
+    build:
+      context: .
+      dockerfile: DockerFile
+      target: backend-builder  # Use the backend build stage
+    ports:
+      - "7030:7030"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - app-network
+
+  frontend:
+    # Build the Angular frontend from DockerFile in the current directory
+    build:
+      context: .
+      dockerfile: DockerFile
+      target: frontend-builder  # Use the frontend build stage
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    depends_on:
+      - api
+
+networks:
+  app-network:
+    driver: bridge
