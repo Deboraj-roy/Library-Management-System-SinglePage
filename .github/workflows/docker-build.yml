@@ -51,3 +51,27 @@ jobs:
       # Step 6: Clean up
       - name: Stop and remove container
         run: docker rm -f library-management-system
+      
+      
+      #CHECK AGAIN
+      
+      # Step 4: Run container to test
+      - name: Run Docker Compose
+        run: docker-compose up -d
+      
+      # Step 5: Check API and frontend health
+      - name: Test API health check
+        run: |
+          for i in {1..10}; do
+            curl -f http://localhost:7070 && break || sleep 5
+          done
+      
+      - name: Test Frontend health check
+        run: |
+          for i in {1..10}; do
+            curl -f http://localhost:8080 && break || sleep 5
+          done
+      
+      # Step 6: Clean up
+      - name: Stop and remove containers
+        run: docker-compose down
