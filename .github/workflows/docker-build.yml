@@ -21,25 +21,17 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Step 3: Log in to GitHub Docker registry (optional if pushing to GHCR)
-      # - name: Log in to GitHub Container Registry
-      #   uses: docker/login-action@v2
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
-
-      # Step 4: Build Docker image
+      # Step 3: Build Docker image
       - name: Build Docker image
-        run: docker build -t library-management-system .
+        run: docker build -t library-management-system ./Library-Management-System-SinglePage
 
-      # Step 5: Run container to test
+      # Step 4: Run container to test
       - name: Run Docker container and test
         run: |
           docker run -d -p 7030:7030 -p 80:80 --name library-management-system library-management-system
           sleep 10 # Wait for the container to start
 
-      # Step 6: Check API and frontend health
+      # Step 5: Check API and frontend health
       - name: Test API health check
         run: |
           curl -f http://localhost:7030 || (echo "API is not running on port 7030" && exit 1)
@@ -48,6 +40,6 @@ jobs:
         run: |
           curl -f http://localhost || (echo "Frontend is not running on port 80" && exit 1)
 
-      # Step 7: Clean up
+      # Step 6: Clean up
       - name: Stop and remove container
         run: docker rm -f library-management-system
