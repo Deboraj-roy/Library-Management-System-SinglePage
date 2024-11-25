@@ -21,33 +21,33 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Step 3: Build Docker image
+      # Step 3: Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      # Step 4: Build Docker image
       - name: Build Docker image
         run: docker build -t library-management-system -f ./DockerFile .
-        
-      # Step 3.5: Wait for the containers to start
-      - name: Wait for containers
-        run: sleep 30
 
-      #CHECK AGAIN
-      
-      # Step 4: Run container to test
+      # Step 5: Run Docker Compose
       - name: Run Docker Compose
         run: docker-compose up -d
-      
-      # Step 5: Check API and frontend health
+
+      # Step 6: Check API and frontend health
       - name: Test API health check
         run: |
           for i in {1..10}; do
             curl -f http://localhost:7070 && break || sleep 5
           done
-      
+
       - name: Test Frontend health check
         run: |
           for i in {1..10}; do
             curl -f http://localhost:8080 && break || sleep 5
           done
-      
-      # Step 6: Clean up
+
+      # Step 7: Clean up
       - name: Stop and remove containers
         run: docker-compose down
