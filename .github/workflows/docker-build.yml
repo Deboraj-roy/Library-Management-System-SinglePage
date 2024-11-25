@@ -23,7 +23,7 @@ jobs:
 
       # Step 3: Build Docker image
       - name: Build Docker image
-        run: docker build -t library-management-system ./Library-Management-System-SinglePage
+        run: docker build -t library-management-system -f ./DockerFile .
 
       # Step 4: Run container to test
       - name: Run Docker container and test
