@@ -20,9 +20,9 @@ COPY --from=backend-builder /app/publish ./API
 COPY --from=frontend-builder /app/frontend/dist/browser ./wwwroot
 
 # Expose ports for API and frontend
-EXPOSE 7030 80
+EXPOSE 7030 4200
   
-# EXPOSE 80   # Nginx (for Angular frontend)
+# EXPOSE 4200   # Nginx (for Angular frontend)
 # EXPOSE 7030 # ASP.NET API
 
 # Start API and serve frontend
