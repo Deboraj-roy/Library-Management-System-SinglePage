@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   api:
@@ -11,7 +11,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     networks:
-      - app-network
+      - app-network 
+      
+    healthcheck:  # Healthcheck added here
+      test: ["CMD", "curl", "-f", "http://localhost:80"]  # Command to check service health
+      interval: 30s        # Time between health checks
+      timeout: 10s         # Time before failing a health check
+      retries: 3           # Number of retries before marking as unhealthy
+
 
   frontend:
     build:
@@ -24,14 +31,15 @@ services:
       - app-network
     depends_on:
       - api
+      
+    healthcheck:  # Healthcheck for the frontend service
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
   app-network:
     driver: bridge
-    
-healthcheck:
-  test: ["CMD", "curl", "-f", "http://localhost:8080"]
-  interval: 30s
-  timeout: 10s
-  retries: 3
+     
 
