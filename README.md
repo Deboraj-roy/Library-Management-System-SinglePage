@@ -15,7 +15,7 @@ This is a **Library Management System** developed as a single-page web applicati
 ## 🌐 **Live Demo**  
 
 - **Frontend (Angular 17):**  
-  [Library Management System (GitHub Pages)](https://deboraj-roy.github.io/Library-Management-System-SinglePage/login)  
+  [Library Management System (GitHub Pages)](https://deboraj-roy.github.io/Library-Management-System-SinglePage/)  
   [Library Management System (Netlify)](https://librarydeb.netlify.app/)
 
 - **Backend (ASP.NET 8 API with Swagger):**  
