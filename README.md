@@ -107,7 +107,7 @@ This is a **Library Management System** developed as a single-page web applicati
 ### Frontend Setup  
 1. Navigate to the frontend directory:  
    ```bash
-   cd Library-Management-System-SinglePage/front-end-web
+   cd Library-Management-System-SinglePage/src/Front-end-web
    ```
 2. Install dependencies:  
    ```bash
