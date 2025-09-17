@@ -19,7 +19,9 @@ This is a **Library Management System** developed as a single-page web applicati
   [Library Management System (Netlify)](https://librarydeb.netlify.app/)
 
 - **Backend (ASP.NET 8 API with Swagger):**  
-  [Library API (Swagger Documentation)](https://librarydeb.somee.com/swagger/index.html)
+  [Library API (Swagger Documentation) 1](http://deblmsapi.runasp.net/)
+
+  [Library API (Swagger Documentation Using Cloudflare) 2](https://green-breeze-a7aa.mrouf7353.workers.dev/)
 
 ---
 
