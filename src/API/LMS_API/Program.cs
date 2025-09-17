@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,9 +60,18 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-    //app.UseSwagger();
-    //app.UseSwaggerUI();
+//app.UseSwagger();
+//app.UseSwaggerUI();
 //}
+
+///For Live 
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "AUTH API");
+    c.RoutePrefix = string.Empty;
+});
+
 
 app.UseHttpsRedirection();
 
@@ -74,4 +84,19 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+ApplyMigrations();
+
 app.Run();
+
+
+void ApplyMigrations()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var _db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        if (_db.Database.GetPendingMigrations().Count() > 0)
+        {
+            _db.Database.Migrate();
+        }
+    }
+}
