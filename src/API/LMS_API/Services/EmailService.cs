@@ -13,21 +13,33 @@ namespace LMS_API.Services
         }
 
         public void SendEmail(string ToEmail, string subject, string body)
-        { 
-             
-            /*var fromEmail = Configuration.GetSection("SMTP:FromEmail").Value ?? string.Empty; 
-            //var userName = Configuration.GetSection("SMTP:Username").Value ?? string.Empty;
+        {
+            //var gmailConfigure = false;
+            var mailClient = Configuration.GetSection("SMTP:Client").Value ?? string.Empty;
+            var fromEmail = Configuration.GetSection("SMTP:FromEmail").Value ?? string.Empty;
+            var userName = Configuration.GetSection("SMTP:Username").Value ?? string.Empty;
             var fromEmailPassword = Configuration.GetSection("SMTP:EmailAccountPassword").Value ?? string.Empty;
             var smtpHost = Configuration.GetSection("SMTP:Host").Value ?? string.Empty;
-            var port = Configuration.GetSection("SMTP:Port").Value ?? string.Empty;
-*/
+            var port = int.Parse(Configuration.GetSection("SMTP:Port").Value ?? string.Empty);
 
+            if (mailClient == "gmail")
+            {
 
-            var fromEmail = "Deb@dotnet.com";
-            var userName = "2032fbaa2dd6f6";
-            var fromEmailPassword = "135756f590ea4d";
-            var smtpHost = "sandbox.smtp.mailtrap.io";
-            var port = 587;
+            }
+            else
+            {
+                fromEmail = "p13839740@gmail.com";
+                userName = "2032fbaa2dd6f6";
+                fromEmailPassword = "135756f590ea4d";
+                smtpHost = "sandbox.smtp.mailtrap.io";
+                port = 587;
+            }
+
+            //var fromEmail = "Deb@dotnet.com";
+            //var userName = "2032fbaa2dd6f6";
+            //var fromEmailPassword = "135756f590ea4d";
+            //var smtpHost = "sandbox.smtp.mailtrap.io";
+            //var port = 587;
 
 
 
