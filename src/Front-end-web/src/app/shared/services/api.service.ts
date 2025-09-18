@@ -20,6 +20,8 @@ export class ApiService {
   // http://deblmsapi.runasp.net/
   // baseUrl: string = 'http://deblmsapi.runasp.net/api/Library/';
   baseUrl: string = 'https://green-breeze-a7aa.mrouf7353.workers.dev/api/Library/';
+  // baseUrl: string = 'https://p13839740.somee.com/api/Library/';
+  // baseUrl: string = 'https://lazynoja.bsite.net/api/Library/';
   // baseUrl: string = 'https://librarydeb.somee.com/api/Library/';
   // baseUrl: string = 'http://angualrdeb.somee.com/api/Library/';
   userStatus: Subject<string> = new Subject();

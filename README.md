@@ -15,14 +15,26 @@ This is a **Library Management System** developed as a single-page web applicati
 ## 🌐 **Live Demo**  
 
 - **Frontend (Angular 17):**  
-  [Library Management System (GitHub Pages)](https://deboraj-roy.github.io/Library-Management-System-SinglePage/)  
-  [Library Management System (Netlify)](https://librarydeb.netlify.app/)
+  [Library Management System (GitHub Pages)](https://deboraj-roy.github.io/Library-Management-System-SinglePage/) 
+  
+  [Library Management System (Netlify) 8]
+  (https://librarydeb.netlify.app/)
+  
+  [Library Management System (Netlify) 7]
+  (https://librarydeb7.netlify.app/)
+  
 
 - **Backend (ASP.NET 8 API with Swagger):**  
-  [Library API (Swagger Documentation) 1](http://deblmsapi.runasp.net/)
+  [Library API (Swagger Documentation) 1]
+  (http://deblmsapi.runasp.net/)
 
   [Library API (Swagger Documentation Using Cloudflare) 2](https://green-breeze-a7aa.mrouf7353.workers.dev/)
+  
+  [Library API (Swagger Documentation Using Cloudflare) 3]
+  (https://www.p13839740.somee.com)
 
+  [Library API (Swagger Documentation Using .net7) 4]
+  (https://lazynoja.bsite.net)
 ---
 
 ## 📂 **Project Structure**  
