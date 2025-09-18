@@ -1,4 +1,4 @@
-using LMS_API.Data;
+﻿using LMS_API.Data;
 using LMS_API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -79,6 +79,7 @@ app.UseCors("CorsPolicy");
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseAuthentication();   // 🔥  this line
 
 app.UseAuthorization();
 
