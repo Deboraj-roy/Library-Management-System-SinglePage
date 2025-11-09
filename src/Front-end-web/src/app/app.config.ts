@@ -19,7 +19,8 @@ export const appConfig: ApplicationConfig = {
           tokenGetter: () => {
             return localStorage.getItem('access_token');
           },
-          allowedDomains: ['localhost:7030', 'librarydeb.somee.com'],
+          // add your API host so the JWT interceptor will attach the Authorization header
+          allowedDomains: ['localhost:7030', 'librarydeb.somee.com', 'deblmsapi.runasp.net', 'green-breeze-a7aa.mrouf7353.workers.dev', 'p13839740.somee.com', 'lazynoja.bsite.net', 'angualrdeb.somee.com'],
         },
       })
     ),
