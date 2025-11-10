@@ -17,11 +17,11 @@ import { BookCategory } from '../../models/BookCategory';
 export class ApiService {
 
   // baseUrl: string = 'https://localhost:7030/api/Library/';
-  // http://deblmsapi.runasp.net/
-  baseUrl: string = 'http://deblmsapi.runasp.net/api/Library/';
+  // use HTTPS on the live API to avoid mixed-content blocking when the site is served over HTTPS
+  // baseUrl: string = 'http://deblmsapi.runasp.net/api/Library/';
   // baseUrl: string = 'https://green-breeze-a7aa.mrouf7353.workers.dev/api/Library/';
   // baseUrl: string = 'https://p13839740.somee.com/api/Library/';
-  // baseUrl: string = 'https://lazynoja.bsite.net/api/Library/';
+  baseUrl: string = 'https://lazynoja.bsite.net/api/Library/';
   // baseUrl: string = 'https://librarydeb.somee.com/api/Library/';
   // baseUrl: string = 'http://angualrdeb.somee.com/api/Library/';
   userStatus: Subject<string> = new Subject();
