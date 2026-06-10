@@ -6,9 +6,10 @@ import { DealerListViewModel } from 'src/app/models/Entry/DealerListViewModel';
 import { NoteService } from 'src/app/services/Note/note.service';
 
 @Component({
-  selector: 'app-dealer-list',
-  templateUrl: './dealer-list.component.html',
-  styleUrls: ['./dealer-list.component.scss']
+    selector: 'app-dealer-list',
+    templateUrl: './dealer-list.component.html',
+    styleUrls: ['./dealer-list.component.scss'],
+    standalone: false
 })
 export class DealerListComponent {
 

@@ -9,9 +9,10 @@ import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 import { EntryService } from 'src/app/services/Entry/entry.service';
 
 @Component({
-  selector: 'app-opening-balance',
-  templateUrl: './opening-balance.component.html',
-  styleUrls: ['./opening-balance.component.scss']
+    selector: 'app-opening-balance',
+    templateUrl: './opening-balance.component.html',
+    styleUrls: ['./opening-balance.component.scss'],
+    standalone: false
 })
 export class OpeningBalanceComponent {
    

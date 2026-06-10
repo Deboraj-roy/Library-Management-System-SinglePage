@@ -7,9 +7,10 @@ import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-receipt-entry',
-  templateUrl: './receipt-entry.component.html',
-  styleUrls: ['./receipt-entry.component.scss']
+    selector: 'app-receipt-entry',
+    templateUrl: './receipt-entry.component.html',
+    styleUrls: ['./receipt-entry.component.scss'],
+    standalone: false
 })
 export class ReceiptEntryComponent {
   

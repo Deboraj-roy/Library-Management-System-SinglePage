@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 
 @Component({
-  selector: 'page-header',
-  templateUrl: './page-header.component.html',
-  styleUrl: './page-header.component.scss'
+    selector: 'page-header',
+    templateUrl: './page-header.component.html',
+    styleUrl: './page-header.component.scss',
+    standalone: false
 })
 export class PageHeaderComponent {
   loggedIn: boolean = false;

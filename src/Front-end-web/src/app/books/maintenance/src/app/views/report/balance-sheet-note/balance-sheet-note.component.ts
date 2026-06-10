@@ -5,9 +5,10 @@ import { NoteBalanceSheet } from 'src/app/models/Note/NoteBalanceSheet';
 import { NoteService } from 'src/app/services/Note/note.service';
 
 @Component({
-  selector: 'app-balance-sheet-note',
-  templateUrl: './balance-sheet-note.component.html',
-  styleUrls: ['./balance-sheet-note.component.scss']
+    selector: 'app-balance-sheet-note',
+    templateUrl: './balance-sheet-note.component.html',
+    styleUrls: ['./balance-sheet-note.component.scss'],
+    standalone: false
 })
 export class BalanceSheetNoteComponent {
 

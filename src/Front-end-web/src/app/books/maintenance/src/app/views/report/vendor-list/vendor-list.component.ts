@@ -6,9 +6,10 @@ import { PartyService } from 'src/app/services/Party/party.service';
 
 
 @Component({
-  selector: 'app-vendor-list',
-  templateUrl: './vendor-list.component.html',
-  styleUrls: ['./vendor-list.component.scss']
+    selector: 'app-vendor-list',
+    templateUrl: './vendor-list.component.html',
+    styleUrls: ['./vendor-list.component.scss'],
+    standalone: false
 })
 export class VendorListComponent {
 

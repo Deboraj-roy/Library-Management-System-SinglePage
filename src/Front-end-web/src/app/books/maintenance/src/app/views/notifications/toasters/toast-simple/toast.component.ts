@@ -3,10 +3,11 @@ import { ChangeDetectorRef, Component, ElementRef, forwardRef, Input, Renderer2 
 import { ToastComponent, ToasterService } from '@coreui/angular';
 
 @Component({
-  selector: 'app-toast-simple',
-  templateUrl: './toast.component.html',
-  styleUrls: ['./toast.component.scss'],
-  providers: [{ provide: ToastComponent, useExisting: forwardRef(() => AppToastComponent) }]
+    selector: 'app-toast-simple',
+    templateUrl: './toast.component.html',
+    styleUrls: ['./toast.component.scss'],
+    providers: [{ provide: ToastComponent, useExisting: forwardRef(() => AppToastComponent) }],
+    standalone: false
 })
 export class AppToastComponent extends ToastComponent {
 

@@ -5,9 +5,10 @@ import { NoteService } from 'src/app/services/Note/note.service';
 import { Models } from 'src/app/models/PurchaseOrder/Models';
 
 @Component({
-  selector: 'app-bank-book',
-  templateUrl: './bank-book.component.html',
-  styleUrls: ['./bank-book.component.scss']
+    selector: 'app-bank-book',
+    templateUrl: './bank-book.component.html',
+    styleUrls: ['./bank-book.component.scss'],
+    standalone: false
 })
 export class BankBookComponent{
 

@@ -13,9 +13,10 @@ import BigNumber from 'bignumber.js';
 // declare var jsPDF: any;
 
 @Component({
-  selector: 'app-trial-balance',
-  templateUrl: './trial-balance.component.html',
-  styleUrls: ['./trial-balance.component.scss']
+    selector: 'app-trial-balance',
+    templateUrl: './trial-balance.component.html',
+    styleUrls: ['./trial-balance.component.scss'],
+    standalone: false
 })
 export class TrialBalanceComponent {
   

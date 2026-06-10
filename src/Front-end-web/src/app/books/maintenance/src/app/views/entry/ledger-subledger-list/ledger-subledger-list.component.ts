@@ -7,9 +7,10 @@ import { NoteService } from 'src/app/services/Note/note.service';
 import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 
 @Component({
-  selector: 'app-ledger-subledger-list',
-  templateUrl: './ledger-subledger-list.component.html',
-  styleUrls: ['./ledger-subledger-list.component.scss']
+    selector: 'app-ledger-subledger-list',
+    templateUrl: './ledger-subledger-list.component.html',
+    styleUrls: ['./ledger-subledger-list.component.scss'],
+    standalone: false
 })
 export class LedgerSubledgerListComponent {
 

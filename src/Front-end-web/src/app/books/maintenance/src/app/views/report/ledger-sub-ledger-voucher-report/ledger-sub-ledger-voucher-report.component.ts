@@ -7,9 +7,10 @@ import { NoteService } from 'src/app/services/Note/note.service';
 import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 
 @Component({
-  selector: 'app-ledger-sub-ledger-voucher-report',
-  templateUrl: './ledger-sub-ledger-voucher-report.component.html',
-  styleUrls: ['./ledger-sub-ledger-voucher-report.component.scss']
+    selector: 'app-ledger-sub-ledger-voucher-report',
+    templateUrl: './ledger-sub-ledger-voucher-report.component.html',
+    styleUrls: ['./ledger-sub-ledger-voucher-report.component.scss'],
+    standalone: false
 })
 export class LedgerSubLedgerVoucherReportComponent {
 

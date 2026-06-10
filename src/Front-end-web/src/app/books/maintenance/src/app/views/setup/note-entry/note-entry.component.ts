@@ -9,9 +9,10 @@ import { UserService } from 'src/app/services/users/user.service';
 import { NoteService } from 'src/app/services/Note/note.service';
 
 @Component({
-  selector: 'app-note-entry',
-  templateUrl: './note-entry.component.html',
-  styleUrls: ['./note-entry.component.scss']
+    selector: 'app-note-entry',
+    templateUrl: './note-entry.component.html',
+    styleUrls: ['./note-entry.component.scss'],
+    standalone: false
 })
 export class NoteEntryComponent {
 

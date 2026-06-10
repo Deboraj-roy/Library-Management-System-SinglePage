@@ -4,9 +4,10 @@ import { ApiService } from '../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'register',
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+    selector: 'register',
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.scss',
+    standalone: false
 })
 export class RegisterComponent {
   registerForm: FormGroup;

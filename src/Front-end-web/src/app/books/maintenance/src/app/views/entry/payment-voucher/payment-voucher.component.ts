@@ -7,9 +7,10 @@ import { ReceiptEntry } from 'src/app/models/Entry/ReceiptEntry';
 import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 
 @Component({
-  selector: 'app-payment-voucher',
-  templateUrl: './payment-voucher.component.html',
-  styleUrls: ['./payment-voucher.component.scss']
+    selector: 'app-payment-voucher',
+    templateUrl: './payment-voucher.component.html',
+    styleUrls: ['./payment-voucher.component.scss'],
+    standalone: false
 })
 export class PaymentVoucherComponent {
 

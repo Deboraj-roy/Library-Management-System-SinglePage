@@ -5,9 +5,10 @@ import { User } from '../../models/model';
 import { Router } from '@angular/router'; 
 
 @Component({
-  selector: 'view-users',
-  templateUrl: './view-users.component.html',
-  styleUrl: './view-users.component.scss'
+    selector: 'view-users',
+    templateUrl: './view-users.component.html',
+    styleUrl: './view-users.component.scss',
+    standalone: false
 })
 export class ViewUsersComponent {
   columns: string[] = [

@@ -4,9 +4,10 @@ import { Order } from '../../../models/Order';
 import { AccountStatus, User } from '../../../models/model';
 
 @Component({
-  selector: 'page-table',
-  templateUrl: './page-table.component.html',
-  styleUrl: './page-table.component.scss'
+    selector: 'page-table',
+    templateUrl: './page-table.component.html',
+    styleUrl: './page-table.component.scss',
+    standalone: false
 })
 export class PageTableComponent {
   @Input()

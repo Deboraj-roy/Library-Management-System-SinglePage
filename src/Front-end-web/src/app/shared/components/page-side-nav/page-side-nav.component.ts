@@ -10,9 +10,10 @@ export interface NavigationItem {
 }
 
 @Component({
-  selector: 'page-side-nav',
-  templateUrl: './page-side-nav.component.html',
-  styleUrl: './page-side-nav.component.scss'
+    selector: 'page-side-nav',
+    templateUrl: './page-side-nav.component.html',
+    styleUrl: './page-side-nav.component.scss',
+    standalone: false
 })
 
 export class PageSideNavComponent {

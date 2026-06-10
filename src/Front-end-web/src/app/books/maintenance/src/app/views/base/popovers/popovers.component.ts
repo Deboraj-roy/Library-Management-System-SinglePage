@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-popovers',
-  templateUrl: './popovers.component.html',
-  styleUrls: ['./popovers.component.scss']
+    selector: 'app-popovers',
+    templateUrl: './popovers.component.html',
+    styleUrls: ['./popovers.component.scss'],
+    standalone: false
 })
 export class PopoversComponent implements OnInit {
 

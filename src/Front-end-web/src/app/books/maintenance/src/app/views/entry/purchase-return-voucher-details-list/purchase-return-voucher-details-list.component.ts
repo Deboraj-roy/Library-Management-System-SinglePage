@@ -8,9 +8,10 @@ import { NumberFormatPipe } from 'src/app/number-format.pipe';
 import { NoteService } from 'src/app/services/Note/note.service';
 
 @Component({
-  selector: 'app-purchase-return-voucher-details-list',
-  templateUrl: './purchase-return-voucher-details-list.component.html',
-  styleUrls: ['./purchase-return-voucher-details-list.component.scss']
+    selector: 'app-purchase-return-voucher-details-list',
+    templateUrl: './purchase-return-voucher-details-list.component.html',
+    styleUrls: ['./purchase-return-voucher-details-list.component.scss'],
+    standalone: false
 })
 export class PurchaseReturnVoucherDetailsListComponent {
   public enddatePipeString:any;

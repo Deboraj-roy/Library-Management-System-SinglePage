@@ -4,9 +4,10 @@ import { ApiService } from '../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'all-orders',
-  templateUrl: './all-orders.component.html',
-  styleUrl: './all-orders.component.scss'
+    selector: 'all-orders',
+    templateUrl: './all-orders.component.html',
+    styleUrl: './all-orders.component.scss',
+    standalone: false
 })
 export class AllOrdersComponent {
   columnsForPendingReturns: string[] = [

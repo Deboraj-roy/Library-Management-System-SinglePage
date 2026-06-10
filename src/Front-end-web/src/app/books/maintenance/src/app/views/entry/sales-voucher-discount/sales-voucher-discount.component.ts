@@ -12,9 +12,10 @@ import { debounce } from 'rxjs';
 import { NoteService } from 'src/app/services/Note/note.service';
 
 @Component({
-  selector: 'app-sales-voucher-discount',
-  templateUrl: './sales-voucher-discount.component.html',
-  styleUrls: ['./sales-voucher-discount.component.scss']
+    selector: 'app-sales-voucher-discount',
+    templateUrl: './sales-voucher-discount.component.html',
+    styleUrls: ['./sales-voucher-discount.component.scss'],
+    standalone: false
 })
 export class SalesVoucherDiscountComponent {
   public salesForm:FormGroup;

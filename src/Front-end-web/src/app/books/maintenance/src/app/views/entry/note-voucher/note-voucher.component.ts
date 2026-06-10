@@ -8,9 +8,10 @@ import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 import { DatePipe, DecimalPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-note-voucher',
-  templateUrl: './note-voucher.component.html',
-  styleUrls: ['./note-voucher.component.scss']
+    selector: 'app-note-voucher',
+    templateUrl: './note-voucher.component.html',
+    styleUrls: ['./note-voucher.component.scss'],
+    standalone: false
 })
 export class NoteVoucherComponent {
 

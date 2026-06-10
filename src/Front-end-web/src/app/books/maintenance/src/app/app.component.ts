@@ -6,8 +6,9 @@ import { iconSubset } from './icons/icon-subset';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
+    selector: 'app-root',
+    template: '<router-outlet></router-outlet>',
+    standalone: false
 })
 export class AppComponent implements OnInit {
   title = 'BEST ACCOUNTING SOFT EVER';

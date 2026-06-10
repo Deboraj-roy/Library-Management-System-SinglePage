@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-list-groups',
-  templateUrl: './list-groups.component.html',
-  styleUrls: ['./list-groups.component.scss']
+    selector: 'app-list-groups',
+    templateUrl: './list-groups.component.html',
+    styleUrls: ['./list-groups.component.scss'],
+    standalone: false
 })
 export class ListGroupsComponent {
 

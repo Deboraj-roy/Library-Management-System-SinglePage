@@ -6,9 +6,10 @@ import { EntryService } from 'src/app/services/Entry/entry.service';
 import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 
 @Component({
-  selector: 'app-sub-ledger-details',
-  templateUrl: './sub-ledger-details.component.html',
-  styleUrls: ['./sub-ledger-details.component.scss']
+    selector: 'app-sub-ledger-details',
+    templateUrl: './sub-ledger-details.component.html',
+    styleUrls: ['./sub-ledger-details.component.scss'],
+    standalone: false
 })
 export class SubLedgerDetailsComponent {
 

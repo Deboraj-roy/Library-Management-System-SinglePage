@@ -16,9 +16,10 @@ export interface CategoryOption {
 }
 
 @Component({
-  selector: 'maintenance',
-  templateUrl: './maintenance.component.html',
-  styleUrl: './maintenance.component.scss'
+    selector: 'maintenance',
+    templateUrl: './maintenance.component.html',
+    styleUrl: './maintenance.component.scss',
+    standalone: false
 })
 export class MaintenanceComponent {
   newCategory: FormGroup;

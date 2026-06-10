@@ -6,9 +6,10 @@ import { OperatingCashFlowViewModel } from 'src/app/models/Note/OperatingCashFlo
 import { InvestingCashFlowViewModel } from 'src/app/models/Note/InvestingCashFlowViewModel';
 
 @Component({
-  selector: 'app-cash-flows',
-  templateUrl: './cash-flows.component.html',
-  styleUrls: ['./cash-flows.component.scss']
+    selector: 'app-cash-flows',
+    templateUrl: './cash-flows.component.html',
+    styleUrls: ['./cash-flows.component.scss'],
+    standalone: false
 })
 export class CashFlowsComponent {
 

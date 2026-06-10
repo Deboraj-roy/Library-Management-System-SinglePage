@@ -4,8 +4,9 @@ import { UserService } from 'src/app/services/users/user.service';
 import { ClassToggleService, HeaderComponent } from '@coreui/angular';
 
 @Component({
-  selector: 'app-default-header',
-  templateUrl: './default-header.component.html',
+    selector: 'app-default-header',
+    templateUrl: './default-header.component.html',
+    standalone: false
 })
 export class DefaultHeaderComponent extends HeaderComponent {
 

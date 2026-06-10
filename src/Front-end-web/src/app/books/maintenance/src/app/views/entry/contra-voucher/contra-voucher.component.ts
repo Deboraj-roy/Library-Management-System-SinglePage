@@ -11,9 +11,10 @@ import { UsersVM } from 'src/app/models/users/UsersVM';
 import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 @Component({
-  selector: 'app-contra-voucher',
-  templateUrl: './contra-voucher.component.html',
-  styleUrls: ['./contra-voucher.component.scss']
+    selector: 'app-contra-voucher',
+    templateUrl: './contra-voucher.component.html',
+    styleUrls: ['./contra-voucher.component.scss'],
+    standalone: false
 })
 export class ContraVoucherComponent {
    

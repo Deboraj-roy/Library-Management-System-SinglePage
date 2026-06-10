@@ -16,9 +16,10 @@ import { UsersVM } from 'src/app/models/users/UsersVM';
 import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 @Component({
-  selector: 'app-paymentt-voucher',
-  templateUrl: './paymentt-voucher.component.html',
-  styleUrls: ['./paymentt-voucher.component.scss']
+    selector: 'app-paymentt-voucher',
+    templateUrl: './paymentt-voucher.component.html',
+    styleUrls: ['./paymentt-voucher.component.scss'],
+    standalone: false
 })
 export class PaymenttVoucherComponent {
 

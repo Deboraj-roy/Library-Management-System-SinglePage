@@ -10,9 +10,10 @@ import { UsersVM } from 'src/app/models/users/UsersVM';
 import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 @Component({
-  selector: 'app-sales-voucher',
-  templateUrl: './sales-voucher.component.html',
-  styleUrls: ['./sales-voucher.component.scss']
+    selector: 'app-sales-voucher',
+    templateUrl: './sales-voucher.component.html',
+    styleUrls: ['./sales-voucher.component.scss'],
+    standalone: false
 })
 export class SalesVoucherComponent {
 

@@ -3,9 +3,10 @@ import { TableElement } from '../../models/TableElement';
 import { ApiService } from '../../shared/services/api.service';
 
 @Component({
-  selector: 'profile',
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+    selector: 'profile',
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.scss',
+    standalone: false
 })
 export class ProfileComponent {
     columns: string[] = ['name', 'value'];

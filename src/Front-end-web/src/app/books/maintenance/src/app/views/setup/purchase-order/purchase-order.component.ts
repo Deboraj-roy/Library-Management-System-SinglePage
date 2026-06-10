@@ -9,9 +9,10 @@ import { UserService } from 'src/app/services/users/user.service';
 import { PurchaseOrderService } from 'src/app/services/PurchaseOrder/purchase-order.service';
 
 @Component({
-  selector: 'app-purchase-order',
-  templateUrl: './purchase-order.component.html',
-  styleUrls: ['./purchase-order.component.scss']
+    selector: 'app-purchase-order',
+    templateUrl: './purchase-order.component.html',
+    styleUrls: ['./purchase-order.component.scss'],
+    standalone: false
 })
 export class PurchaseOrderComponent {
 

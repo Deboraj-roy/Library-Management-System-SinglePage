@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-collapses',
-  templateUrl: './collapses.component.html',
-  styleUrls: ['./collapses.component.scss']
+    selector: 'app-collapses',
+    templateUrl: './collapses.component.html',
+    styleUrls: ['./collapses.component.scss'],
+    standalone: false
 })
 export class CollapsesComponent {
 

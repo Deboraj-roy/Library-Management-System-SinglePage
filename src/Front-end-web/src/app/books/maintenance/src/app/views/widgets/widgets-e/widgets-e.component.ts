@@ -2,10 +2,11 @@ import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component
 import { getStyle } from '@coreui/utils/src';
 
 @Component({
-  selector: 'app-widgets-e',
-  templateUrl: './widgets-e.component.html',
-  styleUrls: ['./widgets-e.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+    selector: 'app-widgets-e',
+    templateUrl: './widgets-e.component.html',
+    styleUrls: ['./widgets-e.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 export class WidgetsEComponent implements AfterContentInit {
 

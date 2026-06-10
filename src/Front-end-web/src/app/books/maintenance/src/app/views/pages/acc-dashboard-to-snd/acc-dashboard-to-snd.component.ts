@@ -6,9 +6,10 @@ import { User } from 'src/app/models/users/user';
 import { WidgetsDropdownComponent } from 'src/app/views/widgets/widgets-dropdown/widgets-dropdown.component'; 
 
 @Component({
-  selector: 'app-acc-dashboard-to-snd',
-  templateUrl: './acc-dashboard-to-snd.component.html',
-  styleUrls: ['./acc-dashboard-to-snd.component.scss']
+    selector: 'app-acc-dashboard-to-snd',
+    templateUrl: './acc-dashboard-to-snd.component.html',
+    styleUrls: ['./acc-dashboard-to-snd.component.scss'],
+    standalone: false
 })
 export class AccDashboardToSndComponent {
   @ViewChild('app_widgets_ComponentContainer', { read: ViewContainerRef, static: true }) container: ViewContainerRef;

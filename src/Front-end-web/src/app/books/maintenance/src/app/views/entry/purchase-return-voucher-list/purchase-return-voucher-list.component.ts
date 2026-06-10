@@ -8,9 +8,10 @@ import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 
 @Component({
-  selector: 'app-purchase-return-voucher-list',
-  templateUrl: './purchase-return-voucher-list.component.html',
-  styleUrls: ['./purchase-return-voucher-list.component.scss']
+    selector: 'app-purchase-return-voucher-list',
+    templateUrl: './purchase-return-voucher-list.component.html',
+    styleUrls: ['./purchase-return-voucher-list.component.scss'],
+    standalone: false
 })
 export class PurchaseReturnVoucherListComponent {
   public enddatePipeString:any;

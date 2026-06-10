@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-accordions',
-  templateUrl: './accordions.component.html',
-  styleUrls: ['./accordions.component.scss']
+    selector: 'app-accordions',
+    templateUrl: './accordions.component.html',
+    styleUrls: ['./accordions.component.scss'],
+    standalone: false
 })
 export class AccordionsComponent {
 

@@ -6,9 +6,10 @@ import { PartyService } from 'src/app/services/Party/party.service';
 import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 
 @Component({
-  selector: 'app-party-list',
-  templateUrl: './party-list.component.html',
-  styleUrls: ['./party-list.component.scss']
+    selector: 'app-party-list',
+    templateUrl: './party-list.component.html',
+    styleUrls: ['./party-list.component.scss'],
+    standalone: false
 })
 export class PartyListComponent {
 

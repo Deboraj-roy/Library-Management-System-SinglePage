@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-button-groups',
-  templateUrl: './button-groups.component.html',
-  styleUrls: ['./button-groups.component.scss']
+    selector: 'app-button-groups',
+    templateUrl: './button-groups.component.html',
+    styleUrls: ['./button-groups.component.scss'],
+    standalone: false
 })
 export class ButtonGroupsComponent {
 

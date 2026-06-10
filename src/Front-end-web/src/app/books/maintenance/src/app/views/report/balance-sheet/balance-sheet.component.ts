@@ -7,9 +7,10 @@ import { BalanceSheetViewModelReport } from 'src/app/models/Note/BalanceSheetVie
 import { PartyService } from 'src/app/services/Party/party.service';
 
 @Component({
-  selector: 'app-balance-sheet',
-  templateUrl: './balance-sheet.component.html',
-  styleUrls: ['./balance-sheet.component.scss']
+    selector: 'app-balance-sheet',
+    templateUrl: './balance-sheet.component.html',
+    styleUrls: ['./balance-sheet.component.scss'],
+    standalone: false
 })
 export class BalanceSheetComponent {
 

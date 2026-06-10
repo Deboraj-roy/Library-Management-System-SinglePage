@@ -9,9 +9,10 @@ import { NoteService } from 'src/app/services/Note/note.service';
 
 
 @Component({
-  selector: 'app-sales-voucher-details-list',
-  templateUrl: './sales-voucher-details-list.component.html',
-  styleUrls: ['./sales-voucher-details-list.component.scss']
+    selector: 'app-sales-voucher-details-list',
+    templateUrl: './sales-voucher-details-list.component.html',
+    styleUrls: ['./sales-voucher-details-list.component.scss'],
+    standalone: false
 })
 export class SalesVoucherDetailsListComponent {
 

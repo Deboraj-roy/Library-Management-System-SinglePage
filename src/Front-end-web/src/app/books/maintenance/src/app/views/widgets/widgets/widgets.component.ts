@@ -1,10 +1,11 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-widgets',
-  templateUrl: './widgets.component.html',
-  styleUrls: ['./widgets.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+    selector: 'app-widgets',
+    templateUrl: './widgets.component.html',
+    styleUrls: ['./widgets.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 export class WidgetsComponent implements AfterContentInit {
   constructor(

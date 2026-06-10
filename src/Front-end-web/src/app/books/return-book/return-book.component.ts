@@ -6,9 +6,10 @@ import { Order } from '../../models/Order';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'return-book',
-  templateUrl: './return-book.component.html',
-  styleUrl: './return-book.component.scss'
+    selector: 'return-book',
+    templateUrl: './return-book.component.html',
+    styleUrl: './return-book.component.scss',
+    standalone: false
 })
 export class ReturnBookComponent {
   returnForm: FormGroup;

@@ -15,9 +15,10 @@ import { NumberFormatPipe } from 'src/app/number-format.pipe';
 import * as factory from '@angular/language-service';
 
 @Component({
-  selector: 'app-bank-receipt-voucher',
-  templateUrl: './bank-receipt-voucher.component.html',
-  styleUrls: ['./bank-receipt-voucher.component.scss']
+    selector: 'app-bank-receipt-voucher',
+    templateUrl: './bank-receipt-voucher.component.html',
+    styleUrls: ['./bank-receipt-voucher.component.scss'],
+    standalone: false
 })
 export class BankReceiptVoucherComponent {
    public bankReceiptForm:FormGroup;

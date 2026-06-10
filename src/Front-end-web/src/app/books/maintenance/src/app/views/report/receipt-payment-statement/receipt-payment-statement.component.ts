@@ -4,9 +4,10 @@ import { ToastrService } from 'ngx-toastr';
 import { NoteService } from 'src/app/services/Note/note.service';
 
 @Component({
-  selector: 'app-receipt-payment-statement',
-  templateUrl: './receipt-payment-statement.component.html',
-  styleUrls: ['./receipt-payment-statement.component.scss']
+    selector: 'app-receipt-payment-statement',
+    templateUrl: './receipt-payment-statement.component.html',
+    styleUrls: ['./receipt-payment-statement.component.scss'],
+    standalone: false
 })
 export class ReceiptPaymentStatementComponent {
 

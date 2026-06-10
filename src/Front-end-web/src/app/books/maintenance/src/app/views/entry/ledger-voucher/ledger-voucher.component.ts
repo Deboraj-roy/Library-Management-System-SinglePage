@@ -8,9 +8,10 @@ import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 
 
 @Component({
-  selector: 'app-ledger-voucher',
-  templateUrl: './ledger-voucher.component.html',
-  styleUrls: ['./ledger-voucher.component.scss']
+    selector: 'app-ledger-voucher',
+    templateUrl: './ledger-voucher.component.html',
+    styleUrls: ['./ledger-voucher.component.scss'],
+    standalone: false
 })
 export class LedgerVoucherComponent {
   public ledgerList:any[];

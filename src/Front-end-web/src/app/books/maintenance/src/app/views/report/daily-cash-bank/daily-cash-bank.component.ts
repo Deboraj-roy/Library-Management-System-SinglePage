@@ -4,9 +4,10 @@ import { ToastrService } from 'ngx-toastr';
 import { PartyService } from 'src/app/services/Party/party.service';
 
 @Component({
-  selector: 'app-daily-cash-bank',
-  templateUrl: './daily-cash-bank.component.html',
-  styleUrls: ['./daily-cash-bank.component.scss']
+    selector: 'app-daily-cash-bank',
+    templateUrl: './daily-cash-bank.component.html',
+    styleUrls: ['./daily-cash-bank.component.scss'],
+    standalone: false
 })
 export class DailyCashBankComponent {
 

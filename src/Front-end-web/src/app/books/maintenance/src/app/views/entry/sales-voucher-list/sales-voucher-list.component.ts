@@ -8,9 +8,10 @@ import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 
 @Component({
-  selector: 'app-sales-voucher-list',
-  templateUrl: './sales-voucher-list.component.html',
-  styleUrls: ['./sales-voucher-list.component.scss']
+    selector: 'app-sales-voucher-list',
+    templateUrl: './sales-voucher-list.component.html',
+    styleUrls: ['./sales-voucher-list.component.scss'],
+    standalone: false
 })
 export class SalesVoucherListComponent {
   public enddatePipeString:any;

@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-carousels',
-  templateUrl: './carousels.component.html',
-  styleUrls: ['./carousels.component.scss']
+    selector: 'app-carousels',
+    templateUrl: './carousels.component.html',
+    styleUrls: ['./carousels.component.scss'],
+    standalone: false
 })
 export class CarouselsComponent {
 

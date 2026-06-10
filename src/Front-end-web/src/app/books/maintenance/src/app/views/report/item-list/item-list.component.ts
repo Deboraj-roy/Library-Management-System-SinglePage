@@ -6,9 +6,10 @@ import { EntryService } from 'src/app/services/Entry/entry.service';
 import { PartyService } from 'src/app/services/Party/party.service';
 
 @Component({
-  selector: 'app-item-list',
-  templateUrl: './item-list.component.html',
-  styleUrls: ['./item-list.component.scss']
+    selector: 'app-item-list',
+    templateUrl: './item-list.component.html',
+    styleUrls: ['./item-list.component.scss'],
+    standalone: false
 })
 export class ItemListComponent {
 

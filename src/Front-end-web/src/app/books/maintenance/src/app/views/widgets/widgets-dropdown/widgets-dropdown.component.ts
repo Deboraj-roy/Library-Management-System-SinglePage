@@ -16,10 +16,11 @@ import { NoteService } from 'src/app/services/Note/note.service';
 import { PartyService } from 'src/app/services/Party/party.service';
 
 @Component({
-  selector: 'app-widgets-dropdown',
-  templateUrl: './widgets-dropdown.component.html',
-  styleUrls: ['./widgets-dropdown.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+    selector: 'app-widgets-dropdown',
+    templateUrl: './widgets-dropdown.component.html',
+    styleUrls: ['./widgets-dropdown.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
@@ -324,8 +325,9 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 }
 
 @Component({
-  selector: 'app-chart-sample',
-  template: '<c-chart type="line" [data]="data" [options]="options" width="300" #chart></c-chart>'
+    selector: 'app-chart-sample',
+    template: '<c-chart type="line" [data]="data" [options]="options" width="300" #chart></c-chart>',
+    standalone: false
 })
 export class ChartSample implements AfterViewInit {
 

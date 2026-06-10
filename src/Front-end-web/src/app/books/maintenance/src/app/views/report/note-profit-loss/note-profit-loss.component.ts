@@ -6,9 +6,10 @@ import { NoteService } from 'src/app/services/Note/note.service';
 import { NoteBalanceSheet } from 'src/app/models/Note/NoteBalanceSheet';
 
 @Component({
-  selector: 'app-note-profit-loss',
-  templateUrl: './note-profit-loss.component.html',
-  styleUrls: ['./note-profit-loss.component.scss']
+    selector: 'app-note-profit-loss',
+    templateUrl: './note-profit-loss.component.html',
+    styleUrls: ['./note-profit-loss.component.scss'],
+    standalone: false
 })
 export class NoteProfitLossComponent {
 

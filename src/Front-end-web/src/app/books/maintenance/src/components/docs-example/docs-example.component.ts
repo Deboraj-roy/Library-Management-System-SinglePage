@@ -10,10 +10,11 @@ import {
 import packageJson from '../../../package.json';
 
 @Component({
-  selector: 'app-docs-example',
-  templateUrl: './docs-example.component.html',
-  styleUrls: ['./docs-example.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-docs-example',
+    templateUrl: './docs-example.component.html',
+    styleUrls: ['./docs-example.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DocsExampleComponent implements AfterContentInit, AfterViewInit {
 

@@ -8,9 +8,10 @@ import { NoteDetailEntry } from 'src/app/models/Note/NoteDetailEntry';
 import { NoteDetailsViewModel } from 'src/app/models/Note/NoteDetailsViewModel';
 
 @Component({
-  selector: 'app-note-details-entry',
-  templateUrl: './note-details-entry.component.html',
-  styleUrls: ['./note-details-entry.component.scss']
+    selector: 'app-note-details-entry',
+    templateUrl: './note-details-entry.component.html',
+    styleUrls: ['./note-details-entry.component.scss'],
+    standalone: false
 })
 export class NoteDetailsEntryComponent {
 

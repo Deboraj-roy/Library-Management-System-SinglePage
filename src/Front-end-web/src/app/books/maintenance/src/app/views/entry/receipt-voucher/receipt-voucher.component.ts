@@ -14,9 +14,10 @@ import { UsersVM } from 'src/app/models/users/UsersVM';
 import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 @Component({
-  selector: 'app-receipt-voucher',
-  templateUrl: './receipt-voucher.component.html',
-  styleUrls: ['./receipt-voucher.component.scss']
+    selector: 'app-receipt-voucher',
+    templateUrl: './receipt-voucher.component.html',
+    styleUrls: ['./receipt-voucher.component.scss'],
+    standalone: false
 })
 export class ReceiptVoucherComponent {
 

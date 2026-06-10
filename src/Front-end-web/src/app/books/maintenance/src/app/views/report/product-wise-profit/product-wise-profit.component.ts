@@ -5,9 +5,10 @@ import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
-  selector: 'app-product-wise-profit',
-  templateUrl: './product-wise-profit.component.html',
-  styleUrls: ['./product-wise-profit.component.scss']
+    selector: 'app-product-wise-profit',
+    templateUrl: './product-wise-profit.component.html',
+    styleUrls: ['./product-wise-profit.component.scss'],
+    standalone: false
 })
 export class ProductWiseProfitComponent {
 

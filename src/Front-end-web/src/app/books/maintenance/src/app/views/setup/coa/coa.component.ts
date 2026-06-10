@@ -19,9 +19,10 @@ import { Ca } from 'src/app/models/reporting/Ca';
 import jspdf from 'jspdf';
 
 @Component({
-  selector: 'app-coa',
-  templateUrl: './coa.component.html',
-  styleUrls: ['./coa.component.scss']
+    selector: 'app-coa',
+    templateUrl: './coa.component.html',
+    styleUrls: ['./coa.component.scss'],
+    standalone: false
 })
 export class CoaComponent {
   constructor(

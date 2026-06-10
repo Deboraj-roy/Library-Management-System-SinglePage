@@ -11,9 +11,10 @@ import { UsersVM } from 'src/app/models/users/UsersVM';
 import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 @Component({
-  selector: 'app-purchase-voucher',
-  templateUrl: './purchase-voucher.component.html',
-  styleUrls: ['./purchase-voucher.component.scss']
+    selector: 'app-purchase-voucher',
+    templateUrl: './purchase-voucher.component.html',
+    styleUrls: ['./purchase-voucher.component.scss'],
+    standalone: false
 })
 export class PurchaseVoucherComponent {
 

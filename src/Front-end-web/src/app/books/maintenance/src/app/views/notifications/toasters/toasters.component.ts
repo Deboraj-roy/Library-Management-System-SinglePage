@@ -19,9 +19,10 @@ export enum Colors {
 }
 
 @Component({
-  selector: 'app-toasters',
-  templateUrl: './toasters.component.html',
-  styleUrls: ['./toasters.component.scss']
+    selector: 'app-toasters',
+    templateUrl: './toasters.component.html',
+    styleUrls: ['./toasters.component.scss'],
+    standalone: false
 })
 export class ToastersComponent implements OnInit {
 

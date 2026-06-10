@@ -18,9 +18,10 @@ import html2canvas from 'html2canvas';
 import { Ca } from 'src/app/models/reporting/Ca';
 
 @Component({
-  selector: 'app-view-heads',
-  templateUrl: './view-heads.component.html',
-  styleUrls: ['./view-heads.component.scss'],
+    selector: 'app-view-heads',
+    templateUrl: './view-heads.component.html',
+    styleUrls: ['./view-heads.component.scss'],
+    standalone: false
 })
 export class ViewHeadsComponent {
   constructor(

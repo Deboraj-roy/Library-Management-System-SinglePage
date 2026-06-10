@@ -7,9 +7,10 @@ import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 @Component({
-  selector: 'app-journal-voucher-list',
-  templateUrl: './journal-voucher-list.component.html',
-  styleUrls: ['./journal-voucher-list.component.scss']
+    selector: 'app-journal-voucher-list',
+    templateUrl: './journal-voucher-list.component.html',
+    styleUrls: ['./journal-voucher-list.component.scss'],
+    standalone: false
 })
 export class JournalVoucherListComponent {
 

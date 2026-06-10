@@ -13,9 +13,10 @@ import { UsersVM } from 'src/app/models/users/UsersVM';
 import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 @Component({
-  selector: 'app-journal-voucher',
-  templateUrl: './journal-voucher.component.html',
-  styleUrls: ['./journal-voucher.component.scss']
+    selector: 'app-journal-voucher',
+    templateUrl: './journal-voucher.component.html',
+    styleUrls: ['./journal-voucher.component.scss'],
+    standalone: false
 })
 
 export class JournalVoucherComponent {

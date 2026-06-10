@@ -5,9 +5,10 @@ import { ToastrService } from 'ngx-toastr';
 import { EntryService } from 'src/app/services/Entry/entry.service';
 
 @Component({
-  selector: 'app-ledger-requests',
-  templateUrl: './ledger-requests.component.html',
-  styleUrls: ['./ledger-requests.component.scss']
+    selector: 'app-ledger-requests',
+    templateUrl: './ledger-requests.component.html',
+    styleUrls: ['./ledger-requests.component.scss'],
+    standalone: false
 })
 export class LedgerRequestsComponent {
 

@@ -7,9 +7,10 @@ import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 @Component({
-  selector: 'app-payment-voucher-list',
-  templateUrl: './payment-voucher-list.component.html',
-  styleUrls: ['./payment-voucher-list.component.scss']
+    selector: 'app-payment-voucher-list',
+    templateUrl: './payment-voucher-list.component.html',
+    styleUrls: ['./payment-voucher-list.component.scss'],
+    standalone: false
 })
 export class PaymentVoucherListComponent {
 

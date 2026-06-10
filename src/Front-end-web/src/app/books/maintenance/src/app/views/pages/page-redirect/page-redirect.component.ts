@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-page-redirect',
-  templateUrl: './page-redirect.component.html',
-  styleUrls: ['./page-redirect.component.scss']
+    selector: 'app-page-redirect',
+    templateUrl: './page-redirect.component.html',
+    styleUrls: ['./page-redirect.component.scss'],
+    standalone: false
 })
 export class PageRedirectComponent {
 

@@ -6,9 +6,10 @@ import { EntryService } from 'src/app/services/Entry/entry.service';
 import { FiscalYearEntryViewModel } from 'src/app/models/Note/FiscalYearEntryViewModel';
 
 @Component({
-  selector: 'app-fiscal-year-entry',
-  templateUrl: './fiscal-year-entry.component.html',
-  styleUrls: ['./fiscal-year-entry.component.scss']
+    selector: 'app-fiscal-year-entry',
+    templateUrl: './fiscal-year-entry.component.html',
+    styleUrls: ['./fiscal-year-entry.component.scss'],
+    standalone: false
 })
 export class FiscalYearEntryComponent {
 

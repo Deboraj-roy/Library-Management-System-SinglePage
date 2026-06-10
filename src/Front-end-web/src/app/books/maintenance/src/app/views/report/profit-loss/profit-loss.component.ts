@@ -9,9 +9,10 @@ import { EntryService } from 'src/app/services/Entry/entry.service';
 import { PartyService } from 'src/app/services/Party/party.service';
 
 @Component({
-  selector: 'app-profit-loss',
-  templateUrl: './profit-loss.component.html',
-  styleUrls: ['./profit-loss.component.scss']
+    selector: 'app-profit-loss',
+    templateUrl: './profit-loss.component.html',
+    styleUrls: ['./profit-loss.component.scss'],
+    standalone: false
 })
 export class ProfitLossComponent {
 

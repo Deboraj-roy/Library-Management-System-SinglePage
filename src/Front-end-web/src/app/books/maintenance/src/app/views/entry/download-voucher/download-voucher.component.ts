@@ -5,9 +5,10 @@ import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 import { AccLedgerImage } from 'src/app/models/Entry/VoucherImage';
 
 @Component({
-  selector: 'app-download-voucher',
-  templateUrl: './download-voucher.component.html',
-  styleUrls: ['./download-voucher.component.scss']
+    selector: 'app-download-voucher',
+    templateUrl: './download-voucher.component.html',
+    styleUrls: ['./download-voucher.component.scss'],
+    standalone: false
 })
 export class DownloadVoucherComponent {
   

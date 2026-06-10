@@ -5,9 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'approval-requests',
-  templateUrl: './approval-requests.component.html',
-  styleUrl: './approval-requests.component.scss'
+    selector: 'approval-requests',
+    templateUrl: './approval-requests.component.html',
+    styleUrl: './approval-requests.component.scss',
+    standalone: false
 })
 export class ApprovalRequestsComponent {
 

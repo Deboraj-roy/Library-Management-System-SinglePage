@@ -8,9 +8,10 @@ import { NumberFormatPipe } from 'src/app/number-format.pipe';
 import { NoteService } from 'src/app/services/Note/note.service';
 
 @Component({
-  selector: 'app-sales-voucher-return-details-list',
-  templateUrl: './sales-voucher-return-details-list.component.html',
-  styleUrls: ['./sales-voucher-return-details-list.component.scss']
+    selector: 'app-sales-voucher-return-details-list',
+    templateUrl: './sales-voucher-return-details-list.component.html',
+    styleUrls: ['./sales-voucher-return-details-list.component.scss'],
+    standalone: false
 })
 export class SalesVoucherReturnDetailsListComponent {
 

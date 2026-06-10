@@ -4,9 +4,10 @@ import { ToastrService } from 'ngx-toastr';
 import { NoteService } from 'src/app/services/Note/note.service';
 
 @Component({
-  selector: 'app-cash-book',
-  templateUrl: './cash-book.component.html',
-  styleUrls: ['./cash-book.component.scss']
+    selector: 'app-cash-book',
+    templateUrl: './cash-book.component.html',
+    styleUrls: ['./cash-book.component.scss'],
+    standalone: false
 })
 export class CashBookComponent {
 

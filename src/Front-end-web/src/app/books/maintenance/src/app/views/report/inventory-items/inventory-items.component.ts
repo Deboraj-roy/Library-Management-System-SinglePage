@@ -4,9 +4,10 @@ import { PartyService } from 'src/app/services/Party/party.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-inventory-items',
-  templateUrl: './inventory-items.component.html',
-  styleUrls: ['./inventory-items.component.scss']
+    selector: 'app-inventory-items',
+    templateUrl: './inventory-items.component.html',
+    styleUrls: ['./inventory-items.component.scss'],
+    standalone: false
 })
 export class InventoryItemsComponent {
   

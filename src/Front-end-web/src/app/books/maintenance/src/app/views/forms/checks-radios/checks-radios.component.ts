@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-checks-radios',
-  templateUrl: './checks-radios.component.html',
-  styleUrls: ['./checks-radios.component.scss']
+    selector: 'app-checks-radios',
+    templateUrl: './checks-radios.component.html',
+    styleUrls: ['./checks-radios.component.scss'],
+    standalone: false
 })
 export class ChecksRadiosComponent {
 

@@ -7,9 +7,10 @@ import { NoteService } from 'src/app/services/Note/note.service';
 import { AccHeadService } from 'src/app/services/acc-head/acc-head.service';
 
 @Component({
-  selector: 'app-all-ledgers',
-  templateUrl: './all-ledgers.component.html',
-  styleUrls: ['./all-ledgers.component.scss']
+    selector: 'app-all-ledgers',
+    templateUrl: './all-ledgers.component.html',
+    styleUrls: ['./all-ledgers.component.scss'],
+    standalone: false
 })
 export class AllLedgersComponent {
 

@@ -5,9 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../../shared/services/api.service';
 
 @Component({
-  selector: 'books-store',
-  templateUrl: './books-store.component.html',
-  styleUrl: './books-store.component.scss'
+    selector: 'books-store',
+    templateUrl: './books-store.component.html',
+    styleUrl: './books-store.component.scss',
+    standalone: false
 })
 export class BooksStoreComponent {
 

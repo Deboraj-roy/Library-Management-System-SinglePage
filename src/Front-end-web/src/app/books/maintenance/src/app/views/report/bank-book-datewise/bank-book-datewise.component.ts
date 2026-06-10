@@ -5,9 +5,10 @@ import { NoteService } from 'src/app/services/Note/note.service';
 import { Models } from 'src/app/models/PurchaseOrder/Models';
 
 @Component({
-  selector: 'app-bank-book-datewise',
-  templateUrl: './bank-book-datewise.component.html',
-  styleUrls: ['./bank-book-datewise.component.scss']
+    selector: 'app-bank-book-datewise',
+    templateUrl: './bank-book-datewise.component.html',
+    styleUrls: ['./bank-book-datewise.component.scss'],
+    standalone: false
 })
 export class BankBookDatewiseComponent {
 

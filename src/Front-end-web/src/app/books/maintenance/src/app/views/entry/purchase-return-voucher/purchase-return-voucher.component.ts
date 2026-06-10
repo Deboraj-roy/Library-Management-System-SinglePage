@@ -11,9 +11,10 @@ import { UsersVM } from 'src/app/models/users/UsersVM';
 import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 @Component({
-  selector: 'app-purchase-return-voucher',
-  templateUrl: './purchase-return-voucher.component.html',
-  styleUrls: ['./purchase-return-voucher.component.scss']
+    selector: 'app-purchase-return-voucher',
+    templateUrl: './purchase-return-voucher.component.html',
+    styleUrls: ['./purchase-return-voucher.component.scss'],
+    standalone: false
 })
 export class PurchaseReturnVoucherComponent {
   public purchaseForm:FormGroup;

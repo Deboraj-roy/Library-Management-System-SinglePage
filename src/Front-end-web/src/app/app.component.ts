@@ -8,18 +8,17 @@ import { BooksModule } from './books/books.module';
 import { UsersModule } from './users/users.module';
  
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    CommonModule,
-     RouterOutlet, 
-     SharedModule, 
-     AuthModule,
-     BooksModule,
-     UsersModule,
+    selector: 'app-root',
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        SharedModule,
+        AuthModule,
+        BooksModule,
+        UsersModule,
     ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
 

@@ -8,9 +8,10 @@ import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 
 @Component({
-  selector: 'app-purchase-voucher-list',
-  templateUrl: './purchase-voucher-list.component.html',
-  styleUrls: ['./purchase-voucher-list.component.scss']
+    selector: 'app-purchase-voucher-list',
+    templateUrl: './purchase-voucher-list.component.html',
+    styleUrls: ['./purchase-voucher-list.component.scss'],
+    standalone: false
 })
 export class PurchaseVoucherListComponent {
 

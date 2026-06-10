@@ -4,9 +4,10 @@ import { ToastrService } from 'ngx-toastr';
 import { NoteService } from 'src/app/services/Note/note.service';
 
 @Component({
-  selector: 'app-cash-book-datewise',
-  templateUrl: './cash-book-datewise.component.html',
-  styleUrls: ['./cash-book-datewise.component.scss']
+    selector: 'app-cash-book-datewise',
+    templateUrl: './cash-book-datewise.component.html',
+    styleUrls: ['./cash-book-datewise.component.scss'],
+    standalone: false
 })
 export class CashBookDatewiseComponent {
 

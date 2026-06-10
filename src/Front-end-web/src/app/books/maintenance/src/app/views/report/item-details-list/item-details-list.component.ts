@@ -4,10 +4,10 @@ import { PartyService } from 'src/app/services/Party/party.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-item-details-list',
-  templateUrl: './item-details-list.component.html',
-  styleUrls: ['./item-details-list.component.scss']
-
+    selector: 'app-item-details-list',
+    templateUrl: './item-details-list.component.html',
+    styleUrls: ['./item-details-list.component.scss'],
+    standalone: false
 })
 export class ItemDetailsListComponent implements OnInit {
   fromDate: string = '';

@@ -16,9 +16,10 @@ import { UsersVM } from 'src/app/models/users/UsersVM';
 import { NumberFormatPipe } from 'src/app/number-format.pipe';
 
 @Component({
-  selector: 'app-cash-payment-voucher',
-  templateUrl: './cash-payment-voucher.component.html',
-  styleUrls: ['./cash-payment-voucher.component.scss']
+    selector: 'app-cash-payment-voucher',
+    templateUrl: './cash-payment-voucher.component.html',
+    styleUrls: ['./cash-payment-voucher.component.scss'],
+    standalone: false
 })
 export class CashPaymentVoucherComponent {
 

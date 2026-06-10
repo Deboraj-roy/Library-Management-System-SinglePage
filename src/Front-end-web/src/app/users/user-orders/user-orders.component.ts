@@ -4,9 +4,10 @@ import { ApiService } from '../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'user-orders',
-  templateUrl: './user-orders.component.html',
-  styleUrl: './user-orders.component.scss'
+    selector: 'user-orders',
+    templateUrl: './user-orders.component.html',
+    styleUrl: './user-orders.component.scss',
+    standalone: false
 })
 
 export class UserOrdersComponent {

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-purchase-master',
-  templateUrl: './purchase-master.component.html',
-  styleUrls: ['./purchase-master.component.scss']
+    selector: 'app-purchase-master',
+    templateUrl: './purchase-master.component.html',
+    styleUrls: ['./purchase-master.component.scss'],
+    standalone: false
 })
 export class PurchaseMasterComponent {
 
