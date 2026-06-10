@@ -1,4 +1,12 @@
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
 table {
+  width: 100%;
+  min-width: max-content;
+
   .mat-mdc-header-cell,
   .mat-mdc-cell {
     font-size: 1.2rem;

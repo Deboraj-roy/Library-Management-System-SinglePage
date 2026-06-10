@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Order } from '../../../models/Order';
 import { AccountStatus, User } from '../../../models/model';
@@ -28,7 +28,42 @@ export class PageTableComponent {
 
   constructor(private apiService: ApiService) {}
 
-  getAccountStatus(input: AccountStatus) {
+  displayValue(value: unknown): string | number {
+    if (value === null || value === undefined || value === '') {
+      return '-';
+    }
+    return String(value);
+  }
+
+  displayName(firstName: string | null | undefined, lastName: string | null | undefined) {
+    const fullName = [firstName, lastName].filter(Boolean).join(' ').trim();
+    return fullName || '-';
+  }
+
+  formatDate(value: string | null | undefined) {
+    if (!value) {
+      return '-';
+    }
+
+    const parsedDate = new Date(value);
+    if (Number.isNaN(parsedDate.getTime())) {
+      return value;
+    }
+
+    return parsedDate
+      .toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      })
+      .replace(/ /g, '-');
+  }
+
+  getAccountStatus(input: AccountStatus | null | undefined) {
+    if (input === null || input === undefined) {
+      return '-';
+    }
+
     return AccountStatus[input];
   }
 }
