@@ -1,11 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IfStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { from, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { User, UserType } from '../../models/model'
 import { Order } from '../../models/Order';
-import { map, retry, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Book } from '../../models/Book';
 import { BookCategory } from '../../models/BookCategory';
 
@@ -26,6 +25,53 @@ export class ApiService {
   // baseUrl: string = 'http://angualrdeb.somee.com/api/Library/';
   userStatus: Subject<string> = new Subject();
   constructor(private http: HttpClient, private jwt: JwtHelperService) { }
+
+  private normalizeDisplayDate(value: unknown): string {
+    if (value === null || value === undefined || value === '') {
+      return '';
+    }
+
+    const parsedDate = new Date(value as string);
+    if (Number.isNaN(parsedDate.getTime())) {
+      return String(value);
+    }
+
+    return parsedDate
+      .toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      })
+      .replace(/ /g, '-');
+  }
+
+  private normalizeUser(user: any): User {
+    return {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      mobileNumber: user.mobileNumber,
+      password: user.password ?? '',
+      userType: user.userType,
+      accountStatus: user.accountStatus,
+      createdOn: this.normalizeDisplayDate(user.createdOn),
+    };
+  }
+
+  private normalizeOrder(order: any): Order {
+    return {
+      id: order.id,
+      userId: order.userId,
+      userName: order.user?.firstName + ' ' + order.user?.lastName,
+      bookId: order.bookId,
+      bookTitle: order.book?.title,
+      orderDate: order.orderDate,
+      returned: order.returned,
+      returnDate: this.normalizeDisplayDate(order.returnDate),
+      finePaid: order.finePaid,
+    };
+  }
 
   register(user: any){
     return this.http.post(this.baseUrl + 'Register', user, {
@@ -82,7 +128,7 @@ export class ApiService {
         mobileNumber: decodedToken.mobileNumber,
         userType: UserType[decodedToken.userType as keyof typeof UserType],
         accountStatus: decodedToken.accountStatus,
-        createdOn: decodedToken.createdOn,
+        createdOn: this.normalizeDisplayDate(decodedToken.createdOn),
         password: '',
     };
     return user;
@@ -101,20 +147,7 @@ export class ApiService {
     })
     .pipe(
       map(orders => {
-        // Transform each order object
-        return orders.map((order: any) => {
-          return {
-            id: order.id,
-            userId: order.userId,
-            userName: order.user.firstName + ' ' + order.user.lastName,
-            bookId: order.bookId,
-            bookTitle: order.book.title,
-            orderDate: order.orderDate,
-            returned: order.returned,
-            returnDate: order.returnDate,
-            finePaid: order.finePaid,
-          } as Order;
-        });
+        return orders.map((order: any) => this.normalizeOrder(order));
       })
     );
   }
@@ -166,7 +199,9 @@ export class ApiService {
   }
 
   getUsers(){
-    return this.http.get<User[]>(this.baseUrl + 'GetUsers');
+    return this.http.get<any[]>(this.baseUrl + 'GetUsers').pipe(
+      map((users) => users.map((user: any) => this.normalizeUser(user)))
+    );
   }
 
   approveRequest(userId: number){
@@ -178,21 +213,7 @@ export class ApiService {
   getOrders() {
     return this.http.get<any>(this.baseUrl + 'GetOrders').pipe(
       map((orders) => {
-        let newOrders = orders.map((order: any) => {
-          let newOrder: Order = {
-            id: order.id,
-            userId: order.userId,
-            userName: order.user.firstName + ' ' + order.user.lastName,
-            bookId: order.bookId,
-            bookTitle: order.book.title,
-            orderDate: order.orderDate,
-            returned: order.returned,
-            returnDate: order.returnDate,
-            finePaid: order.finePaid,
-          };
-          return newOrder;
-        });
-        return newOrders;
+        return orders.map((order: any) => this.normalizeOrder(order));
       })
     );
   }
