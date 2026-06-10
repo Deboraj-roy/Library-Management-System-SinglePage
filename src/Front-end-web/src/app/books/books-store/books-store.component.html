@@ -13,7 +13,7 @@
 </mat-card>
 
 <mat-accordion multi="true">
-    @for (item of booksToDisplay; track booksToDisplay) {
+    @for (item of booksToDisplay; track item.bookCategoryId) {
     <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
             <mat-panel-title>

@@ -49,6 +49,10 @@ export class BooksStoreComponent {
 
         this.updateList();
       },
+      error: (error) => {
+        console.error('Failed to load books', error);
+        this.snackBar.open('Failed to load books', 'OK');
+      },
     });
  
   }

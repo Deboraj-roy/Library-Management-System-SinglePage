@@ -36,6 +36,10 @@ export class UserOrdersComponent {
         this.pendingReturns = res.filter((o) => !o.returned);
         this.completedReturns = res.filter((o) => o.returned);
       },
+      error: (error) => {
+        console.error('Failed to load user orders', error);
+        this.snackBar.open('Failed to load your orders', 'OK');
+      },
     });
   }
 

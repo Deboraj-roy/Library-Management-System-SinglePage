@@ -25,7 +25,7 @@ export class PageSideNavComponent {
    */
   constructor(private apiService: ApiService, private router: Router) {
     this.navItems = [
-      { value: 'View Books', link: 'View-books' },
+      { value: 'View Books', link: '/home' },
       { value: 'My Orders', link: 'my-orders' }
     ];
     

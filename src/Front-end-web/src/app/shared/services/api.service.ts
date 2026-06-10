@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, Subject, of } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 import { User, UserType } from '../../models/model'
 import { Order } from '../../models/Order';
 import { catchError, map } from 'rxjs/operators';
@@ -165,7 +165,7 @@ export class ApiService {
       map(orders => this.asArray<Order>(orders).map((order: any) => this.normalizeOrder(order))),
       catchError((error) => {
         console.error('GetOrdersOfUsers failed', error);
-        return of([] as Order[]);
+        return throwError(() => error);
       })
     );
   }
@@ -221,7 +221,7 @@ export class ApiService {
       map((users) => this.asArray<User>(users).map((user: any) => this.normalizeUser(user))),
       catchError((error) => {
         console.error('GetUsers failed', error);
-        return of([] as User[]);
+        return throwError(() => error);
       })
     );
   }
@@ -239,7 +239,7 @@ export class ApiService {
       }),
       catchError((error) => {
         console.error('GetOrders failed', error);
-        return of([] as Order[]);
+        return throwError(() => error);
       })
     );
   }
