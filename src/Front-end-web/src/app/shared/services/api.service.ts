@@ -73,6 +73,18 @@ export class ApiService {
     };
   }
 
+  private normalizeBook(book: any): Book {
+    return {
+      id: book.id,
+      title: book.title,
+      author: book.author,
+      price: book.price,
+      ordered: Boolean(book.ordered),
+      bookCategoryId: book.bookCategoryId,
+      bookCategory: book.bookCategory ?? { id: 0, category: '', subCategory: '' },
+    };
+  }
+
   private asArray<T>(value: unknown): T[] {
     if (Array.isArray(value)) {
       return value as T[];
@@ -119,7 +131,13 @@ export class ApiService {
   }
 
   getBooks(){
-    return this.http.get<Book[]>(this.baseUrl + 'GetBooks');
+    return this.http.get<any>(this.baseUrl + 'GetBooks').pipe(
+      map((books) => this.asArray<Book>(books).map((book: any) => this.normalizeBook(book))),
+      catchError((error) => {
+        console.error('GetBooks failed', error);
+        return throwError(() => error);
+      })
+    );
   }
   orderBook(book: Book){
     let userId = this.getUserInfo()!.id;

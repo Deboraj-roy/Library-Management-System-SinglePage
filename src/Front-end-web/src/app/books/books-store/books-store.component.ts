@@ -21,24 +21,7 @@ export class BooksStoreComponent {
     'order',
   ];
   books: Book[] = [];
-  booksToDisplay: BooksByCategory[] = [
-    {
-      bookCategoryId: 1,
-      category: 'C',
-      subCategory: 'S',
-      books: [
-        {
-          id: 1,
-          title: 'T',
-          author: 'A',
-          price: 100,
-          ordered: false,
-          bookCategoryId: 1,
-          bookCategory: { id: 1, category: '', subCategory: '' },
-        },
-      ],
-    },
-  ];
+  booksToDisplay: BooksByCategory[] = [];
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
      
@@ -74,8 +57,8 @@ export class BooksStoreComponent {
       } else {
         this.booksToDisplay.push({
           bookCategoryId: book.bookCategoryId,
-          category: book.bookCategory.category,
-          subCategory: book.bookCategory.subCategory,
+          category: book.bookCategory?.category ?? '',
+          subCategory: book.bookCategory?.subCategory ?? '',
           books: [book],
         });
       }
