@@ -4,7 +4,9 @@
       <app-docs-callout href="components/toasts" name="Toasts"></app-docs-callout>
     </c-col>
     <c-col xs="12">
-      <c-toaster *ngFor="let pos of positions | slice : 1" [ngClass]="'p-3'" position="fixed" placement="{{pos}}"></c-toaster>
+      @for (pos of positions | slice : 1; track pos) {
+        <c-toaster [ngClass]="'p-3'" position="fixed" placement="{{pos}}"></c-toaster>
+      }
       <c-card>
         <c-card-header>
           Toaster
@@ -31,18 +33,22 @@
                   <c-input-group class="my-2">
                     <span cInputGroupText>Position</span>
                     <select cSelect formControlName="position">
-                      <option *ngFor="let position of positions" [ngValue]="position">
-                        {{position}}
-                      </option>
+                      @for (position of positions; track position) {
+                        <option [ngValue]="position">
+                          {{position}}
+                        </option>
+                      }
                     </select>
                   </c-input-group>
 
                   <c-input-group class="my-2">
                     <span cInputGroupText>Color</span>
                     <select cSelect formControlName="color">
-                      <option *ngFor="let color of colors" [ngValue]="color">
-                        {{color}}
-                      </option>
+                      @for (color of colors; track color) {
+                        <option [ngValue]="color">
+                          {{color}}
+                        </option>
+                      }
                     </select>
                   </c-input-group>
 
@@ -72,8 +78,8 @@
                     <c-toast-body>This is a static toast in a static toaster</c-toast-body>
                   </c-toast>
                   <app-toast-simple #toast [autohide]="false" [fade]="true" [visible]="true"
-                                    [title]="'App Toast'" color="secondary">This is a toast in static positioned App
-                    toaster! {{toast.index}}</app-toast-simple>
+                    [title]="'App Toast'" color="secondary">This is a toast in static positioned App
+                  toaster! {{toast.index}}</app-toast-simple>
                 </c-toaster>
               </c-col>
             </c-row>

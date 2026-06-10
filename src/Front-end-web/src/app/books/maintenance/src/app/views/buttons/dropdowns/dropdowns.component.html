@@ -35,28 +35,30 @@
           The best part is you can do this with any button variant, too:
         </p>
         <app-docs-example href="components/dropdown#single-button">
-          <c-dropdown *ngFor="let color of colors; index as i;" variant="btn-group">
-            <button [color]="color" cButton cDropdownToggle>
-              {{color}}
-            </button>
-            <ul cDropdownMenu>
-              <li>
-                <button routerLink="./" cDropdownItem>Action</button>
-              </li>
-              <li>
-                <button routerLink="./" cDropdownItem>Another action</button>
-              </li>
-              <li>
-                <button routerLink="./" cDropdownItem>Something else here</button>
-              </li>
-              <li>
-                <hr cDropdownDivider>
-              </li>
-              <li>
-                <button cDropdownItem>Separated link</button>
-              </li>
-            </ul>
-          </c-dropdown>
+          @for (color of colors; track color; let i = $index) {
+            <c-dropdown variant="btn-group">
+              <button [color]="color" cButton cDropdownToggle>
+                {{color}}
+              </button>
+              <ul cDropdownMenu>
+                <li>
+                  <button routerLink="./" cDropdownItem>Action</button>
+                </li>
+                <li>
+                  <button routerLink="./" cDropdownItem>Another action</button>
+                </li>
+                <li>
+                  <button routerLink="./" cDropdownItem>Something else here</button>
+                </li>
+                <li>
+                  <hr cDropdownDivider>
+                </li>
+                <li>
+                  <button cDropdownItem>Separated link</button>
+                </li>
+              </ul>
+            </c-dropdown>
+          }
         </app-docs-example>
       </c-card-body>
     </c-card>
@@ -79,31 +81,33 @@
           button and implement a more properly sized hit area next to the main button.
         </p>
         <app-docs-example href="components/dropdown#split-button">
-          <c-dropdown *ngFor="let color of colors; index as i;" placement="bottom-start" variant="btn-group">
-            <button [color]="color" cButton>
-              {{color}}
-            </button>
-            <button [color]="color" cButton cDropdownToggle split>
-              <span class="visually-hidden">Toggle Dropdown</span>
-            </button>
-            <ul cDropdownMenu>
-              <li>
-                <button routerLink="./" cDropdownItem>Action</button>
-              </li>
-              <li>
-                <button cDropdownItem>Another action</button>
-              </li>
-              <li>
-                <button cDropdownItem>Something else here</button>
-              </li>
-              <li>
-                <hr cDropdownDivider>
-              </li>
-              <li>
-                <button cDropdownItem>Separated link</button>
-              </li>
-            </ul>
-          </c-dropdown>
+          @for (color of colors; track color; let i = $index) {
+            <c-dropdown placement="bottom-start" variant="btn-group">
+              <button [color]="color" cButton>
+                {{color}}
+              </button>
+              <button [color]="color" cButton cDropdownToggle split>
+                <span class="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <ul cDropdownMenu>
+                <li>
+                  <button routerLink="./" cDropdownItem>Action</button>
+                </li>
+                <li>
+                  <button cDropdownItem>Another action</button>
+                </li>
+                <li>
+                  <button cDropdownItem>Something else here</button>
+                </li>
+                <li>
+                  <hr cDropdownDivider>
+                </li>
+                <li>
+                  <button cDropdownItem>Separated link</button>
+                </li>
+              </ul>
+            </c-dropdown>
+          }
         </app-docs-example>
       </c-card-body>
     </c-card>

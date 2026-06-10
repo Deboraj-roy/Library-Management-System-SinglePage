@@ -33,7 +33,7 @@
                 <div class="accordion-body">
                   <strong>This is the
                     <mark>#second</mark>
-                    item accordion body.</strong> It is hidden by
+                  item accordion body.</strong> It is hidden by
                   default, until the collapse plugin adds the appropriate classes that we use to
                   style each element. These classes control the overall appearance, as well as
                   the showing and hiding via CSS transitions. You can modify any of this with
@@ -104,15 +104,17 @@
       <c-card-body>
         <app-docs-example href="components/accordion#always-open">
           <c-accordion [alwaysOpen]="true" class="shadow accordion-custom rounded-2">
-            <c-accordion-item *ngFor="let item of items; let i = index;" [visible]="i===1">
-              <ng-template cTemplateId="accordionHeader">
-                Custom Accordion item #{{i}}
-              </ng-template>
-              <ng-template cTemplateId="accordionBody">
-                <small><i>{{i}}.</i></small>
-                <span [innerHTML]="getAccordionBodyText(i.toString())"></span>
-              </ng-template>
-            </c-accordion-item>
+            @for (item of items; track item; let i = $index) {
+              <c-accordion-item [visible]="i===1">
+                <ng-template cTemplateId="accordionHeader">
+                  Custom Accordion item #{{i}}
+                </ng-template>
+                <ng-template cTemplateId="accordionBody">
+                  <small><i>{{i}}.</i></small>
+                  <span [innerHTML]="getAccordionBodyText(i.toString())"></span>
+                </ng-template>
+              </c-accordion-item>
+            }
           </c-accordion>
         </app-docs-example>
       </c-card-body>

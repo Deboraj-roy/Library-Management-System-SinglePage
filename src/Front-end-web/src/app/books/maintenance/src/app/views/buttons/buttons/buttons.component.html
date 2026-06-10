@@ -15,22 +15,26 @@
           foreground of an experience.
         </p>
         <app-docs-example fragment="AngularButton" href="components/button">
-          <c-row *ngFor="let state of states; index as i" class="align-items-center mb-3">
-            <c-col class="mb-3 mb-xl-0" xl="2" xs="12">
-              {{state.charAt(0).toUpperCase() + state.slice(1)}}
-            </c-col>
-            <c-col>
-              <button *ngFor="let color of colors; index as i"
-                      [active]="state === 'active'"
-                      [color]="color"
-                      [disabled]="state === 'disabled'"
-                      cButton
-                      class="me-1"
-              >
-                {{color.charAt(0).toUpperCase() + color.slice(1)}}
-              </button>
-            </c-col>
-          </c-row>
+          @for (state of states; track state; let i = $index) {
+            <c-row class="align-items-center mb-3">
+              <c-col class="mb-3 mb-xl-0" xl="2" xs="12">
+                {{state.charAt(0).toUpperCase() + state.slice(1)}}
+              </c-col>
+              <c-col>
+                @for (color of colors; track color; let i = $index) {
+                  <button
+                    [active]="state === 'active'"
+                    [color]="color"
+                    [disabled]="state === 'disabled'"
+                    cButton
+                    class="me-1"
+                    >
+                    {{color.charAt(0).toUpperCase() + color.slice(1)}}
+                  </button>
+                }
+              </c-col>
+            </c-row>
+          }
         </app-docs-example>
       </c-card-body>
     </c-card>
@@ -45,23 +49,27 @@
           You can combine button with our <a href="https://icons.coreui.io/">CoreUI Icons</a>.
         </p>
         <app-docs-example fragment="AngularButtonWithIcons" href="components/button">
-          <c-row *ngFor="let state of states; index as i" class="align-items-center mb-3">
-            <c-col class="mb-3 mb-xl-0" xl="2" xs="12">
-              {{state.charAt(0).toUpperCase() + state.slice(1)}}
-            </c-col>
-            <c-col>
-              <button *ngFor="let color of colors; index as i"
-                      [active]="state === 'active'"
-                      [color]="color"
-                      [disabled]="state === 'disabled'"
-                      cButton
-                      class="me-1"
-              >
-                <svg cIcon class="me-2" name="cil-bell"></svg>
-                {{color.charAt(0).toUpperCase() + color.slice(1)}}
-              </button>
-            </c-col>
-          </c-row>
+          @for (state of states; track state; let i = $index) {
+            <c-row class="align-items-center mb-3">
+              <c-col class="mb-3 mb-xl-0" xl="2" xs="12">
+                {{state.charAt(0).toUpperCase() + state.slice(1)}}
+              </c-col>
+              <c-col>
+                @for (color of colors; track color; let i = $index) {
+                  <button
+                    [active]="state === 'active'"
+                    [color]="color"
+                    [disabled]="state === 'disabled'"
+                    cButton
+                    class="me-1"
+                    >
+                    <svg cIcon class="me-2" name="cil-bell"></svg>
+                    {{color.charAt(0).toUpperCase() + color.slice(1)}}
+                  </button>
+                }
+              </c-col>
+            </c-row>
+          }
         </app-docs-example>
       </c-card-body>
     </c-card>
@@ -108,26 +116,29 @@
           <code>variant=&#34;outline&#34;</code> prop to remove all background colors.
         </p>
         <app-docs-example href="components/button#outline-buttons">
-          <c-row *ngFor="let state of states; index as i" class="align-items-center mb-3">
-            <c-col class="mb-3 mb-xl-0" xl="2" xs="12">
-              {{state.charAt(0).toUpperCase() + state.slice(1)}}
-            </c-col>
-            <c-col>
-              <ng-container *ngFor="let color of colors; index as i; last as isLast">
-                <button
-                  *ngIf="!isLast"
-                  [active]="state === 'active'"
-                  [color]="color"
-                  [disabled]="state === 'disabled'"
-                  cButton
-                  class="me-1"
-                  variant="outline"
-                >
-                  {{color.charAt(0).toUpperCase() + color.slice(1)}}
-                </button>
-              </ng-container>
-            </c-col>
-          </c-row>
+          @for (state of states; track state; let i = $index) {
+            <c-row class="align-items-center mb-3">
+              <c-col class="mb-3 mb-xl-0" xl="2" xs="12">
+                {{state.charAt(0).toUpperCase() + state.slice(1)}}
+              </c-col>
+              <c-col>
+                @for (color of colors; track color; let i = $index; let isLast = $last) {
+                  @if (!isLast) {
+                    <button
+                      [active]="state === 'active'"
+                      [color]="color"
+                      [disabled]="state === 'disabled'"
+                      cButton
+                      class="me-1"
+                      variant="outline"
+                      >
+                      {{color.charAt(0).toUpperCase() + color.slice(1)}}
+                    </button>
+                  }
+                }
+              </c-col>
+            </c-row>
+          }
         </app-docs-example>
       </c-card-body>
     </c-card>
@@ -143,26 +154,29 @@
           to remove all background colors.
         </p>
         <app-docs-example href="components/button#ghost-buttons">
-          <c-row *ngFor="let state of states; index as i" class="align-items-center mb-3">
-            <c-col class="mb-3 mb-xl-0" xl="2" xs="12">
-              {{state.charAt(0).toUpperCase() + state.slice(1)}}
-            </c-col>
-            <c-col>
-              <ng-container *ngFor="let color of colors; index as i; last as isLast">
-                <button
-                  *ngIf="!isLast"
-                  [active]="state === 'active'"
-                  [color]="color"
-                  [disabled]="state === 'disabled'"
-                  cButton
-                  class="me-1"
-                  variant="ghost"
-                >
-                  {{color.charAt(0).toUpperCase() + color.slice(1)}}
-                </button>
-              </ng-container>
-            </c-col>
-          </c-row>
+          @for (state of states; track state; let i = $index) {
+            <c-row class="align-items-center mb-3">
+              <c-col class="mb-3 mb-xl-0" xl="2" xs="12">
+                {{state.charAt(0).toUpperCase() + state.slice(1)}}
+              </c-col>
+              <c-col>
+                @for (color of colors; track color; let i = $index; let isLast = $last) {
+                  @if (!isLast) {
+                    <button
+                      [active]="state === 'active'"
+                      [color]="color"
+                      [disabled]="state === 'disabled'"
+                      cButton
+                      class="me-1"
+                      variant="ghost"
+                      >
+                      {{color.charAt(0).toUpperCase() + color.slice(1)}}
+                    </button>
+                  }
+                }
+              </c-col>
+            </c-row>
+          }
         </app-docs-example>
       </c-card-body>
     </c-card>
@@ -187,154 +201,156 @@
         </app-docs-example>
         <app-docs-example href="components/button#sizes">
           <br>
-          <button cButton class="mb-3" color="primary" size="sm">
-            Small button
-          </button>
-          <button cButton class="mb-3" color="secondary" size="sm">
-            Small button
-          </button>
-        </app-docs-example>
-      </c-card-body>
-    </c-card>
-  </c-col>
-  <c-col xs="12">
-    <c-card class="mb-4">
-      <c-card-header>
-        <strong>Angular Button</strong> <small>Pill</small>
-      </c-card-header>
-      <c-card-body>
-        <app-docs-example href="components/button#pill-buttons">
-          <ng-container *ngFor="let color of colors; index as i; last as isLast">
-            <button
-              *ngIf="!isLast"
-              [color]="color"
-              cButton
-              class="me-1"
-              shape="rounded-pill"
-            >
-              {{color.charAt(0).toUpperCase() + color.slice(1)}}
+            <button cButton class="mb-3" color="primary" size="sm">
+              Small button
             </button>
-          </ng-container>
-        </app-docs-example>
-      </c-card-body>
-    </c-card>
-  </c-col>
-  <c-col xs="12">
-    <c-card class="mb-4">
-      <c-card-header>
-        <strong>Angular Button</strong> <small>Square</small>
-      </c-card-header>
-      <c-card-body>
-        <app-docs-example href="components/button#square">
-          <ng-container *ngFor="let color of colors; index as i; last as isLast">
-            <button
-              *ngIf="!isLast"
-              [color]="color"
-              cButton
-              class="me-1"
-              shape="rounded-0"
-            >
-              {{color.charAt(0).toUpperCase() + color.slice(1)}}
+            <button cButton class="mb-3" color="secondary" size="sm">
+              Small button
             </button>
-          </ng-container>
-        </app-docs-example>
-      </c-card-body>
-    </c-card>
-  </c-col>
-  <c-col xs="12">
-    <c-card class="mb-4">
-      <c-card-header>
-        <strong>Angular Button</strong> <small>Disabled state</small>
-      </c-card-header>
-      <c-card-body>
-        <p class="text-medium-emphasis small">
-          Add the <code>disabled</code> boolean prop to any <code>&lt;button&gt;</code>
-          component to make buttons look inactive. Disabled button has
-          <code>pointer-events: none</code> applied to, disabling hover and active states from
-          triggering.
-        </p>
-        <app-docs-example href="components/button#disabled-state">
-          <button cButton color="primary" disabled size="lg">
-            Primary button
-          </button>
-          <button cButton color="secondary" disabled size="lg">
-            Button
-          </button>
-        </app-docs-example>
-        <p class="text-medium-emphasis small">
-          Disabled buttons using the <code>&lt;a&gt;</code> component act a little different:
-        </p>
-        <p class="text-medium-emphasis small">
-          <code>&lt;a&gt;</code>s don&#39;tsupport the <code>disabled</code> attribute, so
-          CoreUI has to add <code>.disabled</code> class to make buttons look inactive.
-          CoreUI also has to add to the disabled button component
-          <code>aria-disabled=&#34;true&#34;</code> attribute to show the state of the component
-          to assistive technologies.
-        </p>
-        <app-docs-example href="components/button#disabled-state">
-          <a cButton color="primary" disabled [routerLink]="[]" size="lg">
-            Primary link
-          </a>
-          <a cButton color="secondary" disabled [routerLink]="[]" size="lg">
-            Link
-          </a>
-        </app-docs-example>
-      </c-card-body>
-    </c-card>
-  </c-col>
-  <c-col xs="12">
-    <c-card class="mb-4">
-      <c-card-header>
-        <strong>Angular Button</strong> <small>Block buttons</small>
-      </c-card-header>
-      <c-card-body>
-        <p class="text-medium-emphasis small">
-          Create buttons that span the full width of a parent—by using utilities.
-        </p>
-        <app-docs-example href="components/button#block-buttons">
-          <div class="d-grid gap-2">
-            <button cButton color="primary">Button</button>
-            <button cButton color="primary">Button</button>
-          </div>
-        </app-docs-example>
-        <p class="text-medium-emphasis small">
-          Here we create a responsive variation, starting with vertically stacked buttons until
-          the <code>md</code> breakpoint, where <code>.d-md-block</code> replaces the
-          <code>.d-grid</code> class, thus nullifying the <code>gap-2</code> utility. Resize
-          your browser to see them change.
-        </p>
-        <app-docs-example href="components/button#block-buttons">
-          <div class="d-grid gap-2 d-md-block">
-            <button cButton color="primary">Button</button>
-            <button cButton color="primary">Button</button>
-          </div>
-        </app-docs-example>
-        <p class="text-medium-emphasis small">
-          You can adjust the width of your block buttons with grid column width classes. For
-          example, for a half-width &#34;block button&#34;, use <code>.col-6</code>. Center it
-          horizontally with <code>.mx-auto</code>, too.
-        </p>
-        <app-docs-example href="components/button#block-buttons">
-          <div class="d-grid gap-2 col-6 mx-auto">
-            <button cButton color="primary">Button</button>
-            <button cButton color="primary">Button</button>
-          </div>
-        </app-docs-example>
-        <p class="text-medium-emphasis small">
-          Additional utilities can be used to adjust the alignment of buttons when horizontal.
-          Here we&#39;ve taken our previous responsive example and added some flex utilities and
-          a margin utility on the button to right align the buttons when they&#39;re no longer
-          stacked.
-        </p>
-        <app-docs-example href="components/button#block-buttons">
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button cButton class="me-md-2" color="primary">
+          </app-docs-example>
+        </c-card-body>
+      </c-card>
+    </c-col>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+          <strong>Angular Button</strong> <small>Pill</small>
+        </c-card-header>
+        <c-card-body>
+          <app-docs-example href="components/button#pill-buttons">
+            @for (color of colors; track color; let i = $index; let isLast = $last) {
+              @if (!isLast) {
+                <button
+                  [color]="color"
+                  cButton
+                  class="me-1"
+                  shape="rounded-pill"
+                  >
+                  {{color.charAt(0).toUpperCase() + color.slice(1)}}
+                </button>
+              }
+            }
+          </app-docs-example>
+        </c-card-body>
+      </c-card>
+    </c-col>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+          <strong>Angular Button</strong> <small>Square</small>
+        </c-card-header>
+        <c-card-body>
+          <app-docs-example href="components/button#square">
+            @for (color of colors; track color; let i = $index; let isLast = $last) {
+              @if (!isLast) {
+                <button
+                  [color]="color"
+                  cButton
+                  class="me-1"
+                  shape="rounded-0"
+                  >
+                  {{color.charAt(0).toUpperCase() + color.slice(1)}}
+                </button>
+              }
+            }
+          </app-docs-example>
+        </c-card-body>
+      </c-card>
+    </c-col>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+          <strong>Angular Button</strong> <small>Disabled state</small>
+        </c-card-header>
+        <c-card-body>
+          <p class="text-medium-emphasis small">
+            Add the <code>disabled</code> boolean prop to any <code>&lt;button&gt;</code>
+            component to make buttons look inactive. Disabled button has
+            <code>pointer-events: none</code> applied to, disabling hover and active states from
+            triggering.
+          </p>
+          <app-docs-example href="components/button#disabled-state">
+            <button cButton color="primary" disabled size="lg">
+              Primary button
+            </button>
+            <button cButton color="secondary" disabled size="lg">
               Button
             </button>
-            <button cButton color="primary">Button</button>
-          </div>
-        </app-docs-example>
-      </c-card-body>
-    </c-card>
-  </c-col>
-</c-row>
+          </app-docs-example>
+          <p class="text-medium-emphasis small">
+            Disabled buttons using the <code>&lt;a&gt;</code> component act a little different:
+          </p>
+          <p class="text-medium-emphasis small">
+            <code>&lt;a&gt;</code>s don&#39;tsupport the <code>disabled</code> attribute, so
+            CoreUI has to add <code>.disabled</code> class to make buttons look inactive.
+            CoreUI also has to add to the disabled button component
+            <code>aria-disabled=&#34;true&#34;</code> attribute to show the state of the component
+            to assistive technologies.
+          </p>
+          <app-docs-example href="components/button#disabled-state">
+            <a cButton color="primary" disabled [routerLink]="[]" size="lg">
+              Primary link
+            </a>
+            <a cButton color="secondary" disabled [routerLink]="[]" size="lg">
+              Link
+            </a>
+          </app-docs-example>
+        </c-card-body>
+      </c-card>
+    </c-col>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+          <strong>Angular Button</strong> <small>Block buttons</small>
+        </c-card-header>
+        <c-card-body>
+          <p class="text-medium-emphasis small">
+            Create buttons that span the full width of a parent—by using utilities.
+          </p>
+          <app-docs-example href="components/button#block-buttons">
+            <div class="d-grid gap-2">
+              <button cButton color="primary">Button</button>
+              <button cButton color="primary">Button</button>
+            </div>
+          </app-docs-example>
+          <p class="text-medium-emphasis small">
+            Here we create a responsive variation, starting with vertically stacked buttons until
+            the <code>md</code> breakpoint, where <code>.d-md-block</code> replaces the
+            <code>.d-grid</code> class, thus nullifying the <code>gap-2</code> utility. Resize
+            your browser to see them change.
+          </p>
+          <app-docs-example href="components/button#block-buttons">
+            <div class="d-grid gap-2 d-md-block">
+              <button cButton color="primary">Button</button>
+              <button cButton color="primary">Button</button>
+            </div>
+          </app-docs-example>
+          <p class="text-medium-emphasis small">
+            You can adjust the width of your block buttons with grid column width classes. For
+            example, for a half-width &#34;block button&#34;, use <code>.col-6</code>. Center it
+            horizontally with <code>.mx-auto</code>, too.
+          </p>
+          <app-docs-example href="components/button#block-buttons">
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button cButton color="primary">Button</button>
+              <button cButton color="primary">Button</button>
+            </div>
+          </app-docs-example>
+          <p class="text-medium-emphasis small">
+            Additional utilities can be used to adjust the alignment of buttons when horizontal.
+            Here we&#39;ve taken our previous responsive example and added some flex utilities and
+            a margin utility on the button to right align the buttons when they&#39;re no longer
+            stacked.
+          </p>
+          <app-docs-example href="components/button#block-buttons">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button cButton class="me-md-2" color="primary">
+                Button
+              </button>
+              <button cButton color="primary">Button</button>
+            </div>
+          </app-docs-example>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
