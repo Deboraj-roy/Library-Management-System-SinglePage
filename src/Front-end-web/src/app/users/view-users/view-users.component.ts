@@ -29,6 +29,10 @@ export class ViewUsersComponent {
         this.users = [];
         res.forEach((r) => this.users.push(r));
       },
+      error: (error) => {
+        console.error('Failed to load users', error);
+        this.snackBar.open('Failed to load users', 'OK');
+      },
     });
   }
 

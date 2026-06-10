@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { User, UserType } from '../../models/model'
 import { Order } from '../../models/Order';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Book } from '../../models/Book';
 import { BookCategory } from '../../models/BookCategory';
 
@@ -71,6 +71,22 @@ export class ApiService {
       returnDate: this.normalizeDisplayDate(order.returnDate),
       finePaid: order.finePaid,
     };
+  }
+
+  private asArray<T>(value: unknown): T[] {
+    if (Array.isArray(value)) {
+      return value as T[];
+    }
+
+    const maybeWrappedValues = value as { $values?: T[]; data?: T[] } | null | undefined;
+    if (maybeWrappedValues?.$values && Array.isArray(maybeWrappedValues.$values)) {
+      return maybeWrappedValues.$values;
+    }
+    if (maybeWrappedValues?.data && Array.isArray(maybeWrappedValues.data)) {
+      return maybeWrappedValues.data;
+    }
+
+    return [];
   }
 
   register(user: any){
@@ -146,8 +162,10 @@ export class ApiService {
       params: params,
     })
     .pipe(
-      map(orders => {
-        return orders.map((order: any) => this.normalizeOrder(order));
+      map(orders => this.asArray<Order>(orders).map((order: any) => this.normalizeOrder(order))),
+      catchError((error) => {
+        console.error('GetOrdersOfUsers failed', error);
+        return of([] as Order[]);
       })
     );
   }
@@ -199,8 +217,12 @@ export class ApiService {
   }
 
   getUsers(){
-    return this.http.get<any[]>(this.baseUrl + 'GetUsers').pipe(
-      map((users) => users.map((user: any) => this.normalizeUser(user)))
+    return this.http.get<any>(this.baseUrl + 'GetUsers').pipe(
+      map((users) => this.asArray<User>(users).map((user: any) => this.normalizeUser(user))),
+      catchError((error) => {
+        console.error('GetUsers failed', error);
+        return of([] as User[]);
+      })
     );
   }
 
@@ -213,7 +235,11 @@ export class ApiService {
   getOrders() {
     return this.http.get<any>(this.baseUrl + 'GetOrders').pipe(
       map((orders) => {
-        return orders.map((order: any) => this.normalizeOrder(order));
+        return this.asArray<Order>(orders).map((order: any) => this.normalizeOrder(order));
+      }),
+      catchError((error) => {
+        console.error('GetOrders failed', error);
+        return of([] as Order[]);
       })
     );
   }

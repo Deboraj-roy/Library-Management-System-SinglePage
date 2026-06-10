@@ -32,6 +32,10 @@ export class ApprovalRequestsComponent {
           (r) => r.accountStatus == AccountStatus.UNAPROOVED
         );
       },
+      error: (error) => {
+        console.error('Failed to load approval requests', error);
+        this.snackBar.open('Failed to load approval requests', 'OK');
+      },
     });
     
   }

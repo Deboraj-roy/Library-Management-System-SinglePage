@@ -12,7 +12,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), 
     provideAnimationsAsync(), 
-    provideHttpClient(),
     importProvidersFrom(
       JwtModule.forRoot({
         config: {

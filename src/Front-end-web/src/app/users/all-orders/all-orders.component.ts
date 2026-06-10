@@ -40,6 +40,7 @@ export class AllOrdersComponent {
         this.ordersWithCompletedReturns = res.filter(o => o.returned);
       },
       error: (err) => {
+        console.error('Failed to load orders', err);
         this.snackBar.open('No Order Found', 'OK')
       }
     })
