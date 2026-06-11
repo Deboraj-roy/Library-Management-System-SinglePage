@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withRouterConfig } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -32,7 +32,7 @@ const authHeaderInterceptor: HttpInterceptorFn = (request, next) => {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes), 
+    provideRouter(routes, withRouterConfig({ onSameUrlNavigation: 'reload' })),
     provideAnimationsAsync(), 
     importProvidersFrom(
       JwtModule.forRoot({

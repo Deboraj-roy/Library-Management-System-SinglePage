@@ -40,17 +40,36 @@ export class ApprovalRequestsComponent {
     
   }
 
-  approve(user: User) {
-    this.apiService.approveRequest(user.id).subscribe({
-      next: (res) => {
-        if (res == 'Approved'){
-          this.snackBar.open(`Approved for ${user.id}`, 'OK');
-          this.router.navigateByUrl('/home').then(() => {
+  // approve(user: User) {
+  //   this.apiService.approveRequest(user.id).subscribe({
+  //     next: (res) => {
+  //       if (res == 'Approved'){
+  //         this.snackBar.open(`Approved for ${user.id}`, 'OK');
+  //         this.router.navigateByUrl('/home').then(() => {
+  //           this.router.navigateByUrl('/approval-requests'); // Navigate to target route
+  //         });
+  //       }
+  //       else this.snackBar.open(`Not Approved`, 'OK');
+  //     },
+  //   });
+  // }
+  // ✅ Fixed — reload data in-place, no navigation needed
+    approve(user: User) {
+      this.apiService.approveRequest(user.id).subscribe({
+        next: (res) => {
+          if (res === 'Approved') {
+            this.snackBar.open(`Approved for ${user.id}`, 'OK');
+            this.router.navigateByUrl('/home').then(() => {
             this.router.navigateByUrl('/approval-requests'); // Navigate to target route
           });
+          } else {
+            this.snackBar.open('Not Approved', 'OK');
+          }
+        },
+        error: (err) => {
+          this.snackBar.open('Approval failed. Please try again.', 'OK');
+          console.error(err);
         }
-        else this.snackBar.open(`Not Approved`, 'OK');
-      },
-    });
-  }
+      });
+    }
 }
