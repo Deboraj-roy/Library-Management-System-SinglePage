@@ -1,0 +1,32 @@
+there are ISSUE  not solve yet, i see there is need to double tab when user go one page to another page, thats why data not showing in first click 
+user books, approval, order view,
+
+bug: duble click needs to get data, need single tab or click while route
+
+--------------------------
+I’m tracing the navigation/data flow in the Angular app to find where the first click is being swallowed or the target component is not loading data until a second navigation. I’ll inspect the route handlers and the user books / approval / order views together so the fix is consistent.
+
+
+
+
+I’ve confirmed the app has both the user-facing pages and a large nested Angular module tree. Next I’m checking the root route config and the specific components that load data on entry, because this kind of “first click does nothing” bug usually comes from a stale ActivatedRoute subscription or a link that is missing the proper router context.
+
+
+
+
+I found one likely problem already: ApprovalRequestsComponent.approve() is forcing a detour to /home and then back to /approval-requests, which can make the UI look like it needs two clicks and can mask timing bugs. I’m checking the related list components and the service layer now to see whether the root cause is repeated re-navigation or data being fetched only in constructors.
+
+
+
+
+I found a concrete routing smell in the side nav: the template prepends / while several nav items already include a leading /. That can produce malformed links like //home, so I’m checking where this component is used and whether the same pattern exists elsewhere before patching it.
+
+
+
+
+
+
+
+The same “bounce through /home and then back” pattern exists in other admin pages too, so the issue is broader than one component. I’m reading those handlers now; if they all use the same workaround, I can replace it with a single route refresh pattern instead of patching each page ad hoc.
+
+

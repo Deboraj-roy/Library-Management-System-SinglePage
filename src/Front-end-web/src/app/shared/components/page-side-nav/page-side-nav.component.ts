@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserType } from '../../../models/model';
 
 
@@ -26,7 +26,7 @@ export class PageSideNavComponent {
   constructor(private apiService: ApiService, private router: Router) {
     this.navItems = [
       { value: 'View Books', link: '/home' },
-      { value: 'My Orders', link: 'my-orders' }
+      { value: 'My Orders', link: '/my-orders' }
     ];
     
     apiService.userStatus.subscribe({
@@ -42,7 +42,7 @@ export class PageSideNavComponent {
                 { value: 'Maintenance', link: '/maintenance' },
                 { value: 'Return Book', link: '/return-book' },
                 { value: 'View Users', link: '/view-users' },
-                { value: 'Aprooval Requests', link: '/approval-requests' },
+                { value: 'Approval Requests', link: '/approval-requests' },
                 { value: 'All Orders', link: '/all-orders' },
                 { value: 'My Orders', link: '/my-orders' },
               ];
@@ -65,5 +65,8 @@ export class PageSideNavComponent {
       },
     });
   }
-  
+
+  navigate(path: string) {
+    this.router.navigateByUrl(path);
+  }
 }

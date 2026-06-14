@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AccountStatus, User } from '../../models/model';
 import { ApiService } from '../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
     styleUrl: './approval-requests.component.scss',
     standalone: false
 })
-export class ApprovalRequestsComponent {
+export class ApprovalRequestsComponent implements OnInit {
 
   columns: string[] = [
     'userId',
@@ -25,19 +25,24 @@ export class ApprovalRequestsComponent {
    *
    */
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router) {
-    apiService.getUsers().subscribe({
+  }
+
+  ngOnInit(): void {
+    console.log('ApprovalRequestsComponent: ngOnInit');
+    this.loadApprovalRequests();
+  }
+
+  private loadApprovalRequests() {
+    this.apiService.getUsers().subscribe({
       next: (res: User[]) => {
-        console.log(res);
-        this.users = res.filter(
-          (r) => r.accountStatus == AccountStatus.UNAPROOVED
-        );
+        console.log('ApprovalRequestsComponent: loaded', res?.length ?? 0);
+        this.users = res.filter((r) => r.accountStatus == AccountStatus.UNAPROOVED);
       },
       error: (error) => {
         console.error('Failed to load approval requests', error);
         this.snackBar.open('Failed to load approval requests', 'OK');
       },
     });
-    
   }
 
   // approve(user: User) {
@@ -59,9 +64,7 @@ export class ApprovalRequestsComponent {
         next: (res) => {
           if (res === 'Approved') {
             this.snackBar.open(`Approved for ${user.id}`, 'OK');
-            this.router.navigateByUrl('/home').then(() => {
-            this.router.navigateByUrl('/approval-requests'); // Navigate to target route
-          });
+            this.loadApprovalRequests();
           } else {
             this.snackBar.open('Not Approved', 'OK');
           }

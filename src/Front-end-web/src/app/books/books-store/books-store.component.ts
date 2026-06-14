@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Book } from '../../models/Book';
 import { BooksByCategory } from '../../models/BooksByCategory';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,7 +10,7 @@ import { ApiService } from '../../shared/services/api.service';
     styleUrl: './books-store.component.scss',
     standalone: false
 })
-export class BooksStoreComponent {
+export class BooksStoreComponent implements OnInit {
 
   displayedColumns: string[] = [
     'id',
@@ -24,10 +24,18 @@ export class BooksStoreComponent {
   booksToDisplay: BooksByCategory[] = [];
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
-     
-    apiService.getBooks().subscribe({
+  }
+
+  ngOnInit(): void {
+    console.log('BooksStoreComponent: ngOnInit');
+    this.loadBooks();
+  }
+
+  private loadBooks() {
+    this.apiService.getBooks().subscribe({
       next: (res: Book[]) => {
-        this.books = []; 
+        console.log('BooksStoreComponent: loaded', res?.length ?? 0);
+        this.books = [];
         res.forEach((b) => this.books.push(b));
 
         this.updateList();
@@ -37,7 +45,6 @@ export class BooksStoreComponent {
         this.snackBar.open('Failed to load books', 'OK');
       },
     });
- 
   }
 
   updateList() {

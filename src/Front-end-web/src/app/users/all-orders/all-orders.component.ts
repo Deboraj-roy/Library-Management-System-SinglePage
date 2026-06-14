@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Order } from '../../models/Order';
 import { ApiService } from '../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     styleUrl: './all-orders.component.scss',
     standalone: false
 })
-export class AllOrdersComponent {
+export class AllOrdersComponent implements OnInit {
   columnsForPendingReturns: string[] = [
     'orderId',
     'userIdForOrder',
@@ -34,8 +34,17 @@ export class AllOrdersComponent {
   ordersWithCompletedReturns: Order[] = [];
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar){
-    apiService.getOrders().subscribe({
+  }
+
+  ngOnInit(): void {
+    console.log('AllOrdersComponent: ngOnInit');
+    this.loadOrders();
+  }
+
+  private loadOrders() {
+    this.apiService.getOrders().subscribe({
       next: (res: Order[]) => {
+        console.log('AllOrdersComponent: loaded', res?.length ?? 0);
         this.ordersWithPendingReturns = res.filter(o => !o.returned);
         this.ordersWithCompletedReturns = res.filter(o => o.returned);
       },

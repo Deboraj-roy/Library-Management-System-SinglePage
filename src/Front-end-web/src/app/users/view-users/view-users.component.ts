@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../models/model';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
     styleUrl: './view-users.component.scss',
     standalone: false
 })
-export class ViewUsersComponent {
+export class ViewUsersComponent implements OnInit {
   columns: string[] = [
     'userId',
     'userName',
@@ -24,8 +24,17 @@ export class ViewUsersComponent {
   users: User[] = [];
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router) {
-    apiService.getUsers().subscribe({
+  }
+
+  ngOnInit(): void {
+    console.log('ViewUsersComponent: ngOnInit');
+    this.loadUsers();
+  }
+
+  private loadUsers() {
+    this.apiService.getUsers().subscribe({
       next: (res: User[]) => {
+        console.log('ViewUsersComponent: loaded', res?.length ?? 0);
         this.users = [];
         res.forEach((r) => this.users.push(r));
       },
@@ -43,9 +52,7 @@ export class ViewUsersComponent {
         if (res === 'unblocked') {
           this.snackBar.open('User has been UNBLOCKED!', 'OK');
 
-          this.router.navigateByUrl('/home').then(() => {
-            this.router.navigateByUrl('/view-users'); // Navigate to target route
-          });
+          this.loadUsers();
 
  
           // this.location.go('/view-users'); // Navigate without keeping history

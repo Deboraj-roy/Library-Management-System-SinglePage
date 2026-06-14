@@ -4,9 +4,5 @@
     </mat-card-content>
 </mat-card>
 <mat-nav-list>
-
-    @for (item of navItems; track item.link) {
-        <a mat-list-item routerLink="/{{item.link}}" routerLinkActive="active-link"> {{item.value}}</a>
-    }
-
+    <a mat-list-item *ngFor="let item of navItems" (click)="navigate(item.link)"> {{item.value}}</a>
 </mat-nav-list>
